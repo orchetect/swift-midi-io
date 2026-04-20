@@ -1,0 +1,25 @@
+{
+  "configurations" : [
+    {
+      "id" : "AF20EF70-8F9D-4848-87B6-58C605508DE2",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "performanceAntipatternCheckerEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : false,
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "SwiftMIDIIOTests",
+        "name" : "SwiftMIDIIOTests"
+      }
+    }
+  ],
+  "version" : 1
+}
