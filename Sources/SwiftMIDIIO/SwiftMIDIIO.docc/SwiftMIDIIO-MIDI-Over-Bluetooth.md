@@ -1,0 +1,23 @@
+# MIDI Over Bluetooth
+
+Set up Bluetooth MIDI connectivity in an iOS app.
+
+See the following example projects:
+
+- [iOS SwiftUI](https://github.com/orchetect/swift-midi-examples/blob/main/SwiftUI%20iOS/BluetoothMIDI/) Example
+- [iOS UIKit](https://github.com/orchetect/swift-midi-examples/blob/main/SwiftUI%20iOS/BluetoothMIDI/) Example
+
+## Operation
+
+Once Bluetooth connectivity is implemented (see examples above), Bluetooth MIDI devices' ports simply show up as MIDI input or output endpoints in the system. Access them by getting these properties on the ``MIDIManager`` instance:
+
+- ``MIDIManager/endpoints``.``MIDIEndpoints/inputs``
+- ``MIDIManager/endpoints``.``MIDIEndpoints/outputs``
+
+Connect to these endpoints to transmit and receive MIDI:
+
+- ``MIDIManager/addInputConnection(to:tag:filter:receiver:)``
+- ``MIDIManager/addOutputConnection(to:tag:filter:)``
+
+> Tip: Bluetooth can only be tested using a physical iOS device. It does not function in an iOS Simulator.
+

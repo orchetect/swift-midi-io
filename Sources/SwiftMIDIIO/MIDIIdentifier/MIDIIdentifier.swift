@@ -1,0 +1,44 @@
+//
+//  MIDIIdentifier.swift
+//  swift-midi • https://github.com/orchetect/swift-midi
+//  © 2026 Steffan Andrews • Licensed under MIT License
+//
+
+#if !os(tvOS) && !os(watchOS)
+
+import CoreMIDI
+
+/// SwiftMIDI analogue for Core MIDI's `MIDIUniqueID`.
+/// Most commonly used to uniquely identify MIDI endpoints in the system.
+public typealias MIDIIdentifier = Int32
+
+extension MIDIIdentifier {
+    /// Constant analogous of Core MIDI's `kMIDIInvalidUniqueID` value.
+    public static let invalidMIDIIdentifier: MIDIIdentifier = kMIDIInvalidUniqueID
+}
+
+// MARK: - Collection
+
+extension Set<MIDIIdentifier> {
+    /// Returns endpoint identity criteria formed from endpoints matching the collection's MIDI
+    /// identifiers.
+    public func asIdentities() -> Set<MIDIEndpointIdentity> {
+        // for some reason Set(map { ... }) was not working
+        // so we have to use reduce
+    
+        reduce(into: Set<MIDIEndpointIdentity>()) {
+            $0.insert(.uniqueID($1))
+        }
+    }
+}
+
+extension [MIDIIdentifier] {
+    /// Returns endpoint identity criteria formed from endpoints matching the collection's MIDI
+    /// identifiers.
+    @_disfavoredOverload
+    public func asIdentities() -> [MIDIEndpointIdentity] {
+        map { .uniqueID($0) }
+    }
+}
+
+#endif

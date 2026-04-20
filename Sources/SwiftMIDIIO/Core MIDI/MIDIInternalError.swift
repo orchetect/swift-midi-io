@@ -1,0 +1,28 @@
+//
+//  MIDIInternalError.swift
+//  swift-midi • https://github.com/orchetect/swift-midi
+//  © 2026 Steffan Andrews • Licensed under MIT License
+//
+
+import Foundation
+
+public enum MIDIInternalError: LocalizedError {
+    case packetTooLarge(bufferByteCount: Int)
+    case packetBuildError(underlyingError: Error?)
+    case umpEmpty
+    case umpTooLarge
+    
+    public var errorDescription: String? {
+        switch self {
+        case let .packetTooLarge(bufferByteCount):
+            "Legacy MIDI Packet is too large (\(bufferByteCount) byte buffer). Maximum size is 65536 bytes."
+        case let .packetBuildError(underlyingError):
+            "Error building MIDI Packet. \(underlyingError?.localizedDescription ?? "")"
+                .trimmingCharacters(in: .whitespacesAndNewlines)
+        case .umpEmpty:
+            "Universal MIDI Packet cannot be empty."
+        case .umpTooLarge:
+            "Universal MIDI Packet cannot contain more than 64 UInt32 words."
+        }
+    }
+}

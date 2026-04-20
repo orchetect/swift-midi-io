@@ -18,20 +18,21 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/orchetect/swift-midi-events", from: "0.1.0")
+        .package(path: "../swift-midi-core") // .package(url: "https://github.com/orchetect/swift-midi-core", from: "0.1.0")
     ],
     targets: [
         .target(
-            name: "SwiftMIDIEvents",
+            name: "SwiftMIDIIO",
             dependencies: [
-                .product(name: "SwiftMIDIEvents", packge: "swift-midi-events")
+                .product(name: "SwiftMIDICore", package: "swift-midi-core"),
+                .product(name: "SwiftMIDIInternals", package: "swift-midi-core")
             ],
             swiftSettings: [.define("DEBUG", .when(configuration: .debug))]
         ),
         .testTarget(
             name: "SwiftMIDIIOTests",
             dependencies: [
-                .target(name: "SwiftMIDIIO")
+                "SwiftMIDIIO"
             ]
         )
     ]
