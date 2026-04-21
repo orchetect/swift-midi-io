@@ -11,6 +11,7 @@
 import CoreMIDI
 @testable import SwiftMIDIIO
 import Testing
+import TestingExtensions
 
 @Suite(.serialized, .enabled(if: isSystemTimingStable()))
 struct EndpointsUpdating_Tests {

@@ -8,6 +8,7 @@
 
 @testable import SwiftMIDIIO
 import Testing
+import TestingExtensions
 
 @Suite struct AdvancedMIDI2Parser_Tests {
     @TestActor private final class Receiver {

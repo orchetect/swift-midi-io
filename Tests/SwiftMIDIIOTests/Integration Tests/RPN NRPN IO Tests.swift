@@ -12,6 +12,7 @@ import CoreMIDI
 import SwiftMIDIInternals
 @testable import SwiftMIDIIO
 import Testing
+import TestingExtensions
 
 /// These tests are meant to test the translation Core MIDI performs between legacy MIDI 1.0 packets
 /// and MIDI 2.0 UMP packets

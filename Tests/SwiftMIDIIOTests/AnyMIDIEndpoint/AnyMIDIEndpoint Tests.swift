@@ -11,6 +11,7 @@
 import Foundation
 @testable import SwiftMIDIIO
 import Testing
+import TestingExtensions
 
 @Suite(.serialized) struct AnyMIDIEndpoint_Tests {
     private final actor ManagerWrapper {

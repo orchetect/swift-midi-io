@@ -11,6 +11,7 @@
 import CoreMIDI
 @testable import SwiftMIDIIO
 import Testing
+import TestingExtensions
 
 @Suite(.serialized) struct RoundTrip_Tests_Base {
     // swiftformat:options --wrapcollections preserve

@@ -11,6 +11,7 @@
 import CoreMIDI
 @testable import SwiftMIDIIO
 import Testing
+import TestingExtensions
 
 @Suite(.serialized) struct MIDIInput_Tests {
     @TestActor private final class Receiver {

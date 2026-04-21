@@ -12,6 +12,7 @@ import CoreMIDI
 import SwiftMIDIInternals
 import SwiftMIDIIO
 import Testing
+import TestingExtensions
 
 @Suite(.serialized) struct MIDIOutputConnection_Tests {
     private final actor ManagerWrapper {

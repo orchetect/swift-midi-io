@@ -11,6 +11,7 @@
 import CoreMIDI
 import SwiftMIDIIO
 import Testing
+import TestingExtensions
 
 // MARK: - Tests
 
