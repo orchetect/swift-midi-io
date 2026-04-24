@@ -51,7 +51,7 @@ public enum MIDIReceiver {
     
     /// Pass to a receiver object instance.
     /// MIDI event receive handler that holds a reference to a receiver object that conforms to the
-    /// ``ReceivesMIDIEvents`` protocol.
+    /// `ReceivesMIDIEvents` protocol.
     /// The object is stored as a strong reference.
     case strong(
         _ object: ReceivesMIDIEvents,
@@ -60,7 +60,7 @@ public enum MIDIReceiver {
     
     /// Pass to a receiver object instance.
     /// MIDI event receive handler that holds a reference to a receiver object that conforms to the
-    /// ``ReceivesMIDIEvents`` protocol.
+    /// `ReceivesMIDIEvents` protocol.
     /// The object is stored as a weak reference.
     case weak(
         _ object: ReceivesMIDIEvents,
