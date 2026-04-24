@@ -142,7 +142,7 @@ extension _MIDIManagedSendsMessages {
                 )
             }
     
-            for eventWords in event.umpRawWords(protocol: midiProtocol) {
+            for eventWords in event.midi2RawUMPWords(protocol: midiProtocol) {
                 try send(rawWords: eventWords)
             }
         }
@@ -170,7 +170,7 @@ extension _MIDIManagedSendsMessages {
             }
     
             for event in events {
-                for eventWords in event.umpRawWords(protocol: midiProtocol) {
+                for eventWords in event.midi2RawUMPWords(protocol: midiProtocol) {
                     try send(rawWords: eventWords)
                 }
             }
