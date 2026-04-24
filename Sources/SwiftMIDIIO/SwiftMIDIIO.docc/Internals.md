@@ -27,9 +27,7 @@
 
 - ``MIDIPacketData``
 - ``UniversalMIDIPacketData``
-- ``AnyMIDIPacket``
-- ``MIDI1Parser``
-- ``MIDI2Parser``
+- ``AnyMIDIPacketData``
 - ``AdvancedMIDI2Parser``
 
 ### Core MIDI Related
