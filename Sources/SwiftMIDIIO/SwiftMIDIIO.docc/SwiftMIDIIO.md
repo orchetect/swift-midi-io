@@ -12,6 +12,10 @@ To add additional functionality, import extension modules or import the SwiftMID
 
 ## Topics
 
+### Introduction
+
+- <doc:Getting-Started>
+
 ### I/O Manager
 
 - ``MIDIManager``

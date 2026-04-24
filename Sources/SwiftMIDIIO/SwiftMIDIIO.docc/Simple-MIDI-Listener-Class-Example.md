@@ -8,7 +8,7 @@ import SwiftMIDIIO
 
 public class MIDIHelper {
     private let midiManager = MIDIManager(
-        clientName: "MyAppMIDIModule",
+        clientName: "MyApp",
         model: "MyApp",
         manufacturer: "MyCompany"
     )
@@ -38,13 +38,13 @@ public class MIDIHelper {
     
     private func received(midiEvent: MIDIEvent) {
         switch midiEvent {
-        case .noteOn(let payload):
+        case let .noteOn(payload):
             print("Note On:", payload.note, payload.velocity, payload.channel)
-        case .noteOff(let payload):
+        case let .noteOff(payload):
             print("Note Off:", payload.note, payload.velocity, payload.channel)
-        case .cc(let payload):
+        case let .cc(payload):
             print("CC:", payload.controller, payload.value, payload.channel)
-        case .programChange(let payload):
+        case let .programChange(payload):
             print("Program Change:", payload.program, payload.channel)
             
         // etc...
