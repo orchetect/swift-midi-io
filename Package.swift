@@ -18,7 +18,7 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/orchetect/swift-midi-core", branch: "main"), // TODO: from: "1.0.0")
+        .package(url: "https://github.com/orchetect/swift-midi-core", from: "0.0.0")
         .package(url: "https://github.com/orchetect/swift-testing-extensions", from: "0.3.0")
     ]
 )
