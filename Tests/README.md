@@ -1,4 +1,4 @@
-# SwiftMIDIIO Tests
+# CoreMIDI Tests
 
 > [!NOTE]
 >

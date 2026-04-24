@@ -18,27 +18,36 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/orchetect/swift-midi-core", branch: "main"), // TODO: from: "0.1.0")
+        .package(url: "https://github.com/orchetect/swift-midi-core", branch: "main"), // TODO: from: "1.0.0")
         .package(url: "https://github.com/orchetect/swift-testing-extensions", from: "0.3.0")
-    ],
-    targets: [
-        .target(
-            name: "SwiftMIDIIO",
-            dependencies: [
-                .product(name: "SwiftMIDICore", package: "swift-midi-core"),
-                .product(name: "SwiftMIDIInternals", package: "swift-midi-core")
-            ],
-            swiftSettings: [.define("DEBUG", .when(configuration: .debug))]
-        ),
-        .testTarget(
-            name: "SwiftMIDIIOTests",
-            dependencies: [
-                "SwiftMIDIIO",
-                .product(name: "TestingExtensions", package: "swift-testing-extensions")
-            ]
-        )
     ]
 )
+
+// MARK: - Platform-Dependent I/O Backend
+
+#if canImport(Darwin)
+package.targets += [
+    .target(
+        name: "SwiftMIDIIO",
+        dependencies: [
+            .product(name: "SwiftMIDICore", package: "swift-midi-core"),
+            .product(name: "SwiftMIDIInternals", package: "swift-midi-core")
+        ],
+        path: "Sources/CoreMIDI",
+        swiftSettings: [.define("DEBUG", .when(configuration: .debug))]
+    ),
+    .testTarget(
+        name: "SwiftMIDIIOTests",
+        dependencies: [
+            "SwiftMIDIIO",
+            .product(name: "TestingExtensions", package: "swift-testing-extensions")
+        ],
+        path: "Tests/CoreMIDITests"
+    )
+]
+#endif
+
+// MARK: - Environment
 
 #if canImport(Foundation) || canImport(CoreFoundation)
     #if canImport(Foundation)
