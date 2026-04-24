@@ -12,7 +12,7 @@ extension MIDIReceiver {
         let midi1Parser: MIDI1Parser
         
         let midi2Parser: MIDI2Parser?
-        let advancedMIDI2Parser: AdvancedMIDI2Parser?
+        let advancedMIDI2Parser: AdvancedMIDI2Parser<CoreMIDITimeStamp, MIDIOutputEndpoint>?
         
         let options: MIDIReceiverOptions
         
@@ -58,7 +58,7 @@ extension MIDIReceiver {
             // MIDI 2
             if options.contains(.bundleRPNAndNRPNDataEntryLSB) {
                 midi2Parser = nil
-                advancedMIDI2Parser = AdvancedMIDI2Parser()
+                advancedMIDI2Parser = .init()
                 advancedMIDI2Parser?.handleEvents = { [weak self] events, timeStamp, source in
                     self?.handle(events: events, timeStamp: timeStamp, source: source)
                 }

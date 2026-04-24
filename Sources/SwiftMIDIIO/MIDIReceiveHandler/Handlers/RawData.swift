@@ -8,7 +8,7 @@
 
 extension MIDIReceiver {
     /// Handler for the ``rawData(_:)`` MIDI receiver.
-    public typealias RawDataHandler = @Sendable (_ packet: AnyMIDIPacket) -> Void
+    public typealias RawDataHandler = @Sendable (_ packet: AnyMIDIPacketData) -> Void
     
     /// Raw packet data receive handler.
     /// This handler is provided for debugging and data introspection but is discouraged for
@@ -20,7 +20,7 @@ extension MIDIReceiver {
             _ packets: [MIDIPacketData]
         ) {
             for midiPacket in packets {
-                let typeErasedPacket = AnyMIDIPacket.packet(midiPacket)
+                let typeErasedPacket = AnyMIDIPacketData.packet(midiPacket)
                 handler(typeErasedPacket)
             }
         }
@@ -31,7 +31,7 @@ extension MIDIReceiver {
             protocol midiProtocol: MIDIProtocolVersion
         ) {
             for midiPacket in packets {
-                let typeErasedPacket = AnyMIDIPacket.universalPacket(midiPacket)
+                let typeErasedPacket = AnyMIDIPacketData.universalPacket(midiPacket)
                 handler(typeErasedPacket)
             }
         }

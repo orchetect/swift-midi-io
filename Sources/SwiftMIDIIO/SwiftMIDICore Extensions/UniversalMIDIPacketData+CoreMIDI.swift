@@ -7,10 +7,13 @@
 #if !os(tvOS) && !os(watchOS)
 
 import CoreMIDI
-import SwiftMIDIInternals
+import SwiftMIDICore
+
+/// MIDI 2.0 UMP packet data for use with CoreMIDI on Apple platforms.
+public typealias UniversalMIDIPacketData = SwiftMIDICore.UniversalMIDIPacketData<CoreMIDITimeStamp, MIDIOutputEndpoint>
 
 @available(macOS 11, iOS 14, macCatalyst 14, *)
-extension UniversalMIDIPacketData where TimeStamp == CoreMIDITimeStamp, OutputEndpoint == MIDIOutputEndpoint {
+extension UniversalMIDIPacketData {
     /// Universal MIDI Packet.
     init(
         _ eventPacketPtr: UnsafePointer<MIDIEventPacket>,

@@ -7,9 +7,12 @@
 #if !os(tvOS) && !os(watchOS)
 
 import CoreMIDI
-import SwiftMIDIInternals
+import SwiftMIDICore
 
-extension MIDIPacketData where TimeStamp == CoreMIDITimeStamp, OutputEndpoint == MIDIOutputEndpoint {
+/// MIDI 1.0 packet data for use with CoreMIDI on Apple platforms.
+public typealias MIDIPacketData = SwiftMIDICore.MIDIPacketData<CoreMIDITimeStamp, MIDIOutputEndpoint>
+
+extension MIDIPacketData {
     init(
         _ midiPacketPtr: UnsafePointer<MIDIPacket>,
         refCon: UnsafeMutableRawPointer?,
