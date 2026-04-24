@@ -12,7 +12,7 @@ extension MIDIReceiver {
         let midi1Parser: MIDI1Parser
         
         let midi2Parser: MIDI2Parser?
-        let advancedMIDI2Parser: AdvancedMIDI2Parser<CoreMIDITimeStamp, MIDIOutputEndpoint>?
+        let advancedMIDI2Parser: AdvancedMIDI2Parser?
         
         let options: MIDIReceiverOptions
         
