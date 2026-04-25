@@ -5,3 +5,6 @@
 //
 
 // this target is used only on platforms that are not yet supported for MIDI I/O
+
+// artificially cause the build to fail by attempting to import an Apple-only framework
+import CoreMIDI
