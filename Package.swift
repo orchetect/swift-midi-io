@@ -45,6 +45,13 @@ package.targets += [
         path: "Tests/CoreMIDITests"
     )
 ]
+#else
+package.targets += [
+    .target(
+        name: "SwiftMIDIIO",
+        path: "Sources/Unsupported"
+    )
+]
 #endif
 
 // MARK: - Environment
