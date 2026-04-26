@@ -1,6 +1,6 @@
 //
 //  EventsLogging.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -11,7 +11,7 @@ import os.log
 extension MIDIReceiver {
     /// Handler for the ``eventsLogging(options:_:)`` MIDI receiver.
     public typealias EventsLoggingHandler = @Sendable (_ eventString: String) -> Void
-    
+
     /// MIDI Event logging handler (event description strings).
     /// If `handler` is nil, all events are logged to the console (but only in `DEBUG` preprocessor
     /// flag builds).
@@ -33,7 +33,7 @@ extension MIDIReceiver {
                 )
                 #endif
             }
-        
+
         return Events(options: options) { events, timeStamp, source in
             let logString = generateLogString(
                 events: events,
@@ -44,7 +44,7 @@ extension MIDIReceiver {
             stringLogHandler(logString)
         }
     }
-    
+
     fileprivate static func generateLogString(
         events: [MIDIEvent],
         timeStamp: CoreMIDITimeStamp,
@@ -52,21 +52,21 @@ extension MIDIReceiver {
         options: MIDIReceiverOptions
     ) -> String {
         var events = events
-        
+
         if options.contains(.filterActiveSensingAndClock) {
             events = events.filter(sysRealTime: .dropTypes([.activeSensing, .timingClock]))
         }
-        
+
         var stringOutput: String = events
             .map { "\($0)" }
             .joined(separator: ", ")
             + " timeStamp:\(timeStamp)"
-        
+
         // not all packets will contain source refs
         if let source {
             stringOutput += " source:\(source.displayName.quoted)"
         }
-        
+
         return stringOutput
     }
 }

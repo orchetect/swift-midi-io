@@ -1,6 +1,6 @@
 //
 //  RawData.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -9,13 +9,13 @@
 extension MIDIReceiver {
     /// Handler for the ``rawData(_:)`` MIDI receiver.
     public typealias RawDataHandler = @Sendable (_ packet: AnyMIDIPacketData) -> Void
-    
+
     /// Raw packet data receive handler.
     /// This handler is provided for debugging and data introspection but is discouraged for
     /// manually parsing MIDI packets. It is recommended to use a MIDI event handler instead.
     final class RawData: MIDIReceiverProtocol {
         let handler: RawDataHandler
-    
+
         func packetListReceived(
             _ packets: [MIDIPacketData]
         ) {
@@ -24,7 +24,7 @@ extension MIDIReceiver {
                 handler(typeErasedPacket)
             }
         }
-    
+
         @available(macOS 11, iOS 14, macCatalyst 14, *)
         func eventListReceived(
             _ packets: [UniversalMIDIPacketData],
@@ -35,7 +35,7 @@ extension MIDIReceiver {
                 handler(typeErasedPacket)
             }
         }
-    
+
         init(
             handler: @escaping MIDIReceiver.RawDataHandler
         ) {

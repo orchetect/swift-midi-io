@@ -1,13 +1,13 @@
 //
 //  MIDIOutput.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
 #if !os(tvOS) && !os(watchOS)
 
-import Foundation
 import CoreMIDI
+import Foundation
 import SwiftMIDICore
 import SwiftMIDIInternals
 
@@ -25,40 +25,42 @@ import SwiftMIDIInternals
 /// > endpoint.)
 public final class MIDIOutput: MIDIManaged, @unchecked Sendable { // @unchecked required for @PThreadMutex use
     nonisolated(unsafe) weak var midiManager: MIDIManager?
-    
+
     // MIDIManaged
-    
+
     public private(set) nonisolated(unsafe) var api: CoreMIDIAPIVersion
-    
+
     // MIDIManagedSendsMessages
-    
-    public var midiProtocol: MIDIProtocolVersion { api.midiProtocol }
-        
+
+    public var midiProtocol: MIDIProtocolVersion {
+        api.midiProtocol
+    }
+
     /// The Core MIDI output port reference.
     @PThreadMutex
     public private(set) var coreMIDIOutputPortRef: CoreMIDIPortRef?
-    
+
     // class-specific
-    
+
     /// The port name as displayed in the system.
     @PThreadMutex
     public var name: String {
         didSet { setNameInSystem() }
     }
-    
+
     /// Updates the endpoint's `name` property with Core MIDI.
     /// Core MIDI automatically updates the `displayName` property as well.
     private func setNameInSystem() {
         guard let ref = coreMIDIOutputPortRef else { return }
         try? setString(forProperty: kMIDIPropertyName, of: ref, to: name)
     }
-    
+
     /// The port's unique ID in the system.
     @PThreadMutex
     public private(set) var uniqueID: MIDIIdentifier?
-    
+
     // init
-    
+
     /// Internal init.
     /// This object is not meant to be instanced by the user. This object is automatically created
     /// and managed by the MIDI I/O ``MIDIManager`` instance when calling
@@ -82,7 +84,7 @@ public final class MIDIOutput: MIDIManaged, @unchecked Sendable { // @unchecked 
         self.name = name
         self.uniqueID = uniqueID
     }
-    
+
     deinit {
         // note that we can't rely on deinit to dispose of the Core MIDI object, since it's possible the
         // consumer has stored a strong reference to this class somewhere even though we discourage it
@@ -95,18 +97,18 @@ extension MIDIOutput {
     public var endpoint: MIDIOutputEndpoint {
         .init(from: coreMIDIOutputPortRef ?? 0)
     }
-    
+
     /// Queries the system and returns the endpoint ref if the endpoint exists (by matching port
     /// name and unique ID)
     var uniqueIDExistsInSystem: MIDIEndpointRef? {
         guard let uniqueID else {
             return nil
         }
-    
+
         if let endpoint = getSystemSourceEndpointRef(matching: uniqueID) {
             return endpoint
         }
-    
+
         return nil
     }
 }
@@ -119,9 +121,9 @@ extension MIDIOutput {
             // this should prevent errors thrown due to ID collisions in the system
             uniqueID = nil
         }
-    
+
         var newPortRef = MIDIPortRef()
-    
+
         switch api {
         case .legacyCoreMIDI:
             // MIDISourceCreate is deprecated after macOS 11 / iOS 14
@@ -131,14 +133,14 @@ extension MIDIOutput {
                 &newPortRef
             )
             .throwIfOSStatusErr()
-    
+
         case .newCoreMIDI:
             guard #available(macOS 11, iOS 14, macCatalyst 14, *) else {
                 throw .internalInconsistency(
                     "New Core MIDI API is not accessible on this platform."
                 )
             }
-    
+
             try MIDISourceCreateWithProtocol(
                 manager.coreMIDIClientRef,
                 name as CFString,
@@ -147,13 +149,13 @@ extension MIDIOutput {
             )
             .throwIfOSStatusErr()
         }
-    
+
         coreMIDIOutputPortRef = newPortRef
-    
+
         // set meta data properties; ignore errors in case of failure
         try? setModel(of: newPortRef, to: manager.model)
         try? setManufacturer(of: newPortRef, to: manager.manufacturer)
-        
+
         if let uniqueID {
             // inject previously-stored unique ID into port
             try setUniqueID(
@@ -167,7 +169,7 @@ extension MIDIOutput {
             uniqueID = .init(uid)
         }
     }
-    
+
     /// Disposes of the the virtual port if it's already been created in the system via the
     /// `create()` method.
     ///
@@ -176,9 +178,9 @@ extension MIDIOutput {
     /// Errors thrown can be safely ignored and are typically only useful for debugging purposes.
     func dispose() throws(MIDIIOError) {
         guard let coreMIDIOutputPortRef else { return }
-    
+
         defer { self.coreMIDIOutputPortRef = nil }
-    
+
         try MIDIEndpointDispose(coreMIDIOutputPortRef)
             .throwIfOSStatusErr()
     }
@@ -189,7 +191,7 @@ extension MIDIOutput {
     public func hide() throws(MIDIIOError) {
         try endpoint.hide()
     }
-    
+
     /// Makes the virtual endpoint in the system visible to the user.
     public func show() throws(MIDIIOError) {
         try endpoint.show()
@@ -202,7 +204,7 @@ extension MIDIOutput: CustomStringConvertible {
         if let uniqueID {
             uniqueIDString = "\(uniqueID)"
         }
-    
+
         return "MIDIOutput(name: \(name.quoted), uniqueID: \(uniqueIDString))"
     }
 }
@@ -216,11 +218,11 @@ extension MIDIOutput: _MIDIManagedSendsMessages {
                 "Port reference is nil."
             )
         }
-    
+
         try MIDIReceived(coreMIDIOutputPortRef, packetList)
             .throwIfOSStatusErr()
     }
-    
+
     @available(macOS 11, iOS 14, macCatalyst 14, *)
     func send(eventList: UnsafeMutablePointer<MIDIEventList>) throws(MIDIIOError) {
         guard let coreMIDIOutputPortRef else {
@@ -228,7 +230,7 @@ extension MIDIOutput: _MIDIManagedSendsMessages {
                 "Port reference is nil."
             )
         }
-    
+
         try MIDIReceivedEventList(coreMIDIOutputPortRef, eventList)
             .throwIfOSStatusErr()
     }

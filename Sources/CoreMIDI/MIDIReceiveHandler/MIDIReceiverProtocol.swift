@@ -1,6 +1,6 @@
 //
 //  MIDIReceiverProtocol.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -17,7 +17,7 @@ public protocol MIDIReceiverProtocol: AnyObject where Self: Sendable {
     func packetListReceived(
         _ packets: [MIDIPacketData]
     )
-    
+
     /// CoreMIDI `MIDIReceiveBlock`
     /// (introduced in macOS 11 / iOS 14)
     @available(macOS 11, iOS 14, macCatalyst 14, *)

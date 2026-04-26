@@ -1,6 +1,6 @@
 //
 //  MIDIIOObject Collection.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -30,7 +30,7 @@ extension Collection where Element: MIDIIOObject {
             ? first(where: { $0.name == name && !$0.name.isEmpty })
             : first(where: { $0.name == name })
     }
-    
+
     /// Returns the MIDI object with matching unique ID.
     public func first(whereUniqueID uniqueID: MIDIIdentifier) -> Element? {
         first(where: { $0.uniqueID == uniqueID })
@@ -50,7 +50,7 @@ extension Collection where Element: MIDIIOObject {
             ignoringEmpty: ignoringEmpty
         ) != nil
     }
-    
+
     /// Returns the MIDI object with matching unique ID.
     public func contains(whereUniqueID uniqueID: MIDIIdentifier) -> Bool {
         contains(where: { $0.uniqueID == uniqueID })

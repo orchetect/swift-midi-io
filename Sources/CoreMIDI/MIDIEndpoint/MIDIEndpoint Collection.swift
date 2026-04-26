@@ -1,6 +1,6 @@
 //
 //  MIDIEndpoint Collection.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -9,7 +9,7 @@
 extension Collection where Element: MIDIEndpoint {
     // Note: sortedByName() is already implemented on MIDIEndpoint
     // and requires no special implementation here for endpoints.
-    
+
     /// Returns the array sorted alphabetically by MIDI object display name.
     public func sortedByDisplayName() -> [Element] {
         sorted(by: {
@@ -31,7 +31,7 @@ extension Collection where Element: MIDIEndpoint {
             ? first(where: { ($0.displayName == displayName) && !$0.displayName.isEmpty })
             : first(where: { $0.displayName == displayName })
     }
-    
+
     /// Returns the endpoint with matching unique ID.
     /// If not found, the first element matching the given display name is returned.
     public func first(
@@ -60,7 +60,7 @@ extension Collection where Element: MIDIEndpoint {
             ignoringEmpty: ignoringEmpty
         ) != nil
     }
-    
+
     /// Returns true if the collection contains an endpoint with matching unique ID.
     /// If not found, the first element matching the given display name is checked.
     public func contains(
@@ -88,7 +88,7 @@ extension Collection where Element: MIDIEndpoint {
             ? filter { (name == $0.name) && !$0.name.isEmpty }
             : filter { $0.name == name }
     }
-    
+
     /// Returns all endpoints matching the given display name.
     public func filter(
         whereDisplayName displayName: String,
@@ -107,12 +107,12 @@ extension Collection where Element: MIDIEndpoint {
     public func asIdentities() -> Set<MIDIEndpointIdentity> {
         // for some reason Set(map { ... }) was not working
         // so we have to use reduce
-        
+
         reduce(into: Set<MIDIEndpointIdentity>()) {
             $0.insert(.uniqueID($1.uniqueID))
         }
     }
-    
+
     /// Returns endpoint identity criteria describing the endpoints.
     @_disfavoredOverload
     public func asIdentities() -> [MIDIEndpointIdentity] {

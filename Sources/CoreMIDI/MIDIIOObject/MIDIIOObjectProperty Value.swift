@@ -1,6 +1,6 @@
 //
 //  MIDIIOObjectProperty Value.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -13,10 +13,10 @@ extension MIDIIOObjectProperty {
     public enum Value<T> {
         /// Value.
         case value(_ value: T)
-        
+
         /// Property has not been set on the MIDI object.
         case notSet
-        
+
         /// An error occurred while querying Core MIDI for the object's property value.
         case error(_ error: MIDIIOError)
     }
@@ -44,7 +44,7 @@ extension MIDIIOObjectProperty.Value {
             nil
         }
     }
-    
+
     /// Converts the underlying value if it is present.
     /// If self is `notSet` or `error`, the instance is returned unmodified since no value is present.
     ///

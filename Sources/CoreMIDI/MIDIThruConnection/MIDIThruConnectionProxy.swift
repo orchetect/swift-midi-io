@@ -1,14 +1,14 @@
 //
 //  MIDIThruConnectionProxy.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
 #if !os(tvOS) && !os(watchOS)
 
+import CoreMIDI
 import Foundation
 import SwiftMIDICore
-import CoreMIDI
 
 /// Internal class.
 /// Used as a stand-in replacement for Core MIDI's `MIDIThruConnectionCreate` on macOS versions that
@@ -16,10 +16,10 @@ import CoreMIDI
 final class MIDIThruConnectionProxy {
     private nonisolated(unsafe)
     var inputConnection: MIDIInputConnection!
-    
+
     private nonisolated(unsafe)
     var outputConnection: MIDIOutputConnection!
-    
+
     init(
         outputs: [MIDIOutputEndpoint],
         inputs: [MIDIInputEndpoint],
@@ -32,7 +32,7 @@ final class MIDIThruConnectionProxy {
             midiManager: midiManager,
             api: api
         )
-        
+
         inputConnection = MIDIInputConnection(
             mode: .outputs(matching: Set(outputs.asIdentities())),
             filter: .default(),
@@ -42,10 +42,10 @@ final class MIDIThruConnectionProxy {
             midiManager: midiManager,
             api: api
         )
-        
+
         try outputConnection.setupOutput(in: midiManager)
         try outputConnection.resolveEndpoints(in: midiManager)
-        
+
         try inputConnection.listen(in: midiManager)
         try inputConnection.connect(in: midiManager)
     }

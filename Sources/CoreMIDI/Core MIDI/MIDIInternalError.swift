@@ -1,6 +1,6 @@
 //
 //  MIDIInternalError.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -11,7 +11,7 @@ public enum MIDIInternalError: LocalizedError {
     case packetBuildError(underlyingError: Error?)
     case umpEmpty
     case umpTooLarge
-    
+
     public var errorDescription: String? {
         switch self {
         case let .packetTooLarge(bufferByteCount):

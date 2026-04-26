@@ -1,13 +1,13 @@
 //
 //  MIDI Packet Utilities.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
 #if !os(tvOS) && !os(watchOS)
 
-import Foundation
 import CoreMIDI
+import Foundation
 
 /// Utility:
 /// Attempts to extract data from a refCon pointer supplied by `CoreMIDI.MIDIReceiveBlock` and
@@ -21,15 +21,15 @@ func unpackMIDIRefCon(
 ) -> MIDIOutputEndpoint? {
     // we can only safely use refCons that we set originally
     guard known else { return nil }
-    
+
     guard let refCon else { return nil }
-    
+
     // note that this is only stable if we already know
     // that this is the pointer type and refcount semantics,
     // both of which are known if it originates from MIDIInputConnection
     let srcRefNS = Unmanaged<NSNumber>.fromOpaque(refCon).takeUnretainedValue()
     let srcRef = UInt32(truncating: srcRefNS)
-    
+
     // filter out invalid ref data
     guard let uniqueID = try? getUniqueID(of: srcRef),
           uniqueID != .invalidMIDIIdentifier

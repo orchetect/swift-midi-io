@@ -1,6 +1,6 @@
 //
 //  Group.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -11,7 +11,7 @@ extension MIDIReceiver {
     /// Can contain one or more ``MIDIReceiver`` in series.
     final class Group: MIDIReceiverProtocol {
         let receiveHandlers: [MIDIReceiverProtocol]
-    
+
         func packetListReceived(
             _ packets: [MIDIPacketData]
         ) {
@@ -19,7 +19,7 @@ extension MIDIReceiver {
                 handler.packetListReceived(packets)
             }
         }
-    
+
         @available(macOS 11, iOS 14, macCatalyst 14, *)
         func eventListReceived(
             _ packets: [UniversalMIDIPacketData],
@@ -29,7 +29,7 @@ extension MIDIReceiver {
                 handler.eventListReceived(packets, protocol: midiProtocol)
             }
         }
-    
+
         init(_ receiveHandlers: [MIDIReceiverProtocol]) {
             self.receiveHandlers = receiveHandlers
         }

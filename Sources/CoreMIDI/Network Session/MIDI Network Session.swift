@@ -1,13 +1,13 @@
 //
 //  MIDI Network Session.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
 #if !os(tvOS) && !os(watchOS)
 
-import Foundation
 import CoreMIDI
+import Foundation
 
 /// Sets the application's MIDI Network Session connection policy.
 /// Passing `nil` disables network MIDI connections.
@@ -37,7 +37,7 @@ extension NSNotification.Name {
     public static let midiNetworkSessionDidChange = NSNotification.Name(
         MIDINetworkNotificationSessionDidChange
     )
-    
+
     /// a.k.a. `MIDINetworkNotificationContactsDidChange`
     ///
     /// > Core MIDI Documentation:

@@ -1,6 +1,6 @@
 //
 //  MIDIEndpointFilter Collection.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -10,7 +10,7 @@ import Foundation
 
 extension Collection where Element: MIDIEndpoint {
     // MARK: - Filter Mask Methods
-    
+
     /// Return a new endpoint collection filtered by the given criteria.
     ///
     /// - Parameters:
@@ -29,7 +29,7 @@ extension Collection where Element: MIDIEndpoint {
             filter(dropping: endpointFilter, in: manager)
         }
     }
-    
+
     /// Return a new endpoint collection filtered by the given criteria.
     ///
     /// - Parameters:
@@ -46,9 +46,9 @@ extension Collection where Element: MIDIEndpoint {
             filter(dropping: endpointFilter, in: manager)
         }
     }
-    
+
     // MARK: - Filter Methods
-    
+
     /// Return a new endpoint collection filtered by keeping only endpoints matching the given
     /// criteria.
     public func filter(
@@ -61,7 +61,7 @@ extension Collection where Element: MIDIEndpoint {
             ownedOutputs: Array(manager.managedOutputs.values)
         )
     }
-    
+
     /// Return a new endpoint collection filtered by keeping only endpoints matching the given
     /// criteria.
     func filter(
@@ -75,7 +75,7 @@ extension Collection where Element: MIDIEndpoint {
             ownedOutputEndpoints: ownedOutputs.map(\.endpoint)
         )
     }
-    
+
     /// Return a new endpoint collection filtered by keeping only endpoints matching the given
     /// criteria.
     func filter(
@@ -89,7 +89,7 @@ extension Collection where Element: MIDIEndpoint {
                     .contains(where: { $0.matches(endpoint: endpoint) })
                 else { return false }
             }
-            
+
             if endpointFilter.owned {
                 let inputs = ownedInputEndpoints.asAnyEndpoints()
                 let outputs = ownedOutputEndpoints.asAnyEndpoints()
@@ -100,7 +100,7 @@ extension Collection where Element: MIDIEndpoint {
             return true
         }
     }
-    
+
     /// Return a new endpoint collection filtered by excluding endpoints matching the given
     /// criteria.
     public func filter(
@@ -113,7 +113,7 @@ extension Collection where Element: MIDIEndpoint {
             ownedOutputs: Array(manager.managedOutputs.values)
         )
     }
-    
+
     /// Return a new endpoint collection filtered by excluding endpoints matching the given
     /// criteria.
     func filter(
@@ -127,7 +127,7 @@ extension Collection where Element: MIDIEndpoint {
             ownedOutputEndpoints: ownedOutputs.map(\.endpoint)
         )
     }
-    
+
     /// Return a new endpoint collection filtered by excluding endpoints matching the given
     /// criteria.
     func filter(
@@ -141,7 +141,7 @@ extension Collection where Element: MIDIEndpoint {
                     .contains(where: { $0.matches(endpoint: endpoint) })
                 else { return false }
             }
-            
+
             if endpointFilter.owned {
                 let inputs = ownedInputEndpoints.asAnyEndpoints()
                 let outputs = ownedOutputEndpoints.asAnyEndpoints()

@@ -1,6 +1,6 @@
 //
 //  MIDIIOError.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -15,11 +15,11 @@ public enum MIDIIOError: LocalizedError {
     case internalInconsistency(_ verboseError: String)
     case malformed(_ verboseError: String)
     case notSupported(_ verboseError: String)
-    
+
     // Connections
     case connectionError(_ verboseError: String)
     case readError(_ verboseError: String)
-    
+
     // Core MIDI.OSStatus
     case osStatus(MIDIOSStatus)
 }
@@ -39,19 +39,19 @@ extension MIDIIOError {
         switch self {
         case let .internalInconsistency(verboseError):
             "Internal inconsistency: \(verboseError)"
-    
+
         case let .malformed(verboseError):
             "Malformed: \(verboseError)"
-    
+
         case let .notSupported(verboseError):
             "Not Supported: \(verboseError)"
-    
+
         case let .connectionError(verboseError):
             "Connection Error: \(verboseError)"
-    
+
         case let .readError(verboseError):
             "Read Error: \(verboseError)"
-    
+
         case let .osStatus(midiOSStatus):
             midiOSStatus.errorDescription
         }

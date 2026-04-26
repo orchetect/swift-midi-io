@@ -1,6 +1,6 @@
 //
 //  MIDIOutputEndpoint.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -16,51 +16,51 @@
 /// ad-hoc when they are needed.
 public struct MIDIOutputEndpoint: _MIDIEndpoint {
     // MARK: MIDIIOObject
-    
+
     public let objectType: MIDIIOObjectType = .outputEndpoint
-    
+
     public internal(set) var name: String = ""
-    
+
     public internal(set) var uniqueID: MIDIIdentifier = .invalidMIDIIdentifier
-    
+
     public let coreMIDIObjectRef: CoreMIDIEndpointRef
-    
+
     public func asAnyMIDIIOObject() -> AnyMIDIIOObject {
         .outputEndpoint(self)
     }
-    
+
     // MARK: MIDIEndpoint
-    
+
     public internal(set) var displayName: String = ""
-    
+
     public func asAnyEndpoint() -> AnyMIDIEndpoint {
         .init(self)
     }
-    
+
     // MARK: Init
-    
+
     init(from ref: CoreMIDIEndpointRef) {
         assert(
             ref != CoreMIDIEndpointRef(),
             "Encountered Core MIDI output endpoint ref value of 0 which is invalid."
         )
-    
+
         coreMIDIObjectRef = ref
         updateCachedProperties()
     }
-    
+
     // MARK: Update Cached Properties
-    
+
     /// Update the cached properties
     mutating func updateCachedProperties() {
         if let name = try? SwiftMIDIIO.getName(of: coreMIDIObjectRef) {
             self.name = name
         }
-    
+
         if let displayName = try? SwiftMIDIIO.getDisplayName(of: coreMIDIObjectRef) {
             self.displayName = displayName
         }
-    
+
         if let uniqueID = try? SwiftMIDIIO.getUniqueID(of: coreMIDIObjectRef),
            uniqueID != .invalidMIDIIdentifier
         {

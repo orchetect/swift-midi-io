@@ -1,6 +1,6 @@
 //
 //  MIDIPacketList Utilities.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -19,7 +19,7 @@ extension CoreMIDI.MIDIPacketList {
         self = packetList.pointee
         packetList.deallocate()
     }
-    
+
     /// Assembles an array of `UInt8` packet arrays into Core MIDI `MIDIPacket`s and wraps them in a
     /// `MIDIPacketList`.
     @_disfavoredOverload @inlinable
@@ -40,23 +40,23 @@ extension UnsafeMutablePointer where Pointee == CoreMIDI.MIDIPacketList {
         // Create a buffer that is big enough to hold the data to be sent and
         // all the necessary headers.
         let bufferSize = data.count + kSizeOfMIDIPacketCombinedHeaders
-    
+
         // the discussion section of MIDIPacketListAdd states that "The maximum
         // size of a packet list is 65536 bytes." Checking for that limit here.
         //        if bufferSize > 65_536 {
         //            logger.default("MIDI: assemblePacketList(data:) Error: Data array is too large (\(bufferSize) bytes), requires a buffer larger than 65536")
         //            return nil
         //        }
-    
+
         let timeTag: UInt64 = mach_absolute_time()
-    
+
         let packetListPointer: UnsafeMutablePointer<CoreMIDI.MIDIPacketList> = .allocate(capacity: 1)
-    
+
         // prepare packet
         var currentPacket: UnsafeMutablePointer<CoreMIDI.MIDIPacket> = MIDIPacketListInit(
             packetListPointer
         )
-    
+
         // returns NULL if there was not room in the packet list for the event (?)
         currentPacket = CoreMIDI.MIDIPacketListAdd(
             packetListPointer,
@@ -66,10 +66,10 @@ extension UnsafeMutablePointer where Pointee == CoreMIDI.MIDIPacketList {
             data.count,
             data
         )
-    
+
         self = packetListPointer
     }
-    
+
     /// Assembles an array of `UInt8` packet arrays into Core MIDI `MIDIPacket`s and wraps them in a
     /// `MIDIPacketList`.
     ///
@@ -83,23 +83,23 @@ extension UnsafeMutablePointer where Pointee == CoreMIDI.MIDIPacketList {
         let bufferSize = data
             .reduce(0) { $0 + $1.count * kSizeOfMIDIPacketHeader }
             + kSizeOfMIDIPacketListHeader
-    
+
         // MIDIPacketListAdd's discussion section states that "The maximum size of a packet list is
         // 65536 bytes."
         guard bufferSize <= 65536 else {
             throw .packetTooLarge(bufferByteCount: bufferSize)
         }
-    
+
         // As per Apple docs, timeTag must not be 0 when a packet is sent with `MIDIReceived()`. It
         // must be a proper timeTag.
         let timeTag: UInt64 = mach_absolute_time()
-    
+
         let packetListPointer: UnsafeMutablePointer<CoreMIDI.MIDIPacketList> = .allocate(capacity: 1)
-    
+
         // prepare packet
         var currentPacket: UnsafeMutablePointer<CoreMIDI.MIDIPacket>! =
             CoreMIDI.MIDIPacketListInit(packetListPointer)
-    
+
         for dataBlock in 0 ..< data.count {
             // returns NULL if there was not room in the packet list for the event
             currentPacket = CoreMIDI.MIDIPacketListAdd(
@@ -110,12 +110,12 @@ extension UnsafeMutablePointer where Pointee == CoreMIDI.MIDIPacketList {
                 data[dataBlock].count,
                 data[dataBlock]
             )
-    
+
             guard currentPacket != nil else {
                 throw .packetBuildError(underlyingError: nil)
             }
         }
-    
+
         self = packetListPointer
     }
 }

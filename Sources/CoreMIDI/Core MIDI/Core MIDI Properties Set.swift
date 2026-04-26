@@ -1,6 +1,6 @@
 //
 //  Core MIDI Properties Set.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -29,7 +29,7 @@ func setString(
     )
     .throwIfOSStatusErr()
 }
-    
+
 /// Internal:
 /// Set an integer value for a `MIDIObjectRef` property key.
 ///
@@ -51,7 +51,7 @@ func setInteger(
     )
     .throwIfOSStatusErr()
 }
-    
+
 /// Internal:
 /// Set a data value for a `MIDIObjectRef` property key.
 ///
@@ -73,7 +73,7 @@ func setData(
     )
     .throwIfOSStatusErr()
 }
-    
+
 /// Internal:
 /// Set a dictionary value for a `MIDIObjectRef` property key.
 ///
@@ -99,7 +99,7 @@ func setDictionary(
 // MARK: - Property Setters
 
 // MARK: Identification
-    
+
 /// Internal:
 /// Set user-visible endpoint name.
 /// (`kMIDIPropertyName`)
@@ -121,7 +121,7 @@ func setName(
         to: newValue
     )
 }
-    
+
 /// Internal:
 /// Set model name.
 /// (`kMIDIPropertyModel`)
@@ -142,7 +142,7 @@ func setModel(
         to: newValue
     )
 }
-    
+
 /// Internal:
 /// Set manufacturer name.
 /// (`kMIDIPropertyManufacturer`)
@@ -163,7 +163,7 @@ func setManufacturer(
         to: newValue
     )
 }
-    
+
 /// Internal:
 /// Set unique ID.
 /// (`kMIDIPropertyUniqueID`)

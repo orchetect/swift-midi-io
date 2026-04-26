@@ -1,6 +1,6 @@
 //
 //  EventsBase.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -10,23 +10,23 @@ extension MIDIReceiver {
     /// Foundational receiver class which other events receivers subclass.
     class EventsBase: MIDIReceiverProtocol, @unchecked Sendable { // forced to use @unchecked since class is not final
         let midi1Parser: MIDI1Parser
-        
+
         let midi2Parser: MIDI2Parser?
         let advancedMIDI2Parser: AdvancedMIDI2Parser?
-        
+
         let options: MIDIReceiverOptions
-        
+
         func packetListReceived(
             _ packets: [MIDIPacketData]
         ) {
             for midiPacket in packets {
                 let events = midi1Parser.parsedEvents(in: midiPacket)
                 guard !events.isEmpty else { continue }
-                
+
                 handle(events: events, timeStamp: midiPacket.timeStamp, source: midiPacket.source)
             }
         }
-    
+
         @available(macOS 11, iOS 14, macCatalyst 14, *)
         func eventListReceived(
             _ packets: [UniversalMIDIPacketData],
@@ -36,7 +36,7 @@ extension MIDIReceiver {
                 for midiPacket in packets {
                     let events = parser.parsedEvents(in: midiPacket)
                     guard !events.isEmpty else { continue }
-                    
+
                     handle(events: events, timeStamp: midiPacket.timeStamp, source: midiPacket.source)
                 }
             } else if let parser = advancedMIDI2Parser {
@@ -45,16 +45,16 @@ extension MIDIReceiver {
                 }
             }
         }
-        
+
         init(options: MIDIReceiverOptions) {
             // store options
             self.options = options
-            
+
             // MIDI 1
             midi1Parser = MIDI1Parser()
             midi1Parser.translateNoteOnZeroVelocityToNoteOff = options
                 .contains(.translateMIDI1NoteOnZeroVelocityToNoteOff)
-            
+
             // MIDI 2
             if options.contains(.bundleRPNAndNRPNDataEntryLSB) {
                 midi2Parser = nil
@@ -67,7 +67,7 @@ extension MIDIReceiver {
                 advancedMIDI2Parser = nil
             }
         }
-        
+
         func handle(
             events: [MIDIEvent],
             timeStamp: CoreMIDITimeStamp,

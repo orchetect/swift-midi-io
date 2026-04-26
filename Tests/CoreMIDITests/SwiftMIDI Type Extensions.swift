@@ -1,6 +1,6 @@
 //
 //  SwiftMIDI Type Extensions.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -20,19 +20,19 @@ extension MIDIIONotification {
         case internalStart
         case other
     }
-    
+
     func isCase(_ kind: Kind) -> Bool {
         switch (self, kind) {
-        case (.setupChanged, .setupChanged): return true
-        case (.added, .added): return true
-        case (.removed, .removed): return true
-        case (.propertyChanged, .propertyChanged): return true
-        case (.thruConnectionChanged, .thruConnectionChanged): return true
-        case (.serialPortOwnerChanged, .serialPortOwnerChanged): return true
-        case (.ioError, .ioError): return true
-        case (.internalStart, .internalStart): return true
-        case (.other, .other): return true
-        default: return false
+        case (.setupChanged, .setupChanged): true
+        case (.added, .added): true
+        case (.removed, .removed): true
+        case (.propertyChanged, .propertyChanged): true
+        case (.thruConnectionChanged, .thruConnectionChanged): true
+        case (.serialPortOwnerChanged, .serialPortOwnerChanged): true
+        case (.ioError, .ioError): true
+        case (.internalStart, .internalStart): true
+        case (.other, .other): true
+        default: false
         }
     }
 }

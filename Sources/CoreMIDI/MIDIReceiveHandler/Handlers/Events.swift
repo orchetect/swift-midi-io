@@ -1,6 +1,6 @@
 //
 //  Events.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -15,13 +15,13 @@ extension MIDIReceiver {
         _ timeStamp: CoreMIDITimeStamp,
         _ source: MIDIOutputEndpoint?
     ) -> Void
-    
+
     /// MIDI Event receive handler including packet timestamp and source endpoint.
     /// Source endpoint is only available when used with ``MIDIInputConnection`` and will always be
     /// `nil` when used with ``MIDIInput``.
     final class Events: EventsBase, @unchecked Sendable { // forced to use @unchecked due to EventsBase
         let handler: MIDIReceiver.EventsHandler
-        
+
         init(
             options: MIDIReceiverOptions,
             handler: @escaping MIDIReceiver.EventsHandler
@@ -35,10 +35,10 @@ extension MIDIReceiver {
             } else {
                 self.handler = handler
             }
-            
+
             super.init(options: options)
         }
-        
+
         override func handle(
             events: [MIDIEvent],
             timeStamp: CoreMIDITimeStamp,

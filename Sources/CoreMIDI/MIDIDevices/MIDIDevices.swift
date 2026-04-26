@@ -1,6 +1,6 @@
 //
 //  MIDIDevices.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -14,7 +14,7 @@ import Foundation
 /// your central ``MIDIManager`` instance.
 public struct MIDIDevices: MIDIDevicesProtocol {
     public internal(set) var devices: [MIDIDevice] = []
-    
+
     /// Manually update the locally cached contents from the system.
     ///
     /// It is not necessary to call this method as the ``MIDIManager`` will automate updating device

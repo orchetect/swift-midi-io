@@ -1,6 +1,6 @@
 //
 //  Core MIDI Properties Get.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -9,7 +9,7 @@
 import CoreMIDI
 
 // MARK: - Property Readers
-    
+
 /// Internal:
 /// Retrieves the entire properties dictionary as the Core MIDI-native `CFPropertyList`.
 ///
@@ -24,26 +24,26 @@ func getProperties(
 ) throws(MIDIIOError) -> CFPropertyList {
     var propsPtr: Unmanaged<CFPropertyList>?
     let result = MIDIObjectGetProperties(ref, &propsPtr, deep)
-    
+
     guard result == noErr else {
         throw .osStatus(result)
     }
-    
+
     guard let properties = propsPtr?.takeRetainedValue() else {
         throw .readError(
             "Got nil while reading MIDIEndpointRef property list."
         )
     }
-    
+
     // "takeRetainedValue() is the right choice here because it is the caller's responsibility to
     // release the string.
     // This is different from the usual Core Foundation memory management rules, but documented in
     // the MIDI Services Reference."
     // -- https://stackoverflow.com/a/27171498/2805570
-    
+
     return properties
 }
-    
+
 /// Internal:
 /// Returns dictionary data for the given property.
 ///
@@ -58,26 +58,26 @@ func getDictionary(
 ) throws(MIDIIOError) -> NSDictionary {
     var dictPtr: Unmanaged<CFDictionary>?
     let result = MIDIObjectGetDictionaryProperty(ref, property, &dictPtr)
-    
+
     guard result == noErr else {
         throw .osStatus(result)
     }
-    
+
     guard let dictionary = dictPtr?.takeRetainedValue() else {
         throw .readError(
             "Got nil while reading MIDIEndpointRef property list."
         )
     }
-    
+
     // "takeRetainedValue() is the right choice here because it is the caller's responsibility to
     // release the string.
     // This is different from the usual Core Foundation memory management rules, but documented in
     // the MIDI Services Reference."
     // -- https://stackoverflow.com/a/27171498/2805570
-    
+
     return dictionary as NSDictionary
 }
-    
+
 /// Internal:
 /// Get a string value from a `MIDIObjectRef` property key.
 ///
@@ -92,26 +92,26 @@ func getString(
 ) throws(MIDIIOError) -> String {
     var valPtr: Unmanaged<CFString>?
     let result = MIDIObjectGetStringProperty(ref, property, &valPtr)
-    
+
     guard result == noErr else {
         throw .osStatus(result)
     }
-    
+
     guard let value = valPtr?.takeRetainedValue() else {
         throw .readError(
             "Got nil while reading MIDIEndpointRef property value \((property as String).quoted)"
         )
     }
-    
+
     // "takeRetainedValue() is the right choice here because it is the caller's responsibility to
     // release the string.
     // This is different from the usual Core Foundation memory management rules, but documented in
     // the MIDI Services Reference."
     // -- https://stackoverflow.com/a/27171498/2805570
-    
+
     return value as String
 }
-    
+
 /// Internal:
 /// Get an integer value from a `MIDIObjectRef` property key.
 ///
@@ -129,7 +129,7 @@ func getInteger(
 // MARK: - Property Getters
 
 // MARK: Identification
-    
+
 /// Get user-visible endpoint name.
 /// (`kMIDIPropertyName`)
 ///
@@ -143,7 +143,7 @@ func getInteger(
 func getName(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> String {
     try getString(forProperty: kMIDIPropertyName, of: ref)
 }
-    
+
 /// Get model name.
 /// (`kMIDIPropertyModel`)
 ///
@@ -156,7 +156,7 @@ func getName(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> String {
 func getModel(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> String {
     try getString(forProperty: kMIDIPropertyModel, of: ref)
 }
-    
+
 /// Get manufacturer name.
 /// (`kMIDIPropertyManufacturer`)
 ///
@@ -169,7 +169,7 @@ func getModel(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> String {
 func getManufacturer(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> String {
     try getString(forProperty: kMIDIPropertyManufacturer, of: ref)
 }
-    
+
 /// Get unique ID.
 /// (`kMIDIPropertyUniqueID`)
 ///
@@ -180,7 +180,7 @@ func getManufacturer(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Stri
 func getUniqueID(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> MIDIUniqueID {
     try getInteger(forProperty: kMIDIPropertyUniqueID, of: ref)
 }
-    
+
 /// Get the user-visible System Exclusive (SysEx) identifier of a device or entity.
 /// (`kMIDIPropertyDeviceID`)
 ///
@@ -191,9 +191,9 @@ func getUniqueID(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> MIDIUniq
 func getDeviceManufacturerID(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Int32 {
     try getInteger(forProperty: kMIDIPropertyDeviceID, of: ref)
 }
-    
+
 // MARK: Capabilities
-    
+
 /// Get a Boolean value that indicates whether the device or entity implements the MIDI Machine
 /// Control portion of the MIDI specification.
 /// (`kMIDIPropertySupportsMMC`)
@@ -202,7 +202,7 @@ func getDeviceManufacturerID(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError)
 func getSupportsMMC(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Bool {
     try getInteger(forProperty: kMIDIPropertySupportsMMC, of: ref) == 1
 }
-    
+
 /// Get a Boolean value that indicates whether the device or entity implements the General MIDI
 /// specification.
 /// (`kMIDIPropertySupportsGeneralMIDI`)
@@ -211,7 +211,7 @@ func getSupportsMMC(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Bool 
 func getSupportsGeneralMIDI(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Bool {
     try getInteger(forProperty: kMIDIPropertySupportsGeneralMIDI, of: ref) == 1
 }
-    
+
 /// Get a Boolean value that indicates whether the device implements the MIDI Show Control
 /// specification.
 /// (`kMIDIPropertySupportsShowControl`)
@@ -220,9 +220,9 @@ func getSupportsGeneralMIDI(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) 
 func getSupportsShowControl(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Bool {
     try getInteger(forProperty: kMIDIPropertySupportsShowControl, of: ref) == 1
 }
-    
+
 // MARK: Configuration
-    
+
 /// Get the device’s current patch, note, and control name values in MIDINameDocument XML format.
 /// (`kMIDIPropertyNameConfigurationDictionary`)
 ///
@@ -235,7 +235,7 @@ func getNameConfigurationDictionary(
 ) throws(MIDIIOError) -> NSDictionary {
     try getDictionary(forProperty: kMIDIPropertyNameConfigurationDictionary, of: ref)
 }
-    
+
 /// Get the maximum rate, in bytes per second, at which the system may reliably send System
 /// Exclusive (SysEx) messages to this object.
 /// (`kMIDIPropertyMaxSysExSpeed`)
@@ -246,7 +246,7 @@ func getNameConfigurationDictionary(
 func getMaxSysExSpeed(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Int32 {
     try getInteger(forProperty: kMIDIPropertyMaxSysExSpeed, of: ref)
 }
-    
+
 /// Get the full path to an app on the system that configures driver-owned devices.
 /// (`kMIDIPropertyDriverDeviceEditorApp`)
 ///
@@ -257,9 +257,9 @@ func getDriverDeviceEditorApp(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError
     let posixPath = try getString(forProperty: kMIDIPropertyDriverDeviceEditorApp, of: ref)
     return URL(fileURLWithPath: posixPath)
 }
-    
+
 // MARK: Presentation
-    
+
 /// Get the full path to a device icon on the system.
 /// (`kMIDIPropertyImage`)
 ///
@@ -273,7 +273,7 @@ func getImage(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> URL {
     let posixPath = try getString(forProperty: kMIDIPropertyImage, of: ref)
     return URL(fileURLWithPath: posixPath)
 }
-    
+
 /// Get The user-visible name for an endpoint that combines the device and endpoint names.
 /// (Apple-recommended user-visible name)
 /// (`kMIDIPropertyDisplayName`)
@@ -285,9 +285,9 @@ func getImage(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> URL {
 func getDisplayName(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> String {
     try getString(forProperty: kMIDIPropertyDisplayName, of: ref)
 }
-    
+
 // MARK: Audio
-    
+
 /// Get a Boolean value that indicates whether the MIDI pan messages sent to the device or entity
 /// cause undesirable effects when playing stereo sounds.
 /// (`kMIDIPropertyPanDisruptsStereo`)
@@ -296,9 +296,9 @@ func getDisplayName(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Strin
 func getPanDisruptsStereo(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Bool {
     try getInteger(forProperty: kMIDIPropertyPanDisruptsStereo, of: ref) == 1
 }
-    
+
 // MARK: Protocols
-    
+
 /// Get the native protocol in which the endpoint communicates.
 /// (`kMIDIPropertyProtocolID`)
 ///
@@ -318,9 +318,9 @@ func getProtocolID(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> CoreMI
     }
     return protocolID
 }
-    
+
 // MARK: Timing
-    
+
 /// Get a Boolean value that indicates whether the device or entity transmits MIDI Time Code
 /// messages.
 /// (`kMIDIPropertyTransmitsMTC`)
@@ -329,7 +329,7 @@ func getProtocolID(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> CoreMI
 func getTransmitsMTC(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Bool {
     try getInteger(forProperty: kMIDIPropertyTransmitsMTC, of: ref) == 1
 }
-    
+
 /// Get a Boolean value that indicates whether the device or entity responds to MIDI Time Code
 /// messages.
 /// (`kMIDIPropertyReceivesMTC`)
@@ -338,7 +338,7 @@ func getTransmitsMTC(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Bool
 func getReceivesMTC(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Bool {
     try getInteger(forProperty: kMIDIPropertyReceivesMTC, of: ref) == 1
 }
-    
+
 /// Get a Boolean value that indicates whether the device or entity transmits MIDI beat clock
 /// messages.
 /// (`kMIDIPropertyTransmitsClock`)
@@ -347,7 +347,7 @@ func getReceivesMTC(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Bool 
 func getTransmitsClock(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Bool {
     try getInteger(forProperty: kMIDIPropertyTransmitsClock, of: ref) == 1
 }
-    
+
 /// Get a Boolean value that indicates whether the device or entity responds to MIDI beat clock
 /// messages.
 /// (`kMIDIPropertyReceivesClock`)
@@ -356,7 +356,7 @@ func getTransmitsClock(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Bo
 func getReceivesClock(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Bool {
     try getInteger(forProperty: kMIDIPropertyReceivesClock, of: ref) == 1
 }
-    
+
 /// Get the recommended number of microseconds in advance that clients should schedule output.
 /// (`kMIDIPropertyAdvanceScheduleTimeMuSec`)
 ///
@@ -377,9 +377,9 @@ func getReceivesClock(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Boo
 func getAdvanceScheduleTimeMuSec(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> String {
     try getString(forProperty: kMIDIPropertyAdvanceScheduleTimeMuSec, of: ref)
 }
-    
+
 // MARK: Roles
-    
+
 /// Get a Boolean value that indicates whether the device or entity mixes external audio signals.
 /// (`kMIDIPropertyIsMixer`)
 ///
@@ -387,7 +387,7 @@ func getAdvanceScheduleTimeMuSec(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOEr
 func getIsMixer(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Bool {
     try getInteger(forProperty: kMIDIPropertyIsMixer, of: ref) == 1
 }
-    
+
 /// Get a Boolean value that indicates whether the device or entity plays audio samples in response
 /// to MIDI note messages.
 /// (`kMIDIPropertyIsSampler`)
@@ -396,7 +396,7 @@ func getIsMixer(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Bool {
 func getIsSampler(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Bool {
     try getInteger(forProperty: kMIDIPropertyIsSampler, of: ref) == 1
 }
-    
+
 /// Get a Boolean value that indicates whether the device or entity primarily acts as a
 /// MIDI-controlled audio effect.
 /// (`kMIDIPropertyIsEffectUnit`)
@@ -405,7 +405,7 @@ func getIsSampler(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Bool {
 func getIsEffectUnit(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Bool {
     try getInteger(forProperty: kMIDIPropertyIsEffectUnit, of: ref) == 1
 }
-    
+
 /// Get a Boolean value that indicates whether the device or entity’s samples aren’t transposable,
 /// as with a drum kit.
 /// (`kMIDIPropertyIsDrumMachine`)
@@ -414,9 +414,9 @@ func getIsEffectUnit(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Bool
 func getIsDrumMachine(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Bool {
     try getInteger(forProperty: kMIDIPropertyIsDrumMachine, of: ref) == 1
 }
-    
+
 // MARK: Status
-    
+
 /// Get a Boolean value that indicates whether the object is offline.
 /// (`kMIDIPropertyOffline`)
 ///
@@ -427,7 +427,7 @@ func getIsDrumMachine(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Boo
 func getIsOffline(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Bool {
     try getInteger(forProperty: kMIDIPropertyOffline, of: ref) == 1
 }
-    
+
 /// Get a Boolean value that indicates whether the system hides an endpoint from other clients.
 /// (`kMIDIPropertyPrivate`)
 ///
@@ -438,9 +438,9 @@ func getIsOffline(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Bool {
 func getIsPrivate(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Bool {
     try getInteger(forProperty: kMIDIPropertyPrivate, of: ref) == 1
 }
-    
+
 // MARK: Drivers
-    
+
 /// Get name of the driver that owns a device, entity, or endpoint.
 /// (`kMIDIPropertyDriverOwner`)
 ///
@@ -451,7 +451,7 @@ func getIsPrivate(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Bool {
 func getDriverOwner(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> String {
     try getString(forProperty: kMIDIPropertyDriverOwner, of: ref)
 }
-    
+
 /// Get the version of the driver that owns a device, entity, or endpoint.
 /// (`kMIDIPropertyDriverVersion`)
 ///
@@ -459,9 +459,9 @@ func getDriverOwner(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Strin
 func getDriverVersion(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Int32 {
     try getInteger(forProperty: kMIDIPropertyDriverVersion, of: ref)
 }
-    
+
 // MARK: Connections
-    
+
 /// Get a Boolean value that indicates whether the device or entity can route messages to or from
 /// external MIDI devices.
 /// (`kMIDIPropertyCanRoute`)
@@ -472,7 +472,7 @@ func getDriverVersion(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Int
 func getCanRoute(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Bool {
     try getInteger(forProperty: kMIDIPropertyCanRoute, of: ref) == 1
 }
-    
+
 /// Get a Boolean value that indicates whether the endpoint broadcasts messages to all of the other
 /// endpoints in the device.
 /// (`kMIDIPropertyIsBroadcast`)
@@ -483,7 +483,7 @@ func getCanRoute(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Bool {
 func getIsBroadcast(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Bool {
     try getInteger(forProperty: kMIDIPropertyIsBroadcast, of: ref) == 1
 }
-    
+
 /// Get the unique identifier of an external device attached to this connection.
 /// (`kMIDIPropertyConnectionUniqueID`)
 ///
@@ -496,7 +496,7 @@ func getIsBroadcast(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Bool 
 func getConnectionUniqueID(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> CoreMIDI.MIDIUniqueID {
     try getInteger(forProperty: kMIDIPropertyConnectionUniqueID, of: ref)
 }
-    
+
 /// Get a Boolean value that indicates whether this entity or endpoint has external MIDI
 /// connections.
 /// (`kMIDIPropertyIsEmbeddedEntity`)
@@ -505,7 +505,7 @@ func getConnectionUniqueID(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -
 func getIsEmbeddedEntity(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Bool {
     try getInteger(forProperty: kMIDIPropertyIsEmbeddedEntity, of: ref) == 1
 }
-    
+
 /// Get the 0-based index of the entity on which incoming real-time messages from the device appear
 /// to have originated.
 /// (`kMIDIPropertySingleRealtimeEntity`)
@@ -514,9 +514,9 @@ func getIsEmbeddedEntity(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> 
 func getSingleRealtimeEntity(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Int32 {
     try getInteger(forProperty: kMIDIPropertySingleRealtimeEntity, of: ref)
 }
-    
+
 // MARK: Channels
-    
+
 /// Get the bitmap of channels on which the object receives messages.
 /// (`kMIDIPropertyReceiveChannels`)
 ///
@@ -529,7 +529,7 @@ func getSingleRealtimeEntity(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError)
 func getReceiveChannels(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Int32 {
     try getInteger(forProperty: kMIDIPropertyReceiveChannels, of: ref)
 }
-    
+
 /// Get the bitmap of channels on which the object transmits messages.
 /// (`kMIDIPropertyTransmitChannels`)
 ///
@@ -537,7 +537,7 @@ func getReceiveChannels(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> I
 func getTransmitChannels(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Int32 {
     try getInteger(forProperty: kMIDIPropertyTransmitChannels, of: ref)
 }
-    
+
 /// Get the bitmap of channels on which the object transmits messages.
 /// (`kMIDIPropertyMaxReceiveChannels`)
 ///
@@ -545,7 +545,7 @@ func getTransmitChannels(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> 
 func getMaxReceiveChannels(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Int32 {
     try getInteger(forProperty: kMIDIPropertyMaxReceiveChannels, of: ref)
 }
-    
+
 /// Get the maximum number of MIDI channels on which a device may simultaneously transmit channel
 /// messages.
 /// (`kMIDIPropertyMaxTransmitChannels`)
@@ -556,9 +556,9 @@ func getMaxReceiveChannels(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -
 func getMaxTransmitChannels(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Int32 {
     try getInteger(forProperty: kMIDIPropertyMaxTransmitChannels, of: ref)
 }
-    
+
 // MARK: Banks
-    
+
 /// Get a Boolean value that indicates whether the device or entity responds to MIDI bank select LSB
 /// messages.
 /// (`kMIDIPropertyReceivesBankSelectLSB`)
@@ -567,7 +567,7 @@ func getMaxTransmitChannels(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) 
 func getReceivesBankSelectLSB(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Bool {
     try getInteger(forProperty: kMIDIPropertyReceivesBankSelectLSB, of: ref) == 1
 }
-    
+
 /// Get a Boolean value that indicates whether the device or entity responds to MIDI bank select MSB
 /// messages.
 /// (`kMIDIPropertyReceivesBankSelectMSB`)
@@ -576,7 +576,7 @@ func getReceivesBankSelectLSB(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError
 func getReceivesBankSelectMSB(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Bool {
     try getInteger(forProperty: kMIDIPropertyReceivesBankSelectMSB, of: ref) == 1
 }
-    
+
 /// Get a Boolean value that indicates whether the device or entity transmits MIDI bank select LSB
 /// messages.
 /// (`kMIDIPropertyTransmitsBankSelectLSB`)
@@ -585,7 +585,7 @@ func getReceivesBankSelectMSB(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError
 func getTransmitsBankSelectLSB(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Bool {
     try getInteger(forProperty: kMIDIPropertyTransmitsBankSelectLSB, of: ref) == 1
 }
-    
+
 /// Get a Boolean value that indicates whether the device or entity transmits MIDI bank select MSB
 /// messages.
 /// (`kMIDIPropertyTransmitsBankSelectMSB`)
@@ -594,9 +594,9 @@ func getTransmitsBankSelectLSB(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOErro
 func getTransmitsBankSelectMSB(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Bool {
     try getInteger(forProperty: kMIDIPropertyTransmitsBankSelectMSB, of: ref) == 1
 }
-    
+
 // MARK: Notes
-    
+
 /// Get a Boolean value that indicates whether the device or entity responds to MIDI Note On
 /// messages.
 /// (`kMIDIPropertyReceivesNotes`)
@@ -605,7 +605,7 @@ func getTransmitsBankSelectMSB(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOErro
 func getReceivesNotes(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Bool {
     try getInteger(forProperty: kMIDIPropertyReceivesNotes, of: ref) == 1
 }
-    
+
 /// Get a Boolean value that indicates whether the device or entity transmits MIDI note messages.
 /// (`kMIDIPropertyTransmitsNotes`)
 ///
@@ -613,9 +613,9 @@ func getReceivesNotes(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Boo
 func getTransmitsNotes(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Bool {
     try getInteger(forProperty: kMIDIPropertyTransmitsNotes, of: ref) == 1
 }
-    
+
 // MARK: Program Changes
-    
+
 /// Get a Boolean value that indicates whether the device or entity responds to MIDI Program Change
 /// messages.
 /// (`kMIDIPropertyReceivesProgramChanges`)
@@ -624,7 +624,7 @@ func getTransmitsNotes(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Bo
 func getReceivesProgramChanges(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Bool {
     try getInteger(forProperty: kMIDIPropertyReceivesProgramChanges, of: ref) == 1
 }
-    
+
 /// Get a Boolean value that indicates whether the device or entity transmits MIDI Program Change
 /// messages.
 /// (`kMIDIPropertyTransmitsProgramChanges`)
@@ -633,9 +633,9 @@ func getReceivesProgramChanges(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOErro
 func getTransmitsProgramChanges(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Bool {
     try getInteger(forProperty: kMIDIPropertyTransmitsProgramChanges, of: ref) == 1
 }
-    
+
 // MARK: - Full Property List
-    
+
 // For full details:
 // https://developer.apple.com/documentation/coremidi/midi_services/midi_object_properties
 //

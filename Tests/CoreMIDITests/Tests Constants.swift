@@ -1,6 +1,6 @@
 //
 //  Tests Constants.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -9,9 +9,9 @@ import CoreMIDI
 /// Constants and mocks for unit tests.
 /// Provides a source of 'truth' for raw data formats with which to run tests.
 public enum kMIDIPacket {
-    // swiftformat:options --wrapcollections preserve
-    // swiftformat:options --wraparguments preserve
-    
+    // swiftformat:disable consecutiveSpaces wrapFunctionBodies
+    // swiftformat:options --wrap-collections preserve --wrap-arguments preserve --allow-partial-wrapping true
+
     /// Single MIDIPacket containing one MIDI events
     public static let noteOn60Vel65Chan1 = MIDIPacket(
         timeStamp: MIDITimeStamp(123_456_789),
@@ -50,7 +50,7 @@ public enum kMIDIPacket {
                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00)
     )
-	
+
     /// Single MIDIPacket containing two MIDI events
     public static let noteOn60Vel65Chan1_CC12Val105Chan1 = MIDIPacket(
         timeStamp: MIDITimeStamp(987_654_321),
@@ -90,9 +90,9 @@ public enum kMIDIPacket {
                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00)
     )
-    
+
     // MARK: - Invalid Packets, for Testing Only
-    
+
     /// Empty packet with 256 zero bytes.
     /// Not a valid MIDI packet - doesn't parse to any events. Only for I/O testing.
     public static let emptyBytes256Length = MIDIPacket(
@@ -131,7 +131,7 @@ public enum kMIDIPacket {
                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00)
     )
-    
+
     /// Single MIDIPacket containing 256 bytes.
     /// Not a valid MIDI packet - doesn't parse to any events. Only for I/O testing.
     public static let full256Bytes = MIDIPacket(
@@ -170,6 +170,7 @@ public enum kMIDIPacket {
                0xF0, 0xF1, 0xF2, 0xF3, 0xF4, 0xF5, 0xF6, 0xF7,
                0xF8, 0xF9, 0xFA, 0xFB, 0xFC, 0xFD, 0xFE, 0xFF)
     )
+
     public static let full256Bytes_rawBytes: [UInt8] = [
         0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
         0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F,

@@ -1,13 +1,13 @@
 //
 //  MIDIManager addOutput.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
 #if !os(tvOS) && !os(watchOS)
 
-import Foundation
 import CoreMIDI
+import Foundation
 
 extension MIDIManager {
     /// Creates a new managed virtual output in the system and adds it to the ``MIDIManager/managedOutputs``
@@ -48,17 +48,17 @@ extension MIDIManager {
             midiManager: self,
             api: preferredAPI
         )
-        
+
         managedOutputs[tag] = newVS
-        
+
         try newVS.create(in: self)
-        
+
         guard let successfulID = newVS.uniqueID else {
             throw .connectionError(
                 "Could not read virtual MIDI endpoint unique ID."
             )
         }
-        
+
         uniqueID.writeID(successfulID)
     }
 }

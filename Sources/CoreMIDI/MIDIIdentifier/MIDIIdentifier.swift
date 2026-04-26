@@ -1,6 +1,6 @@
 //
 //  MIDIIdentifier.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -25,7 +25,7 @@ extension Set<MIDIIdentifier> {
     public func asIdentities() -> Set<MIDIEndpointIdentity> {
         // for some reason Set(map { ... }) was not working
         // so we have to use reduce
-    
+
         reduce(into: Set<MIDIEndpointIdentity>()) {
             $0.insert(.uniqueID($1))
         }

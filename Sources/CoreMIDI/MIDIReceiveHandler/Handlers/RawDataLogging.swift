@@ -1,6 +1,6 @@
 //
 //  RawDataLogging.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -12,7 +12,7 @@ import os.log
 extension MIDIReceiver {
     /// Handler for the ``rawDataLogging(_:)`` MIDI receiver.
     public typealias RawDataLoggingHandler = @Sendable (_ packetBytesString: String) -> Void
-    
+
     /// Raw data logging handler (hex byte strings).
     /// On systems that use legacy MIDI 1.0 packets, their raw bytes will be logged.
     /// On systems that support UMP and MIDI 2.0, the raw UMP packet data is logged.
@@ -35,7 +35,7 @@ extension MIDIReceiver {
             )
             #endif
         }
-        
+
         return RawData { packet in
             let logString = generateLogString(
                 bytes: packet.bytes,
@@ -45,7 +45,7 @@ extension MIDIReceiver {
             stringLogHandler(logString)
         }
     }
-    
+
     fileprivate static func generateLogString(
         bytes: [UInt8],
         timeStamp: CoreMIDITimeStamp,
@@ -54,12 +54,12 @@ extension MIDIReceiver {
         var stringOutput = bytes
             .hexString(padEachTo: 2, prefixes: false)
             + " timeStamp:\(timeStamp)"
-        
+
         // not all packets will contain source refs
         if let source {
             stringOutput += " source:\(source.displayName.quoted)"
         }
-        
+
         return stringOutput
     }
 }

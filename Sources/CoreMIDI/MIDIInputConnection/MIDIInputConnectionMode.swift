@@ -1,6 +1,6 @@
 //
 //  MIDIInputConnectionMode.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -10,7 +10,7 @@
 public enum MIDIInputConnectionMode {
     /// Specific endpoint(s) criteria.
     case outputs(matching: Set<MIDIEndpointIdentity>)
-    
+
     /// Automatically connects to all endpoints.
     /// (Endpoint filters are respected.)
     ///
@@ -30,12 +30,12 @@ extension MIDIInputConnectionMode {
     public static func outputs(matching identities: [MIDIEndpointIdentity]) -> Self {
         .outputs(matching: Set(identities))
     }
-    
+
     /// Specific endpoint(s) criteria.
     public static func outputs(_ endpoints: [MIDIOutputEndpoint]) -> Self {
         .outputs(matching: endpoints.asIdentities())
     }
-    
+
     /// Empty endpoint(s) criteria set.
     public static let none: Self = .outputs(matching: [])
 }

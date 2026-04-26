@@ -1,6 +1,6 @@
 //
 //  MIDIEndpointsProtocol.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -11,24 +11,24 @@ import Foundation
 public protocol MIDIEndpointsProtocol where Self: Equatable, Self: Hashable, Self: Sendable {
     /// List of all MIDI input endpoints in the system.
     var inputs: [MIDIInputEndpoint] { get }
-    
+
     /// List of MIDI input endpoints in the system owned by the ``MIDIManager`` instance.
     var inputsOwned: [MIDIInputEndpoint] { get }
-    
+
     /// List of MIDI input endpoints in the system omitting virtual endpoints owned by the
     /// ``MIDIManager`` instance.
     var inputsUnowned: [MIDIInputEndpoint] { get }
-    
+
     /// List of all MIDI output endpoints in the system.
     var outputs: [MIDIOutputEndpoint] { get }
-    
+
     /// List of MIDI output endpoints in the system owned by the ``MIDIManager`` instance.
     var outputsOwned: [MIDIOutputEndpoint] { get }
-    
+
     /// List of MIDI output endpoints in the system omitting virtual endpoints owned by the
     /// ``MIDIManager`` instance.
     var outputsUnowned: [MIDIOutputEndpoint] { get }
-    
+
     /// Manually update the locally cached contents from the system.
     /// This method does not need to be manually invoked, as it is called automatically by the
     /// ``MIDIManager`` when MIDI system endpoints change.
@@ -61,33 +61,35 @@ extension MIDIEndpointsProtocol {
         outputsUnowned: [MIDIOutputEndpoint]
     ) {
         let inputs = getSystemDestinationEndpoints()
-        
+
         let inputsUnowned: [MIDIInputEndpoint]
         if let manager {
-            let managedInputsIDs = manager.managedInputs.values
-                .compactMap { $0.uniqueID }
-            
+            let managedInputsIDs = manager.managedInputs
+                .values
+                .compactMap(\.uniqueID)
+
             inputsUnowned = inputs.filter {
                 !managedInputsIDs.contains($0.uniqueID)
             }
         } else {
             inputsUnowned = inputs
         }
-        
+
         let outputs = getSystemSourceEndpoints()
-        
+
         let outputsUnowned: [MIDIOutputEndpoint]
         if let manager {
-            let managedOutputsIDs = manager.managedOutputs.values
-                .compactMap { $0.uniqueID }
-            
+            let managedOutputsIDs = manager.managedOutputs
+                .values
+                .compactMap(\.uniqueID)
+
             outputsUnowned = outputs.filter {
                 !managedOutputsIDs.contains($0.uniqueID)
             }
         } else {
             outputsUnowned = outputs
         }
-        
+
         return (
             inputs: inputs,
             inputsUnowned: inputsUnowned,

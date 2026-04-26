@@ -1,6 +1,6 @@
 //
 //  StrongEventsReceiver.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -11,16 +11,16 @@ extension MIDIReceiver {
     /// to the ``ReceivesMIDIEvents`` protocol.
     final class StrongEventsReceiver: EventsBase, @unchecked Sendable { // forced to use @unchecked due to EventsBase
         let receiver: ReceivesMIDIEvents
-        
+
         init(
             options: MIDIReceiverOptions,
             receiver: ReceivesMIDIEvents
         ) {
             self.receiver = receiver
-            
+
             super.init(options: options)
         }
-        
+
         override func handle(
             events: [MIDIEvent],
             timeStamp: CoreMIDITimeStamp,

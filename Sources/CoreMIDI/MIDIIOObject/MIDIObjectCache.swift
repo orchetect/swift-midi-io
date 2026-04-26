@@ -1,6 +1,6 @@
 //
 //  MIDIObjectCache.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -13,9 +13,9 @@ struct MIDIObjectCache {
     var devices: Set<MIDIDevice> = []
     var inputEndpoints: Set<MIDIInputEndpoint> = []
     var outputEndpoints: Set<MIDIOutputEndpoint> = []
-    
+
     init() { }
-    
+
     init(from manager: MIDIManager) {
         update(from: manager)
     }
@@ -30,17 +30,20 @@ extension MIDIObjectCache {
             inputEndpoints = []
             outputEndpoints = []
         }
-        
+
         // add or replace exiting objects that share the same Core MIDI ref.
-        manager.devices.devices
+        manager.devices
+            .devices
             .filter { $0.uniqueID != .invalidMIDIIdentifier }
             .forEach { devices.update(with: $0) }
-        
-        manager.endpoints.inputs
+
+        manager.endpoints
+            .inputs
             .filter { $0.uniqueID != .invalidMIDIIdentifier }
             .forEach { inputEndpoints.update(with: $0) }
-        
-        manager.endpoints.outputs
+
+        manager.endpoints
+            .outputs
             .filter { $0.uniqueID != .invalidMIDIIdentifier }
             .forEach { outputEndpoints.update(with: $0) }
     }

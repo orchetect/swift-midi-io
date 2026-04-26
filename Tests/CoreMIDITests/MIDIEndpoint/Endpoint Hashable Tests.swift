@@ -1,6 +1,6 @@
 //
 //  Endpoint Hashable Tests.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -9,29 +9,30 @@
 @testable import SwiftMIDIIO
 import Testing
 
-@Suite struct Endpoint_Hashable_Tests {
+@Suite
+struct Endpoint_Hashable_Tests {
     @Test
     func inputEndpoint1() {
         let same: Set<MIDIInputEndpoint> = [
             .init(from: 123),
             .init(from: 123)
         ]
-        
+
         #expect(same.count == 1)
     }
-    
+
     @Test
     func inputEndpoint1B() {
         let same: Set<MIDIInputEndpoint> = [
             .init(from: 123),
             .init(from: 456)
         ]
-        
+
         // even with different ref IDs, since these don't actually currently
         // exist in the system, their Unique IDs will both be 0 and thus equal
         #expect(same.count == 1)
     }
-    
+
     @Test
     func inputEndpoint2() {
         let same: Set<MIDIInputEndpoint> = [
@@ -48,10 +49,10 @@ import Testing
                 uniqueID: 12_345_678
             )
         ]
-        
+
         #expect(same.count == 1)
     }
-    
+
     @Test
     func inputEndpoint2Diff() {
         let same: Set<MIDIInputEndpoint> = [
@@ -68,32 +69,32 @@ import Testing
                 uniqueID: 987_654_321
             )
         ]
-        
+
         #expect(same.count == 2)
     }
-    
+
     @Test
     func outputEndpoint1() {
         let same: Set<MIDIOutputEndpoint> = [
             .init(from: 123),
             .init(from: 123)
         ]
-        
+
         #expect(same.count == 1)
     }
-    
+
     @Test
     func outputEndpoint1B() {
         let same: Set<MIDIOutputEndpoint> = [
             .init(from: 123),
             .init(from: 456)
         ]
-        
+
         // even with different ref IDs, since these don't actually currently
         // exist in the system, their Unique IDs will both be 0 and thus equal
         #expect(same.count == 1)
     }
-    
+
     @Test
     func outputEndpoint2() {
         let same: Set<MIDIOutputEndpoint> = [
@@ -110,10 +111,10 @@ import Testing
                 uniqueID: 12_345_678
             )
         ]
-        
+
         #expect(same.count == 1)
     }
-    
+
     @Test
     func outputEndpoint2Diff() {
         let same: Set<MIDIOutputEndpoint> = [
@@ -130,7 +131,7 @@ import Testing
                 uniqueID: 987_654_321
             )
         ]
-        
+
         #expect(same.count == 2)
     }
 }

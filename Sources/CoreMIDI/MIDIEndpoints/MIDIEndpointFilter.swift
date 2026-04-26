@@ -1,6 +1,6 @@
 //
 //  MIDIEndpointFilter.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -12,10 +12,10 @@ import Foundation
 public struct MIDIEndpointFilter {
     /// Virtual endpoints owned by the MIDI I/O ``MIDIManager`` instance.
     public var owned: Bool = false
-    
+
     /// Endpoints matching the given criteria.
     public var criteria: Set<MIDIEndpointIdentity> = []
-    
+
     /// Endpoint filter rules.
     public init(
         owned: Bool = false,
@@ -24,7 +24,7 @@ public struct MIDIEndpointFilter {
         self.owned = owned
         self.criteria = criteria
     }
-    
+
     /// Endpoint filter rules.
     @_disfavoredOverload
     public init(
@@ -34,7 +34,7 @@ public struct MIDIEndpointFilter {
         self.owned = owned
         self.criteria = Set(criteria)
     }
-    
+
     /// Endpoint filter rules.
     @_disfavoredOverload
     public init(
@@ -42,11 +42,11 @@ public struct MIDIEndpointFilter {
         criteria: Set<some MIDIEndpoint & Hashable>
     ) {
         self.owned = owned
-    
+
         let ids = criteria.asAnyEndpoints().asIdentities()
         self.criteria = Set(ids)
     }
-    
+
     /// Endpoint filter rules.
     @_disfavoredOverload
     public init(
@@ -102,7 +102,7 @@ extension MIDIEndpointFilter {
     public static func `default`() -> Self {
         .init()
     }
-    
+
     /// Convenience constructor to return an instance of `owned == true` and empty criteria.
     public static func owned() -> Self {
         .init(

@@ -1,13 +1,13 @@
 //
 //  MIDIManager addInput.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
 #if !os(tvOS) && !os(watchOS)
 
-import Foundation
 import CoreMIDI
+import Foundation
 
 extension MIDIManager {
     /// Creates a new managed virtual input in the system and adds it to the ``MIDIManager/managedInputs``
@@ -51,17 +51,17 @@ extension MIDIManager {
             midiManager: self,
             api: preferredAPI
         )
-        
+
         managedInputs[tag] = newVD
-        
+
         try newVD.create(in: self)
-        
+
         guard let successfulID = newVD.uniqueID else {
             throw .connectionError(
                 "Could not read virtual MIDI endpoint unique ID."
             )
         }
-        
+
         uniqueID.writeID(successfulID)
     }
 }

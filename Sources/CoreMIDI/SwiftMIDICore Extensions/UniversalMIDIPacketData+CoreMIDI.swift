@@ -1,6 +1,6 @@
 //
 //  UniversalMIDIPacketData+CoreMIDI.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -22,7 +22,7 @@ extension UniversalMIDIPacketData {
     ) {
         self = Self.unwrapPacket(eventPacketPtr, refCon: refCon, refConKnown: refConKnown)
     }
-    
+
     /// Universal MIDI Packet.
     init(
         _ eventPacket: MIDIEventPacket,
@@ -31,7 +31,7 @@ extension UniversalMIDIPacketData {
     ) {
         self = Self.packetUnwrapper(eventPacket, refCon: refCon, refConKnown: refConKnown)
     }
-    
+
     fileprivate static func unwrapPacket(
         _ eventPacketPtr: UnsafePointer<MIDIEventPacket>,
         refCon: UnsafeMutableRawPointer?,
@@ -43,7 +43,7 @@ extension UniversalMIDIPacketData {
             source: unpackMIDIRefCon(refCon: refCon, known: refConKnown)
         )
     }
-    
+
     fileprivate static func packetUnwrapper(
         _ eventPacket: MIDIEventPacket,
         refCon: UnsafeMutableRawPointer?,

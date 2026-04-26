@@ -1,6 +1,6 @@
 //
 //  MIDIDevicesProtocol.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -14,7 +14,7 @@ public protocol MIDIDevicesProtocol where Self: Equatable, Self: Hashable, Self:
     /// A device can contain zero or more entities, and an entity can contain zero or more inputs
     /// and output endpoints.
     var devices: [MIDIDevice] { get }
-    
+
     /// Manually update the locally cached contents from the system.
     /// This method does not need to be manually invoked, as it is handled internally when MIDI
     /// system endpoints change.
@@ -41,10 +41,10 @@ extension MIDIDevicesProtocol {
     /// and output endpoints.
     public var inputs: [MIDIDevice: [MIDIInputEndpoint]] {
         devices.reduce(into: [:]) { dict, device in
-            dict[device] = device.entities.flatMap { $0.inputs }
+            dict[device] = device.entities.flatMap(\.inputs)
         }
     }
-    
+
     /// Returns a dictionary keyed by device with value of an array containing all the output
     /// endpoints for the device. (Convenience)
     ///
@@ -52,7 +52,7 @@ extension MIDIDevicesProtocol {
     /// and output endpoints.
     public var outputs: [MIDIDevice: [MIDIOutputEndpoint]] {
         devices.reduce(into: [:]) { dict, device in
-            dict[device] = device.entities.flatMap { $0.outputs }
+            dict[device] = device.entities.flatMap(\.outputs)
         }
     }
 }

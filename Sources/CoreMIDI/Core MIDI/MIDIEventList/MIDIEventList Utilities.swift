@@ -1,6 +1,6 @@
 //
 //  MIDIEventList Utilities.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -22,7 +22,7 @@ extension CoreMIDI.MIDIEventList {
             words: packetWords,
             timeStamp: timeStamp
         )
-    
+
         self = CoreMIDI.MIDIEventList(
             protocol: midiProtocol,
             numPackets: 1,

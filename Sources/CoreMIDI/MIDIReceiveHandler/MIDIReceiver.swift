@@ -1,6 +1,6 @@
 //
 //  MIDIReceiver.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -12,7 +12,7 @@ import Foundation
 public enum MIDIReceiver {
     /// One or more receivers in series.
     case group([MIDIReceiver])
-    
+
     /// Provides a closure to handle strongly-typed MIDI events including packet timestamp and
     /// source endpoint metadata. (Recommended)
     /// Source endpoint is only available when used with ``MIDIInputConnection`` and will always be
@@ -21,14 +21,14 @@ public enum MIDIReceiver {
         options: MIDIReceiverOptions = [],
         _ handler: EventsHandler
     )
-    
+
     /// Provides a convenience to automatically log MIDI events to the console.
     /// (Only logs events in `DEBUG` preprocessor flag builds.)
     case eventsLogging(
         options: MIDIReceiverOptions = [],
         _ handler: EventsLoggingHandler? = nil
     )
-    
+
     /// Raw packet data receive handler.
     /// This handler is provided for debugging and data introspection but is discouraged for
     /// manually parsing MIDI packets.
@@ -36,7 +36,7 @@ public enum MIDIReceiver {
     case rawData(
         _ handler: RawDataHandler
     )
-    
+
     /// Raw data logging handler (hex byte strings).
     /// On systems that use legacy MIDI 1.0 packets, their raw bytes will be logged.
     /// On systems that support UMP and MIDI 2.0, the raw UMP packet data is logged.
@@ -48,7 +48,7 @@ public enum MIDIReceiver {
     case rawDataLogging(
         _ handler: RawDataLoggingHandler? = nil
     )
-    
+
     /// Pass to a receiver object instance.
     /// MIDI event receive handler that holds a reference to a receiver object that conforms to the
     /// `ReceivesMIDIEvents` protocol.
@@ -57,7 +57,7 @@ public enum MIDIReceiver {
         _ object: ReceivesMIDIEvents,
         options: MIDIReceiverOptions = []
     )
-    
+
     /// Pass to a receiver object instance.
     /// MIDI event receive handler that holds a reference to a receiver object that conforms to the
     /// `ReceivesMIDIEvents` protocol.
@@ -80,22 +80,22 @@ extension MIDIReceiver {
         case let .group(definitions):
             let handlers = definitions.map { $0.create() }
             return Group(handlers)
-            
+
         case let .events(options, handler):
             return Events(options: options, handler: handler)
-            
+
         case let .eventsLogging(options, handler):
             return Self._eventsLogging(options: options, handler: handler)
-            
+
         case let .rawData(handler):
             return RawData(handler: handler)
-            
+
         case let .rawDataLogging(handler):
             return Self._rawDataLogging(handler: handler)
-            
+
         case let .strong(object, options):
             return StrongEventsReceiver(options: options, receiver: object)
-            
+
         case let .weak(object, options):
             return WeakEventsReceiver(options: options, receiver: object)
         }

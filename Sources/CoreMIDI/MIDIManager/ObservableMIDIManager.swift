@@ -1,13 +1,13 @@
 //
 //  ObservableMIDIManager.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
 #if !os(tvOS) && !os(watchOS)
 
-import Foundation
 import CoreMIDI
+import Foundation
 import SwiftMIDIInternals
 
 /// ``MIDIManager`` subclass that is `@Observable` in a SwiftUI view.
@@ -58,7 +58,8 @@ import SwiftMIDIInternals
 /// }
 /// ```
 @available(macOS 14.0, iOS 17.0, watchOS 10.0, tvOS 17.0, *)
-@Observable public final class ObservableMIDIManager: MIDIManager,
+@Observable
+public final class ObservableMIDIManager: MIDIManager,
     @unchecked Sendable // must restate @unchecked from superclass
 {
     override public internal(set) var devices: MIDIDevices {
@@ -116,7 +117,7 @@ import SwiftMIDIInternals
     }
 
     private let observableEndpoints = ThreadSynchronizedPThreadMutex(wrappedValue: MIDIEndpoints())
-    
+
     // override func updateDevicesAndEndpoints() {
     //     DispatchQueue.main.async {
     //         super.updateDevicesAndEndpoints()

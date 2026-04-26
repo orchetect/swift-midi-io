@@ -1,13 +1,13 @@
 //
 //  MIDIOutputConnection.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
 #if !os(tvOS) && !os(watchOS)
 
-import Foundation
 import CoreMIDI
+import Foundation
 import SwiftMIDICore
 import SwiftMIDIInternals
 
@@ -28,54 +28,56 @@ import SwiftMIDIInternals
 /// > managed connection.)
 public final class MIDIOutputConnection: MIDIManaged, @unchecked Sendable { // @unchecked required for @PThreadMutex use
     nonisolated(unsafe) weak var midiManager: MIDIManager?
-    
+
     // MIDIManaged
-    
+
     public private(set) nonisolated(unsafe) var api: CoreMIDIAPIVersion
-    
+
     // MIDIManagedSendsMessages
-    
-    public var midiProtocol: MIDIProtocolVersion { api.midiProtocol }
-    
+
+    public var midiProtocol: MIDIProtocolVersion {
+        api.midiProtocol
+    }
+
     /// The Core MIDI output port reference.
     @PThreadMutex
     public private(set) var coreMIDIOutputPortRef: CoreMIDIPortRef?
-    
+
     // class-specific
-    
+
     @PThreadMutex
     public private(set) var inputsCriteria: Set<MIDIEndpointIdentity> = []
-    
+
     /// Stores criteria after applying any filters that have been set in the ``filter`` property.
     /// Passing nil will re-use existing criteria, re-applying the filters.
     private func updateCriteria(
         _ criteria: Set<MIDIEndpointIdentity>? = nil
     ) {
         var newCriteria = criteria ?? inputsCriteria
-    
+
         if filter.owned,
            let midiManager
         {
             let managedInputs: [MIDIEndpointIdentity] = midiManager.managedInputs
-                .compactMap { $0.value.uniqueID }
+                .compactMap(\.value.uniqueID)
                 .map { .uniqueID($0) }
-    
+
             newCriteria = newCriteria
                 .filter { !managedInputs.contains($0) }
         }
-    
+
         if !filter.criteria.isEmpty {
             newCriteria = newCriteria
                 .filter { !filter.criteria.contains($0) }
         }
-    
+
         inputsCriteria = newCriteria
     }
-    
+
     /// The Core MIDI input endpoint(s) reference(s).
     @PThreadMutex
     public private(set) var coreMIDIInputEndpointRefs: Set<CoreMIDIEndpointRef> = []
-    
+
     /// Operating mode.
     ///
     /// Changes take effect immediately.
@@ -88,18 +90,18 @@ public final class MIDIOutputConnection: MIDIManaged, @unchecked Sendable { // @
             try? refreshConnection(in: midiManager)
         }
     }
-    
+
     /// Reads the ``mode`` property and applies it to the stored criteria.
     private func updateCriteriaFromMode() {
         switch mode {
         case .inputs:
             updateCriteria()
-    
+
         case .allInputs:
             updateCriteria(.currentInputs())
         }
     }
-    
+
     /// Endpoint filter.
     ///
     /// Changes take effect immediately.
@@ -111,9 +113,9 @@ public final class MIDIOutputConnection: MIDIManaged, @unchecked Sendable { // @
             try? refreshConnection(in: midiManager)
         }
     }
-    
+
     // init
-    
+
     /// Internal init.
     /// This object is not meant to be instanced by the user. This object is automatically created
     /// and managed by the MIDI I/O ``MIDIManager`` instance when calling
@@ -138,7 +140,7 @@ public final class MIDIOutputConnection: MIDIManaged, @unchecked Sendable { // @
         self.api = api.isValidOnCurrentPlatform ? api : .bestForPlatform()
         self.mode = mode
         self.filter = filter
-    
+
         // relies on midiManager, mode, and filter being set first
         switch mode {
         case let .inputs(criteria):
@@ -147,7 +149,7 @@ public final class MIDIOutputConnection: MIDIManaged, @unchecked Sendable { // @
             updateCriteriaFromMode()
         }
     }
-    
+
     deinit {
         // note that we can't rely on deinit to dispose of the Core MIDI object, since it's possible the
         // consumer has stored a strong reference to this class somewhere even though we discourage it
@@ -174,9 +176,9 @@ extension MIDIOutputConnection {
             // so just return; don't throw an error
             return
         }
-    
+
         var newOutputPortRef = MIDIPortRef()
-    
+
         // connection name must be unique, otherwise process might hang (?)
         try? MIDIOutputPortCreate(
             manager.coreMIDIClientRef,
@@ -184,20 +186,20 @@ extension MIDIOutputConnection {
             &newOutputPortRef
         )
         .throwIfOSStatusErr()
-    
+
         coreMIDIOutputPortRef = newOutputPortRef
     }
-    
+
     /// Disposes of the output port if it exists.
     func closeOutput() throws(MIDIIOError) {
         guard let coreMIDIOutputPortRef else { return }
-    
+
         defer { self.coreMIDIOutputPortRef = nil }
-    
+
         try MIDIPortDispose(coreMIDIOutputPortRef)
             .throwIfOSStatusErr()
     }
-    
+
     /// Resolve MIDI Input(s) criteria to concrete reference IDs and cache them.
     ///
     /// - Parameter manager: ``MIDIManager`` instance by reference
@@ -210,29 +212,29 @@ extension MIDIOutputConnection {
                 $0.locate(in: manager.endpoints.inputs)?
                     .coreMIDIObjectRef
             }
-    
+
         coreMIDIInputEndpointRefs = Set(getInputEndpointRefs)
     }
-    
+
     /// Refresh the connection.
     /// This is typically called after receiving a Core MIDI notification that system port
     /// configuration has changed or endpoints were added/removed.
     func refreshConnection(in manager: MIDIManager) throws(MIDIIOError) {
         // re-resolve endpoints only if at least one matching endpoint exists in the system
-    
+
         let getSystemInputs = manager.endpoints.inputs
-    
+
         var matchedEndpointCount = 0
-    
+
         for criteria in inputsCriteria {
             if criteria.locate(in: getSystemInputs) != nil { matchedEndpointCount += 1 }
         }
-    
+
         try resolveEndpoints(in: manager)
     }
-    
+
     /// Disposes of the internal state and the Core MIDI object.
-    /// 
+    ///
     /// Only call when removing the connection from the MIDI manager.
     ///
     /// Errors thrown can be safely ignored and are typically only useful for debugging purposes.
@@ -243,7 +245,7 @@ extension MIDIOutputConnection {
 
 extension MIDIOutputConnection {
     // MARK: Add Endpoints
-    
+
     /// Add input endpoints from the connection.
     /// Endpoint filters are respected.
     public func add(
@@ -251,13 +253,13 @@ extension MIDIOutputConnection {
     ) {
         let combined = inputsCriteria.union(inputs)
         updateCriteria(combined)
-    
+
         if let midiManager {
             // this will re-generate coreMIDIInputEndpointRefs
             try? refreshConnection(in: midiManager)
         }
     }
-    
+
     /// Add input endpoints from the connection.
     /// Endpoint filters are respected.
     @_disfavoredOverload
@@ -266,22 +268,22 @@ extension MIDIOutputConnection {
     ) {
         add(inputs: inputs.asIdentities())
     }
-    
+
     // MARK: Remove Endpoints
-    
+
     /// Remove input endpoints from the connection.
     public func remove(
         inputs: [MIDIEndpointIdentity]
     ) {
         let removed = inputsCriteria.subtracting(inputs)
         updateCriteria(removed)
-    
+
         if let midiManager {
             // this will re-generate coreMIDIInputEndpointRefs
             try? refreshConnection(in: midiManager)
         }
     }
-    
+
     /// Remove input endpoints from the connection.
     @_disfavoredOverload
     public func remove(
@@ -289,7 +291,7 @@ extension MIDIOutputConnection {
     ) {
         remove(inputs: inputs.asIdentities())
     }
-    
+
     /// Remove all input endpoints from the connection.
     public func removeAllInputs() {
         let inputsToDisconnect = inputsCriteria
@@ -308,13 +310,13 @@ extension MIDIOutputConnection {
             add(inputs: [newInput])
             return
         }
-    
+
         switch internalNotification {
         case .setupChanged, .added, .removed:
             if let midiManager {
                 try? refreshConnection(in: midiManager)
             }
-    
+
         default:
             break
         }
@@ -327,22 +329,22 @@ extension MIDIOutputConnection: CustomStringConvertible {
             .map {
                 // ref
                 var str = "\($0):"
-    
+
                 // name
                 if let getName = try? getName(of: $0) {
                     str += "\(getName)".quoted
                 } else {
                     str += "nil"
                 }
-    
+
                 return str
             }
-    
+
         var outputPortRefString = "nil"
         if let coreMIDIOutputPortRef {
             outputPortRefString = "\(coreMIDIOutputPortRef)"
         }
-    
+
         return "MIDIOutputConnection(criteria: \(inputsCriteria), inputEndpointRefs: \(inputEndpointsString), outputPortRef: \(outputPortRefString))"
     }
 }
@@ -358,10 +360,10 @@ extension MIDIOutputConnection: _MIDIManagedSendsMessages {
                 "Output port reference is nil."
             )
         }
-    
+
         // dispatch the packetlist to each input independently
         // but we can use the same output port
-    
+
         for inputEndpointRef in coreMIDIInputEndpointRefs {
             // ignore errors with try? since we don't want to return early in the event that sending
             // to subsequent inputs may succeed
@@ -373,7 +375,7 @@ extension MIDIOutputConnection: _MIDIManagedSendsMessages {
             .throwIfOSStatusErr()
         }
     }
-    
+
     @available(macOS 11, iOS 14, macCatalyst 14, *)
     func send(eventList: UnsafeMutablePointer<MIDIEventList>) throws(MIDIIOError) {
         guard let coreMIDIOutputPortRef else {
@@ -381,10 +383,10 @@ extension MIDIOutputConnection: _MIDIManagedSendsMessages {
                 "Output port reference is nil."
             )
         }
-    
+
         // dispatch the eventlist to each input independently
         // but we can use the same output port
-    
+
         for inputEndpointRef in coreMIDIInputEndpointRefs {
             // ignore errors with try? since we don't want to return early in the event that sending
             // to subsequent inputs may succeed

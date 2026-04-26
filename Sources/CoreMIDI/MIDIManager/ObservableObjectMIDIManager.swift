@@ -1,14 +1,14 @@
 //
 //  ObservableObjectMIDIManager.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
 #if !os(tvOS) && !os(watchOS)
 
 import Combine
-import Foundation
 import CoreMIDI
+import Foundation
 import SwiftMIDIInternals
 
 /// ``MIDIManager`` subclass that is an `ObservableObject` in a SwiftUI or Combine context.

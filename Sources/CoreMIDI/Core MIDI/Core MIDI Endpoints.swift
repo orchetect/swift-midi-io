@@ -1,6 +1,6 @@
 //
 //  Core MIDI Endpoints.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -9,42 +9,42 @@
 import CoreMIDI
 
 // MARK: - Sources
-    
+
 /// Internal:
 /// List of MIDI endpoints in the system (computed property)
 func getSystemSourceEndpoints() -> [MIDIOutputEndpoint] {
     let srcCount = MIDIGetNumberOfSources()
-    
+
     var endpoints: [MIDIOutputEndpoint] = []
     endpoints.reserveCapacity(srcCount)
-    
+
     for i in 0 ..< srcCount {
         let endpointRef = MIDIGetSource(i)
         let endpoint = MIDIOutputEndpoint(from: endpointRef)
         guard endpoint.uniqueID != .invalidMIDIIdentifier else { continue }
         endpoints.append(endpoint)
     }
-    
+
     return endpoints
 }
-    
+
 // MARK: - Destinations
-    
+
 /// Internal:
 /// Dictionary of destination names & endpoint unique IDs (computed property)
 func getSystemDestinationEndpoints() -> [MIDIInputEndpoint] {
     let destCount = MIDIGetNumberOfDestinations()
-    
+
     var endpoints: [MIDIInputEndpoint] = []
     endpoints.reserveCapacity(destCount)
-    
+
     for i in 0 ..< destCount {
         let endpointRef = MIDIGetDestination(i)
         let endpoint = MIDIInputEndpoint(from: endpointRef)
         guard endpoint.uniqueID != .invalidMIDIIdentifier else { continue }
         endpoints.append(endpoint)
     }
-    
+
     return endpoints
 }
 
@@ -57,16 +57,16 @@ func getSystemSourceEndpointRefs(
     matching name: String
 ) -> [CoreMIDI.MIDIEndpointRef] {
     var refs: [MIDIEndpointRef] = []
-    
+
     for i in 0 ..< MIDIGetNumberOfSources() {
         let endpointRef = MIDIGetSource(i)
         guard endpointRef != 0 else { continue }
         if (try? getName(of: endpointRef)) == name { refs.append(endpointRef) }
     }
-    
+
     return refs
 }
-    
+
 /// Internal:
 /// Returns the first source `MIDIEndpointRef` in the system with a unique ID matching `uniqueID`.
 /// If not found, returns `nil`.
@@ -77,13 +77,13 @@ func getSystemSourceEndpointRef(
     matching uniqueID: CoreMIDI.MIDIUniqueID
 ) -> CoreMIDI.MIDIEndpointRef? {
     guard uniqueID != .invalidMIDIIdentifier else { return nil }
-    
+
     for i in 0 ..< MIDIGetNumberOfSources() {
         let endpointRef = MIDIGetSource(i)
         guard endpointRef != 0 else { continue }
         if (try? getUniqueID(of: endpointRef)) == uniqueID { return endpointRef }
     }
-    
+
     return nil
 }
 
@@ -96,16 +96,16 @@ func getSystemDestinationEndpointRefs(
     matching name: String
 ) -> [CoreMIDI.MIDIEndpointRef] {
     var refs: [MIDIEndpointRef] = []
-    
+
     for i in 0 ..< MIDIGetNumberOfDestinations() {
         let endpointRef = MIDIGetDestination(i)
         guard endpointRef != 0 else { continue }
         if (try? getName(of: endpointRef)) == name { refs.append(endpointRef) }
     }
-    
+
     return refs
 }
-    
+
 /// Internal:
 /// Returns the first destination `MIDIEndpointRef` in the system with a unique ID matching
 /// `uniqueID`. If not found, returns `nil`.
@@ -116,13 +116,13 @@ func getSystemDestinationEndpointRef(
     matching uniqueID: CoreMIDI.MIDIUniqueID
 ) -> CoreMIDI.MIDIEndpointRef? {
     guard uniqueID != .invalidMIDIIdentifier else { return nil }
-    
+
     for i in 0 ..< MIDIGetNumberOfDestinations() {
         let endpointRef = MIDIGetDestination(i)
         guard endpointRef != 0 else { continue }
         if (try? getUniqueID(of: endpointRef)) == uniqueID { return endpointRef }
     }
-    
+
     return nil
 }
 
@@ -132,13 +132,13 @@ func getSystemEntity(
     forEndpoint endpointRef: MIDIEndpointRef
 ) throws(MIDIIOError) -> MIDIEntity? {
     let refPtr: UnsafeMutablePointer<MIDIEntityRef>? = nil
-    
+
     try MIDIEndpointGetEntity(endpointRef, refPtr)
         .throwIfOSStatusErr()
-    
+
     guard let refPtr else { return nil }
     guard refPtr.pointee != MIDIEntityRef() else { return nil }
-    
+
     return MIDIEntity(from: refPtr.pointee)
 }
 

@@ -1,11 +1,11 @@
 //
 //  MIDIIONetworkConnectionPolicy.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
-import Foundation
 import CoreMIDI
+import Foundation
 
 public enum MIDIIONetworkConnectionPolicy: UInt {
     case noOne
@@ -26,26 +26,26 @@ extension MIDIIONetworkConnectionPolicy {
         switch coreMIDIPolicy {
         case .noOne:
             self = .noOne
-            
+
         case .hostsInContactList:
             self = .hostsInContactList
-            
+
         case .anyone:
             self = .anyone
-            
+
         @unknown default:
             self = .noOne
         }
     }
-    
+
     var coreMIDIPolicy: MIDINetworkConnectionPolicy {
         switch self {
         case .noOne:
             .noOne
-            
+
         case .hostsInContactList:
             .hostsInContactList
-            
+
         case .anyone:
             .anyone
         }

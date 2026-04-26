@@ -1,13 +1,13 @@
 //
 //  MIDIManager addOutputConnection.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
 #if !os(tvOS) && !os(watchOS)
 
-import Foundation
 import CoreMIDI
+import Foundation
 
 extension MIDIManager {
     /// Creates a new managed output connection in the system and adds it to the ``MIDIManager/managedOutputConnections``
@@ -36,11 +36,11 @@ extension MIDIManager {
             midiManager: self,
             api: preferredAPI
         )
-        
+
         // store the connection object in the manager,
         // even if subsequent operations fail
         managedOutputConnections[tag] = newCS
-        
+
         try newCS.setupOutput(in: self)
         try newCS.resolveEndpoints(in: self)
     }

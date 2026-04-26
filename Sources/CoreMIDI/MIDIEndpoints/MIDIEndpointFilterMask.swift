@@ -1,6 +1,6 @@
 //
 //  MIDIEndpointFilterMask.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -9,7 +9,7 @@
 public enum MIDIEndpointFilterMask {
     /// Filter by keeping only endpoints that match the filter.
     case only
-    
+
     /// Filter by dropping endpoints that match the filter and retaining all others.
     case drop
 }

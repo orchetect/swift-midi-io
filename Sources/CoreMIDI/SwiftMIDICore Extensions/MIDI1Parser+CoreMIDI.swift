@@ -1,6 +1,6 @@
 //
-//  AdvancedMIDI2Parser+CoreMIDI.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  MIDI1Parser+CoreMIDI.swift
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 

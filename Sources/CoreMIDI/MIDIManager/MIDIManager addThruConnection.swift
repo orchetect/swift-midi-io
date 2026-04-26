@@ -1,13 +1,13 @@
 //
 //  MIDIManager addThruConnection.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
 #if !os(tvOS) && !os(watchOS)
 
-import Foundation
 import CoreMIDI
+import Foundation
 
 extension MIDIManager {
     /// Creates a new MIDI play-through (thru) connection.
@@ -59,19 +59,19 @@ extension MIDIManager {
             midiManager: self,
             api: preferredAPI
         )
-        
+
         // if non-persistent, add to managed array
         if lifecycle == .nonPersistent {
             // store the connection object in the manager,
             // even if subsequent connection fails
             managedThruConnections[tag] = newCT
         }
-        
+
         // otherwise, we won't store a reference to a persistent thru connection
         // persistent connections are stored by the system
         // to analyze or delete a persistent connection,
         // access the `unmanagedPersistentThruConnections(ownerID:)` method.
-        
+
         try newCT.create(in: self)
     }
 }

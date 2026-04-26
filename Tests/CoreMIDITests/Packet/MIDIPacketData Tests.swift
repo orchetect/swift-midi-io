@@ -1,6 +1,6 @@
 //
 //  MIDIPacketData Tests.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -10,39 +10,40 @@ import CoreMIDI
 @testable import SwiftMIDIIO
 import Testing
 
-@Suite struct MIDIPacketData_Tests {
+@Suite
+struct MIDIPacketData_Tests {
     @Test
-    func emptyBytes256Length() throws {
+    func emptyBytes256Length() {
         var testPacket = kMIDIPacket.emptyBytes256Length
         let data = MIDIPacketData(&testPacket, refCon: nil, refConKnown: false)
-        
+
         #expect(data.bytes == [UInt8](repeating: 0x00, count: 256))
         #expect(data.timeStamp == 123_456_789)
     }
-    
+
     @Test
-    func noteOn60Vel65Chan1() throws {
+    func noteOn60Vel65Chan1() {
         var testPacket = kMIDIPacket.noteOn60Vel65Chan1
         let data = MIDIPacketData(&testPacket, refCon: nil, refConKnown: false)
-        
+
         #expect(data.bytes == [0x90, 0x3C, 0x41])
         #expect(data.timeStamp == 123_456_789)
     }
-    
+
     @Test
-    func noteOn60Vel65Chan1_CC12Val105Chan1() throws {
+    func noteOn60Vel65Chan1_CC12Val105Chan1() {
         var testPacket = kMIDIPacket.noteOn60Vel65Chan1_CC12Val105Chan1
         let data = MIDIPacketData(&testPacket, refCon: nil, refConKnown: false)
-        
+
         #expect(data.bytes == [0x90, 0x3C, 0x41, 0xB0, 0x08, 0x69])
         #expect(data.timeStamp == 987_654_321)
     }
-    
+
     @Test
-    func full256Bytes() throws {
+    func full256Bytes() {
         var testPacket = kMIDIPacket.full256Bytes
         let data = MIDIPacketData(&testPacket, refCon: nil, refConKnown: false)
-        
+
         #expect(data.bytes == kMIDIPacket.full256Bytes_rawBytes)
         #expect(data.timeStamp == UInt64.max)
     }

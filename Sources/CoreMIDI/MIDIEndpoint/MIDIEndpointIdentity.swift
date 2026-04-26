@@ -1,6 +1,6 @@
 //
 //  MIDIEndpointIdentity.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -21,7 +21,7 @@ public enum MIDIEndpointIdentity {
     ///
     /// The best method is to use ``uniqueID(_:)``.
     case name(String)
-    
+
     /// Utilizes first endpoint matching the display name. (Convenience, not recommended.)
     ///
     /// ⚠️ Use of this is discouraged outside of debugging, since multiple endpoints can potentially
@@ -29,13 +29,13 @@ public enum MIDIEndpointIdentity {
     ///
     /// The best method is to use ``uniqueID(_:)``.
     case displayName(String)
-    
+
     /// Endpoint matching the unique ID. (Recommended)
     ///
     /// This is typically the primary piece of criterium that should be used to persistently
     /// identify a unique endpoint in the system.
     case uniqueID(MIDIIdentifier)
-    
+
     /// Endpoint matching the unique ID primarily, with fallback display name criterium.
     ///
     /// Priority is given to the endpoint matching the given unique ID. If an endpoint is not found
@@ -58,15 +58,15 @@ extension MIDIEndpointIdentity: Equatable {
         case let .name(lhsName):
             guard case let .name(rhsName) = rhs else { return false }
             return lhsName == rhsName
-    
+
         case let .displayName(lhsDisplayName):
             guard case let .displayName(rhsDisplayName) = rhs else { return false }
             return lhsDisplayName == rhsDisplayName
-    
+
         case let .uniqueID(lhsUniqueID):
             guard case let .uniqueID(rhsUniqueID) = rhs else { return false }
             return lhsUniqueID == rhsUniqueID
-    
+
         case let .uniqueIDWithFallback(
             id: lhsUniqueID,
             fallbackDisplayName: lhsFallbackDisplayName
@@ -76,7 +76,7 @@ extension MIDIEndpointIdentity: Equatable {
                 fallbackDisplayName: rhsFallbackDisplayName
             ) = rhs
             else { return false }
-    
+
             return lhsUniqueID == rhsUniqueID
                 && lhsFallbackDisplayName == rhsFallbackDisplayName
         }
@@ -89,15 +89,15 @@ extension MIDIEndpointIdentity: Hashable {
         case let .name(name):
             hasher.combine("name")
             hasher.combine(name)
-    
+
         case let .displayName(displayName):
             hasher.combine("displayName")
             hasher.combine(displayName)
-    
+
         case let .uniqueID(uniqueID):
             hasher.combine("uniqueID")
             uniqueID.hash(into: &hasher)
-    
+
         case let .uniqueIDWithFallback(
             id: uniqueID,
             fallbackDisplayName: fallbackDisplayName
@@ -116,13 +116,13 @@ extension MIDIEndpointIdentity: CustomStringConvertible {
         switch self {
         case let .name(name):
             "Endpoint Name: \(name.quoted)"
-    
+
         case let .displayName(displayName):
             "Endpoint Display Name: \(displayName.quoted))"
-    
+
         case let .uniqueID(uniqueID):
             "UniqueID: \(uniqueID)"
-    
+
         case let .uniqueIDWithFallback(
             id: uniqueID,
             fallbackDisplayName: fallbackDisplayName
@@ -153,13 +153,13 @@ extension MIDIEndpointIdentity {
         switch self {
         case let .name(name):
             endpoints.first(whereName: name)
-    
+
         case let .displayName(name):
             endpoints.first(whereDisplayName: name)
-    
+
         case let .uniqueID(uniqueID):
             endpoints.first(whereUniqueID: uniqueID)
-    
+
         case let .uniqueIDWithFallback(
             id: uniqueID,
             fallbackDisplayName: fallbackDisplayName
@@ -171,19 +171,19 @@ extension MIDIEndpointIdentity {
             )
         }
     }
-    
+
     /// Returns a Boolean value whether the identity criteria matches the endpoint.
     public func matches(endpoint: some MIDIEndpoint) -> Bool {
         switch self {
         case let .name(name):
             [endpoint].first(whereName: name) != nil
-            
+
         case let .displayName(name):
             [endpoint].first(whereDisplayName: name) != nil
-            
+
         case let .uniqueID(uniqueID):
             [endpoint].first(whereUniqueID: uniqueID) != nil
-            
+
         case let .uniqueIDWithFallback(
             id: uniqueID,
             fallbackDisplayName: fallbackDisplayName

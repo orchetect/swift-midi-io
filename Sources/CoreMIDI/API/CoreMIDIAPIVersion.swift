@@ -1,6 +1,6 @@
 //
 //  CoreMIDIAPIVersion.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -10,7 +10,7 @@ public enum CoreMIDIAPIVersion {
     ///
     /// Internally using `MIDIPacketList` / `MIDIPacket`.
     case legacyCoreMIDI
-    
+
     /// New Core MIDI API introduced in macOS 11, iOS 14, and macCatalyst 14.
     ///
     /// Internally using `MIDIEventList` / `MIDIEventPacket`.
@@ -28,7 +28,7 @@ extension CoreMIDIAPIVersion: CustomStringConvertible {
         switch self {
         case .legacyCoreMIDI:
             return "Legacy Core MIDI API"
-            
+
         case .newCoreMIDI:
             return "New Core MIDI API (\(midiProtocol))"
         }
@@ -42,7 +42,7 @@ extension CoreMIDIAPIVersion {
     public static func bestForPlatform() -> Self {
         if #available(macOS 11, iOS 14, macCatalyst 14, *) {
             return .newCoreMIDI(.midi2_0)
-    
+
         } else {
             return .legacyCoreMIDI
         }
@@ -57,14 +57,14 @@ extension CoreMIDIAPIVersion {
         switch self {
         case .legacyCoreMIDI:
             return .midi1_0
-            
+
         case let .newCoreMIDI(protocolVersion):
             return protocolVersion
         }
     }
-    
+
     // swiftformat:options --ifdef indent
-    
+
     /// Returns true if API version can be used on the current platform (operating system).
     public var isValidOnCurrentPlatform: Bool {
         switch self {
@@ -87,12 +87,12 @@ extension CoreMIDIAPIVersion {
                 // future or unknown/unsupported platform
                 return false
             #endif
-    
+
         case .newCoreMIDI:
             if #available(macOS 11, iOS 14, macCatalyst 14, *) {
                 return true
             }
-    
+
             return false
         }
     }

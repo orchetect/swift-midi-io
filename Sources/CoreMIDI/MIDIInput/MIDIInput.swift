@@ -1,13 +1,13 @@
 //
 //  MIDIInput.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
 #if !os(tvOS) && !os(watchOS)
 
-import Foundation
 import CoreMIDI
+import Foundation
 import SwiftMIDICore
 import SwiftMIDIInternals
 
@@ -25,45 +25,47 @@ import SwiftMIDIInternals
 /// > endpoint.)
 public final class MIDIInput: MIDIManaged, @unchecked Sendable { // @unchecked required for @PThreadMutex use
     nonisolated(unsafe) weak var midiManager: MIDIManager?
-    
+
     // MIDIManaged
     public private(set) nonisolated(unsafe) var api: CoreMIDIAPIVersion
-    
+
     // MIDIManagedReceivesMessages
-    
-    public var midiProtocol: MIDIProtocolVersion { api.midiProtocol }
-    
+
+    public var midiProtocol: MIDIProtocolVersion {
+        api.midiProtocol
+    }
+
     // class-specific
-    
+
     /// The port name as displayed in the system.
     @PThreadMutex
     public var name: String {
         didSet { setNameInSystem() }
     }
-    
+
     /// Updates the endpoint's `name` property with Core MIDI.
     /// Core MIDI automatically updates the `displayName` property as well.
     private func setNameInSystem() {
         guard let ref = coreMIDIInputPortRef else { return }
         try? setString(forProperty: kMIDIPropertyName, of: ref, to: name)
     }
-    
+
     /// The port's unique ID in the system.
     @PThreadMutex
     public private(set) var uniqueID: MIDIIdentifier?
-    
+
     /// The Core MIDI port reference.
     @PThreadMutex
     public private(set) var coreMIDIInputPortRef: CoreMIDIPortRef?
-    
+
     /// Receive handler for inbound MIDI events.
     private var receiveHandler: (any MIDIReceiverProtocol)!
-    
+
     /// I/O queue.
     nonisolated let queue: DispatchQueue
-    
+
     // init
-    
+
     /// Internal init.
     /// This object is not meant to be instanced by the user. This object is automatically created
     /// and managed by the MIDI I/O ``MIDIManager`` instance when calling
@@ -91,7 +93,7 @@ public final class MIDIInput: MIDIManaged, @unchecked Sendable { // @unchecked r
         queue = DispatchQueue(label: "MIDIInput-\(name)", attributes: []) // must be serial to ensure received event ordering
         queue.sync { receiveHandler = receiver.create() }
     }
-    
+
     deinit {
         // note that we can't rely on deinit to dispose of the Core MIDI object, since it's possible the
         // consumer has stored a strong reference to this class somewhere even though we discourage it
@@ -111,18 +113,18 @@ extension MIDIInput {
     public var endpoint: MIDIInputEndpoint {
         .init(from: coreMIDIInputPortRef ?? 0)
     }
-    
+
     /// Queries the system and returns true if the endpoint exists
     /// (by matching port name and unique ID)
     var uniqueIDExistsInSystem: MIDIEndpointRef? {
         guard let uniqueID else {
             return nil
         }
-        
+
         if let endpoint = getSystemDestinationEndpointRef(matching: uniqueID) {
             return endpoint
         }
-        
+
         return nil
     }
 }
@@ -135,9 +137,9 @@ extension MIDIInput {
             // this should prevent errors thrown due to ID collisions in the system
             uniqueID = nil
         }
-        
+
         var newPortRef = MIDIPortRef()
-        
+
         switch api {
         case .legacyCoreMIDI:
             // MIDIDestinationCreateWithBlock is deprecated after macOS 11 / iOS 14
@@ -147,7 +149,7 @@ extension MIDIInput {
                 &newPortRef,
                 { [weak self, queue] packetListPtr, srcConnRefCon in
                     let packets = packetListPtr.packets(refCon: srcConnRefCon, refConKnown: false)
-                    
+
                     queue.async { [self] in
                         let receiveHandler = self?.receiveHandler
                         receiveHandler?.packetListReceived(packets)
@@ -155,14 +157,14 @@ extension MIDIInput {
                 }
             )
             .throwIfOSStatusErr()
-            
+
         case .newCoreMIDI:
             guard #available(macOS 11, iOS 14, macCatalyst 14, *) else {
                 throw .internalInconsistency(
                     "New Core MIDI API is not accessible on this platform."
                 )
             }
-            
+
             try MIDIDestinationCreateWithProtocol(
                 manager.coreMIDIClientRef,
                 name as CFString,
@@ -171,7 +173,7 @@ extension MIDIInput {
                 { [weak self, queue] eventListPtr, srcConnRefCon in
                     let packets = eventListPtr.packets(refCon: srcConnRefCon, refConKnown: false)
                     let midiProtocol = MIDIProtocolVersion(eventListPtr.pointee.protocol)
-                    
+
                     queue.async { [self] in
                         let receiveHandler = self?.receiveHandler
                         receiveHandler?.eventListReceived(
@@ -183,13 +185,13 @@ extension MIDIInput {
             )
             .throwIfOSStatusErr()
         }
-        
+
         coreMIDIInputPortRef = newPortRef
-        
+
         // set meta data properties; ignore errors in case of failure
         try? setModel(of: newPortRef, to: manager.model)
         try? setManufacturer(of: newPortRef, to: manager.manufacturer)
-        
+
         if let uniqueID {
             // inject previously-stored unique ID into port
             try setUniqueID(
@@ -203,7 +205,7 @@ extension MIDIInput {
             uniqueID = .init(uid)
         }
     }
-    
+
     /// Disposes of the the virtual port if it's already been created in the system via the
     /// ``create(in:)`` method.
     ///
@@ -212,9 +214,9 @@ extension MIDIInput {
     /// Errors thrown can be safely ignored and are typically only useful for debugging purposes.
     func dispose() throws(MIDIIOError) {
         guard let coreMIDIInputPortRef else { return }
-    
+
         defer { self.coreMIDIInputPortRef = nil }
-    
+
         try MIDIEndpointDispose(coreMIDIInputPortRef)
             .throwIfOSStatusErr()
     }
@@ -225,7 +227,7 @@ extension MIDIInput {
     public func hide() throws(MIDIIOError) {
         try endpoint.hide()
     }
-    
+
     /// Makes the virtual endpoint in the system visible to the user.
     public func show() throws(MIDIIOError) {
         try endpoint.show()
@@ -238,7 +240,7 @@ extension MIDIInput: CustomStringConvertible {
         if let uniqueID {
             uniqueIDString = "\(uniqueID)"
         }
-        
+
         return "MIDIInput(name: \(name.quoted), uniqueID: \(uniqueIDString))"
     }
 }

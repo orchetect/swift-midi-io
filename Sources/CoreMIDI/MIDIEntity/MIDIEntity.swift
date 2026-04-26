@@ -1,6 +1,6 @@
 //
 //  MIDIEntity.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -15,44 +15,44 @@
 /// Although this is a value-type struct, do not store or cache it as it will not remain updated.
 public struct MIDIEntity: MIDIIOObject {
     // MARK: MIDIIOObject
-    
+
     public let objectType: MIDIIOObjectType = .entity
-    
+
     public internal(set) var name: String = ""
-    
+
     public internal(set) var displayName: String = ""
-    
+
     /// System-global Unique ID.
     /// (`kMIDIPropertyUniqueID`)
     public internal(set) var uniqueID: MIDIIdentifier = .invalidMIDIIdentifier
-    
+
     public let coreMIDIObjectRef: CoreMIDIEntityRef
-    
+
     public func asAnyMIDIIOObject() -> AnyMIDIIOObject {
         .entity(self)
     }
-    
+
     // MARK: Init
-    
+
     init(from ref: CoreMIDIEntityRef) {
         assert(ref != CoreMIDIEntityRef())
-    
+
         coreMIDIObjectRef = ref
         updateCachedProperties()
     }
-    
+
     // MARK: - Cached Properties Update
-    
+
     /// Update the cached properties
     mutating func updateCachedProperties() {
         if let name = try? SwiftMIDIIO.getName(of: coreMIDIObjectRef) {
             self.name = name
         }
-        
+
         if let displayName = try? SwiftMIDIIO.getDisplayName(of: coreMIDIObjectRef) {
             self.displayName = displayName
         }
-    
+
         if let uniqueID = try? SwiftMIDIIO.getUniqueID(of: coreMIDIObjectRef),
            uniqueID != .invalidMIDIIdentifier
         {
@@ -71,7 +71,9 @@ extension MIDIEntity: Hashable {
 
 extension MIDIEntity: Identifiable {
     public typealias ID = CoreMIDIObjectRef
-    public var id: ID { coreMIDIObjectRef }
+    public var id: ID {
+        coreMIDIObjectRef
+    }
 }
 
 extension MIDIEntity: Sendable { }
@@ -87,12 +89,12 @@ extension MIDIEntity {
     public var device: MIDIDevice? {
         try? getSystemDevice(forEntity: coreMIDIObjectRef)
     }
-    
+
     /// Returns the input endpoints for the entity.
     public var inputs: [MIDIInputEndpoint] {
         getSystemDestinationEndpoints(forEntity: coreMIDIObjectRef)
     }
-    
+
     /// Returns the output endpoints for the entity.
     public var outputs: [MIDIOutputEndpoint] {
         getSystemSourceEndpoints(forEntity: coreMIDIObjectRef)

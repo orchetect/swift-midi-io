@@ -1,6 +1,6 @@
 //
 //  MIDIPacketData+CoreMIDI.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -20,7 +20,7 @@ extension MIDIPacketData {
     ) {
         self = Self.unwrapPacket(midiPacketPtr, refCon: refCon, refConKnown: refConKnown)
     }
-    
+
     fileprivate static func unwrapPacket(
         _ midiPacketPtr: UnsafePointer<MIDIPacket>,
         refCon: UnsafeMutableRawPointer?,

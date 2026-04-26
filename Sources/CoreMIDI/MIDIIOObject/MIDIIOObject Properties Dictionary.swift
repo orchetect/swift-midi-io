@@ -1,6 +1,6 @@
 //
 //  MIDIIOObject Properties Dictionary.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -39,207 +39,222 @@ extension MIDIIOObject {
             return (key: property.name, value: value)
         }
     }
-    
+
     // inline docs provided by the MIDIIOObject protocol
     public func propertyStringValue(
         for property: MIDIIOObjectProperty
     ) -> MIDIIOObjectProperty.Value<String> {
         switch property {
         // MARK: Identification
+
         case .name: // override cache
-            return wrapValue(try SwiftMIDIIO.getName(of: coreMIDIObjectRef))
-            
+            try wrapValue(SwiftMIDIIO.getName(of: coreMIDIObjectRef))
+
         case .model:
-            return model
-            
+            model
+
         case .manufacturer:
-            return manufacturer
-            
+            manufacturer
+
         case .uniqueID: // override cache
-            return wrapValue(try SwiftMIDIIO.getUniqueID(of: coreMIDIObjectRef))
+            try wrapValue(SwiftMIDIIO.getUniqueID(of: coreMIDIObjectRef))
                 .convertValue { "\($0)" }
-            
+
         case .deviceID:
-            return deviceManufacturerID
+            deviceManufacturerID
                 .convertValue { "\($0)" }
-            
+
         // MARK: Capabilities
+
         case .supportsMMC:
-            return supportsMMC
+            supportsMMC
                 .convertValue { $0 ? "Yes" : "No" }
-            
+
         case .supportsGeneralMIDI:
-            return supportsGeneralMIDI
+            supportsGeneralMIDI
                 .convertValue { $0 ? "Yes" : "No" }
-            
+
         case .supportsShowControl:
-            return supportsShowControl
+            supportsShowControl
                 .convertValue { $0 ? "Yes" : "No" }
-            
+
         // MARK: Configuration
+
         case .nameConfigurationDictionary:
             if #available(macOS 10.15, macCatalyst 13.0, iOS 13.0, *) {
-                return nameConfigurationDictionary
+                nameConfigurationDictionary
                     .convertValue { $0.description }
             } else {
-                return .error(.notSupported("OS not supported. Requires macOS 10.15, macCatalyst 13.0, or iOS 13.0."))
+                .error(.notSupported("OS not supported. Requires macOS 10.15, macCatalyst 13.0, or iOS 13.0."))
             }
-            
+
         case .maxSysExSpeed:
-            return maxSysExSpeed
+            maxSysExSpeed
                 .convertValue { "\($0)" }
-            
+
         case .driverDeviceEditorApp:
-            return driverDeviceEditorApp
+            driverDeviceEditorApp
                 .convertValue { $0.absoluteString }
-            
+
         // MARK: Presentation
+
         case .image:
-            return imageFileURL
+            imageFileURL
                 .convertValue { $0.absoluteString }
-            
+
         case .displayName: // override cache
-            return wrapValue(try SwiftMIDIIO.getDisplayName(of: coreMIDIObjectRef))
-            
+            try wrapValue(SwiftMIDIIO.getDisplayName(of: coreMIDIObjectRef))
+
         // MARK: Audio
+
         case .panDisruptsStereo:
-            return panDisruptsStereo
+            panDisruptsStereo
                 .convertValue { $0 ? "Yes" : "No" }
-            
+
         // MARK: Protocols
+
         case .protocolID:
             if #available(macOS 11, iOS 14, macCatalyst 14, *) {
-                return protocolID
+                protocolID
                     .convertValue { "\($0)" }
             } else {
-                return .error(.notSupported("OS not supported. Requires macOS 11.0, macCatalyst 14.0, or iOS 14.0."))
+                .error(.notSupported("OS not supported. Requires macOS 11.0, macCatalyst 14.0, or iOS 14.0."))
             }
-            
+
         // MARK: Timing
+
         case .transmitsMTC:
-            return transmitsMTC
+            transmitsMTC
                 .convertValue { $0 ? "Yes" : "No" }
-            
+
         case .receivesMTC:
-            return receivesMTC
+            receivesMTC
                 .convertValue { $0 ? "Yes" : "No" }
-            
+
         case .transmitsClock:
-            return transmitsClock
+            transmitsClock
                 .convertValue { $0 ? "Yes" : "No" }
-            
+
         case .receivesClock:
-            return receivesClock
+            receivesClock
                 .convertValue { $0 ? "Yes" : "No" }
-            
+
         case .advanceScheduleTimeMuSec:
-            return advanceScheduleTimeMuSec
-            
+            advanceScheduleTimeMuSec
+
         // MARK: Roles
+
         case .isMixer:
-            return isMixer
+            isMixer
                 .convertValue { $0 ? "Yes" : "No" }
-            
+
         case .isSampler:
-            return isSampler
+            isSampler
                 .convertValue { $0 ? "Yes" : "No" }
-            
+
         case .isEffectUnit:
-            return isEffectUnit
+            isEffectUnit
                 .convertValue { $0 ? "Yes" : "No" }
-            
+
         case .isDrumMachine:
-            return isDrumMachine
+            isDrumMachine
                 .convertValue { $0 ? "Yes" : "No" }
-            
+
         // MARK: Status
+
         case .isOffline:
-            return isOffline
+            isOffline
                 .convertValue { $0 ? "Yes" : "No" }
-            
+
         case .isPrivate:
-            return isPrivate
+            isPrivate
                 .convertValue { $0 ? "Yes" : "No" }
-            
+
         // MARK: Drivers
+
         case .driverOwner:
-            return driverOwner
-            
+            driverOwner
+
         case .driverVersion:
-            return driverVersion
+            driverVersion
                 .convertValue { "\($0)" }
-            
+
         // MARK: Connections
+
         case .canRoute:
-            return canRoute
+            canRoute
                 .convertValue { $0 ? "Yes" : "No" }
-            
+
         case .isBroadcast:
-            return isBroadcast
+            isBroadcast
                 .convertValue { $0 ? "Yes" : "No" }
-            
+
         case .connectionUniqueID:
-            return connectionUniqueID
+            connectionUniqueID
                 .convertValue { "\($0)" }
-            
+
         case .isEmbeddedEntity:
-            return isEmbeddedEntity
+            isEmbeddedEntity
                 .convertValue { $0 ? "Yes" : "No" }
-            
+
         case .singleRealtimeEntity:
-            return singleRealtimeEntity
+            singleRealtimeEntity
                 .convertValue { "\($0)" }
-            
+
         // MARK: Channels
+
         case .receiveChannels:
-            return receiveChannels
+            receiveChannels
                 .convertValue { $0.binaryString(padTo: 8) }
-            
+
         case .transmitChannels:
-            return transmitChannels
+            transmitChannels
                 .convertValue { $0.binaryString(padTo: 8) }
-            
+
         case .maxReceiveChannels:
-            return maxReceiveChannels
+            maxReceiveChannels
                 .convertValue { "\($0)" }
-            
+
         case .maxTransmitChannels:
-            return maxTransmitChannels
+            maxTransmitChannels
                 .convertValue { "\($0)" }
-            
+
         // MARK: Banks
+
         case .receivesBankSelectLSB:
-            return receivesBankSelectLSB
+            receivesBankSelectLSB
                 .convertValue { $0 ? "Yes" : "No" }
-            
+
         case .receivesBankSelectMSB:
-            return receivesBankSelectMSB
+            receivesBankSelectMSB
                 .convertValue { $0 ? "Yes" : "No" }
-            
+
         case .transmitsBankSelectLSB:
-            return transmitsBankSelectLSB
+            transmitsBankSelectLSB
                 .convertValue { $0 ? "Yes" : "No" }
-            
+
         case .transmitsBankSelectMSB:
-            return transmitsBankSelectMSB
+            transmitsBankSelectMSB
                 .convertValue { $0 ? "Yes" : "No" }
-            
+
         // MARK: Notes
+
         case .receivesNotes:
-            return receivesNotes
+            receivesNotes
                 .convertValue { $0 ? "Yes" : "No" }
-            
+
         case .transmitsNotes:
-            return transmitsNotes
+            transmitsNotes
                 .convertValue { $0 ? "Yes" : "No" }
-            
+
         // MARK: Program Changes
+
         case .receivesProgramChanges:
-            return receivesProgramChanges
+            receivesProgramChanges
                 .convertValue { $0 ? "Yes" : "No" }
-            
+
         case .transmitsProgramChanges:
-            return transmitsProgramChanges
+            transmitsProgramChanges
                 .convertValue { $0 ? "Yes" : "No" }
         }
     }

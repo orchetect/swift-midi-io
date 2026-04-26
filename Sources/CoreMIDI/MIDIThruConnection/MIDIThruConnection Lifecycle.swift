@@ -1,6 +1,6 @@
 //
 //  MIDIThruConnection Lifecycle.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -13,7 +13,7 @@ extension MIDIThruConnection {
     public enum Lifecycle {
         /// The play-through connection exists as long as the ``MIDIManager`` exists.
         case nonPersistent
-    
+
         /// The play-through connection is stored in the system and persists indefinitely (even
         /// after system reboots) until explicitly removed.
         ///
@@ -33,7 +33,7 @@ extension MIDIThruConnection.Lifecycle: CustomStringConvertible {
         switch self {
         case .nonPersistent:
             "nonPersistent"
-    
+
         case let .persistent(ownerID):
             "persistent(\(ownerID)"
         }

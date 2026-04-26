@@ -1,14 +1,14 @@
 //
 //  MIDIManager State.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
 #if !os(tvOS) && !os(watchOS)
 
+import CoreMIDI
 import Foundation
 import SwiftMIDICore
-import CoreMIDI
 
 extension MIDIManager {
     /// Starts the manager and registers itself with the Core MIDI subsystem.
@@ -19,10 +19,10 @@ extension MIDIManager {
     public func start() throws(MIDIIOError) {
         // if start() was already called, return
         guard coreMIDIClientRef == MIDIClientRef() else { return }
-        
+
         func block() -> Result<MIDIClientRef, MIDIIOError> {
             var newCoreMIDIClientRef = MIDIClientRef()
-            
+
             do throws(MIDIIOError) {
                 try MIDIClientCreateWithBlock(clientName as CFString, &newCoreMIDIClientRef) { [weak self] notificationPtr in
                     guard let self else { return }
@@ -30,13 +30,13 @@ extension MIDIManager {
                     internalNotificationHandler(internalNotif)
                 }
                 .throwIfOSStatusErr()
-                
+
                 return .success(newCoreMIDIClientRef)
             } catch {
                 return .failure(error)
             }
         }
-        
+
         // `MIDIClientCreateWithBlock` must be called on the main thread,
         // otherwise the notification block will never happen.
         let newCoreMIDIClientRef: MIDIClientRef
@@ -47,41 +47,41 @@ extension MIDIManager {
             newCoreMIDIClientRef = try result.get()
         }
         assert(newCoreMIDIClientRef != MIDIClientRef())
-        self.coreMIDIClientRef = newCoreMIDIClientRef
-        
+        coreMIDIClientRef = newCoreMIDIClientRef
+
         // initial cache of endpoints
         updateDevicesAndEndpoints()
     }
-    
+
     private func internalNotificationHandler(_ internalNotif: MIDIIOInternalNotification) {
         switch internalNotif {
         case .setupChanged, .added, .removed, .propertyChanged:
-            self.updateDevicesAndEndpoints()
+            updateDevicesAndEndpoints()
         default:
             break
         }
-        
+
         // if needed, fall back on notification cache in case we get more than
         // one `.removed` notification in a row. this way we have metadata on hand.
         let notification = MIDIIONotification(internalNotif, cache: midiObjectCache)
-        
+
         // propagate notification to managed objects
-        for outputConnection in self.managedOutputConnections.values {
+        for outputConnection in managedOutputConnections.values {
             outputConnection.notification(internalNotif)
         }
-        for inputConnection in self.managedInputConnections.values {
+        for inputConnection in managedInputConnections.values {
             inputConnection.notification(internalNotif)
         }
-        for thruConnection in self.managedThruConnections.values {
+        for thruConnection in managedThruConnections.values {
             thruConnection.notification(internalNotif)
         }
-        
+
         // send notification to handler after internal cache is updated
         if let notification {
             sendNotificationAsync(notification)
         }
     }
-    
+
     private func sendNotificationAsync(_ notif: MIDIIONotification) {
         guard let notificationHandler else { return }
         DispatchQueue.main.async {

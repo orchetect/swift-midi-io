@@ -1,6 +1,6 @@
 //
 //  MIDIThruConnection Support.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -24,11 +24,11 @@ extension MIDIThruConnection {
             true
         }
     }
-    
+
     static let persistentThruNotSupportedError: MIDIIOError = .notSupported(
         persistentThruNotSupportedErrorReason
     )
-    
+
     static let persistentThruNotSupportedErrorReason: String =
         "Persistent MIDI Thru Connections cannot be created on macOS 11 & 12 and iOS 14 & 15 due to a Core MIDI bug. Consider using a non-persistent thru connection instead."
 }

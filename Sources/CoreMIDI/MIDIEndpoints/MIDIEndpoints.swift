@@ -1,6 +1,6 @@
 //
 //  MIDIEndpoints.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -13,11 +13,11 @@ public struct MIDIEndpoints: MIDIEndpointsProtocol {
     public internal(set) var inputs: [MIDIInputEndpoint] = []
     public internal(set) var inputsOwned: [MIDIInputEndpoint] = []
     public internal(set) var inputsUnowned: [MIDIInputEndpoint] = []
-    
+
     public internal(set) var outputs: [MIDIOutputEndpoint] = []
     public internal(set) var outputsOwned: [MIDIOutputEndpoint] = []
     public internal(set) var outputsUnowned: [MIDIOutputEndpoint] = []
-    
+
     init() { }
 }
 
@@ -28,22 +28,22 @@ extension MIDIEndpoints {
     /// cache.
     public mutating func updateCachedProperties(manager: MIDIManager) {
         let fetched = _fetchSystemEndpoints(for: manager)
-        
+
         inputs = fetched.inputs
-        
+
         var inputsOwned = inputs
         inputsOwned.removeAll(where: { fetched.inputsUnowned.contains($0) })
         self.inputsOwned = inputsOwned
-        
-        self.inputsUnowned = fetched.inputsUnowned
-        
+
+        inputsUnowned = fetched.inputsUnowned
+
         outputs = fetched.outputs
-        
+
         var outputsOwned = outputs
         outputsOwned.removeAll(where: { fetched.outputsUnowned.contains($0) })
         self.outputsOwned = outputsOwned
-        
-        self.outputsUnowned = fetched.outputsUnowned
+
+        outputsUnowned = fetched.outputsUnowned
     }
 }
 

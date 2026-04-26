@@ -1,6 +1,6 @@
 //
 //  MIDIThruConnection Parameters.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -16,7 +16,7 @@ extension MIDIThruConnection {
         public var filterOutMTC: Bool = false
         public var filterOutSysEx: Bool = false
         public var filterOutTuneRequest: Bool = false
-    
+
         public init() { }
     }
 }
@@ -44,9 +44,9 @@ extension MIDIThruConnection.Parameters {
         outputs: [MIDIOutputEndpoint]
     ) -> MIDIThruConnectionParams {
         var params = MIDIThruConnectionParams()
-    
+
         MIDIThruConnectionParamsInitialize(&params) // fill with defaults
-    
+
         // MIDIThruConnectionParams Properties:
         //  .outputs
         //      MIDIThruConnectionEndpoint tuple (initial size: 8).
@@ -60,23 +60,23 @@ extension MIDIThruConnection.Parameters {
         //  .numDestinations
         //      The number of valid outputs in the .inputs tuple.
         //  (many more properties available including filters)
-    
+
         // Source(s) and destination(s).
-    
+
         // These expect tuples, so we have to perform some weirdness.
         // Rather than initialize MIDIThruConnectionEndpoint objects,
         // just access the .endpointRef property.
         // All 8 are pre-initialized MIDIThruConnectionEndpoint objects.
-        
+
         // Apple docs for MIDIThruConnectionEndpoint:
         // > Set the endpoint’s uniqueID to 0 if the endpoint exists and you’re passing its
         // > endpointRef. When retrieving a connection from Core MIDI, its endpointRef may be NULL
         // > if it doesn’t exist, but the uniqueID is always non-zero.
-        
+
         // outputs
-    
+
         params.numSources = UInt32(outputs.count)
-    
+
         for srcEP in 0 ..< outputs.count {
             switch srcEP {
             case 0:
@@ -123,11 +123,11 @@ extension MIDIThruConnection.Parameters {
                 break // ignore more than 8 endpoints
             }
         }
-    
+
         // inputs
-    
+
         params.numDestinations = UInt32(inputs.count)
-    
+
         for destEP in 0 ..< inputs.count {
             switch destEP {
             case 0:
@@ -135,43 +135,43 @@ extension MIDIThruConnection.Parameters {
                     endpointRef: inputs[destEP].coreMIDIObjectRef,
                     uniqueID: inputs[destEP].uniqueID
                 )
-    
+
             case 1:
                 params.destinations.1 = .init(
                     endpointRef: inputs[destEP].coreMIDIObjectRef,
                     uniqueID: inputs[destEP].uniqueID
                 )
-    
+
             case 2:
                 params.destinations.2 = .init(
                     endpointRef: inputs[destEP].coreMIDIObjectRef,
                     uniqueID: inputs[destEP].uniqueID
                 )
-    
+
             case 3:
                 params.destinations.3 = .init(
                     endpointRef: inputs[destEP].coreMIDIObjectRef,
                     uniqueID: inputs[destEP].uniqueID
                 )
-    
+
             case 4:
                 params.destinations.4 = .init(
                     endpointRef: inputs[destEP].coreMIDIObjectRef,
                     uniqueID: inputs[destEP].uniqueID
                 )
-    
+
             case 5:
                 params.destinations.5 = .init(
                     endpointRef: inputs[destEP].coreMIDIObjectRef,
                     uniqueID: inputs[destEP].uniqueID
                 )
-    
+
             case 6:
                 params.destinations.6 = .init(
                     endpointRef: inputs[destEP].coreMIDIObjectRef,
                     uniqueID: inputs[destEP].uniqueID
                 )
-    
+
             case 7:
                 params.destinations.7 = .init(
                     endpointRef: inputs[destEP].coreMIDIObjectRef,
@@ -182,24 +182,24 @@ extension MIDIThruConnection.Parameters {
                 break // ignore more than 8 endpoints
             }
         }
-    
+
         // properties
-    
+
         // 0 or 1
         params.filterOutAllControls = filterOutAllControls ? 1 : 0
-    
+
         // 0 or 1
         params.filterOutBeatClock = filterOutBeatClock ? 1 : 0
-    
+
         // 0 or 1
         params.filterOutMTC = filterOutMTC ? 1 : 0
-    
+
         // 0 or 1
         params.filterOutSysEx = filterOutSysEx ? 1 : 0
-    
+
         // 0 or 1
         params.filterOutTuneRequest = filterOutTuneRequest ? 1 : 0
-    
+
         return params
     }
 }

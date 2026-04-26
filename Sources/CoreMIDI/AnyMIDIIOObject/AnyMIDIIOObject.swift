@@ -1,14 +1,14 @@
 //
 //  AnyMIDIIOObject.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
 #if !os(tvOS) && !os(watchOS)
 
+import CoreMIDI
 import Foundation
 import SwiftUI
-import CoreMIDI
 
 /// Box to contain an instance of a strongly-typed system MIDI object.
 ///
@@ -31,7 +31,9 @@ extension AnyMIDIIOObject: Hashable {
 
 extension AnyMIDIIOObject: Identifiable {
     public typealias ID = CoreMIDIObjectRef
-    public var id: ID { coreMIDIObjectRef }
+    public var id: ID {
+        coreMIDIObjectRef
+    }
 }
 
 extension AnyMIDIIOObject: Sendable { }
@@ -49,7 +51,7 @@ extension AnyMIDIIOObject: MIDIIOObject {
             endpoint.objectType
         }
     }
-    
+
     public var name: String {
         switch self {
         case let .device(device):
@@ -62,7 +64,7 @@ extension AnyMIDIIOObject: MIDIIOObject {
             endpoint.name
         }
     }
-    
+
     public var displayName: String {
         switch self {
         case let .device(device):
@@ -75,7 +77,7 @@ extension AnyMIDIIOObject: MIDIIOObject {
             endpoint.displayName
         }
     }
-    
+
     public var uniqueID: MIDIIdentifier {
         switch self {
         case let .device(device):
@@ -88,7 +90,7 @@ extension AnyMIDIIOObject: MIDIIOObject {
             endpoint.uniqueID
         }
     }
-    
+
     public var coreMIDIObjectRef: CoreMIDIObjectRef {
         switch self {
         case let .device(device):
@@ -101,7 +103,7 @@ extension AnyMIDIIOObject: MIDIIOObject {
             endpoint.coreMIDIObjectRef
         }
     }
-    
+
     public func asAnyMIDIIOObject() -> AnyMIDIIOObject {
         // ridiculous but we have to fulfill the conformance requirement
         self
@@ -125,7 +127,7 @@ extension AnyMIDIIOObject {
             return nil
         }
     }
-    
+
     /// Returns a SwiftMIDI object wrapped in a strongly-typed enum case, optionally returning the
     /// cached object from the ``MIDIManager``.
     init?(
@@ -134,11 +136,11 @@ extension AnyMIDIIOObject {
         using cache: MIDIObjectCache? = nil
     ) {
         guard coreMIDIObjectRef != 0 else { return nil }
-    
+
         switch coreMIDIObjectType {
         case .other:
             return nil
-    
+
         case .device, .externalDevice:
             if let cache,
                let getCachedDevice = cache.devices
@@ -148,10 +150,10 @@ extension AnyMIDIIOObject {
             } else {
                 self = .device(MIDIDevice(from: coreMIDIObjectRef))
             }
-    
+
         case .entity, .externalEntity:
             self = .entity(MIDIEntity(from: coreMIDIObjectRef))
-    
+
         case .source, .externalSource:
             if let cache,
                let getCachedEndpoint = cache.outputEndpoints
@@ -161,7 +163,7 @@ extension AnyMIDIIOObject {
             } else {
                 self = .outputEndpoint(MIDIOutputEndpoint(from: coreMIDIObjectRef))
             }
-    
+
         case .destination, .externalDestination:
             if let cache,
                let getCachedEndpoint = cache.inputEndpoints
@@ -171,7 +173,7 @@ extension AnyMIDIIOObject {
             } else {
                 self = .inputEndpoint(MIDIInputEndpoint(from: coreMIDIObjectRef))
             }
-    
+
         @unknown default:
             return nil
         }
@@ -185,13 +187,13 @@ extension AnyMIDIIOObject: CustomStringConvertible {
         switch self {
         case let .device(device):
             "\(device)"
-    
+
         case let .entity(entity):
             "\(entity)"
-    
+
         case let .inputEndpoint(endpoint):
             "\(endpoint)"
-    
+
         case let .outputEndpoint(endpoint):
             "\(endpoint)"
         }

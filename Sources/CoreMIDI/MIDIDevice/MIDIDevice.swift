@@ -1,6 +1,6 @@
 //
 //  MIDIDevice.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -18,44 +18,44 @@
 /// when they are needed.
 public struct MIDIDevice: MIDIIOObject {
     // MARK: MIDIIOObject
-    
+
     public let objectType: MIDIIOObjectType = .device
-    
+
     public internal(set) var name: String = ""
-    
+
     public internal(set) var displayName: String = ""
-    
+
     /// System-global Unique ID.
     /// (`kMIDIPropertyUniqueID`)
     public internal(set) var uniqueID: MIDIIdentifier = .invalidMIDIIdentifier
-    
+
     public let coreMIDIObjectRef: CoreMIDIDeviceRef
-    
+
     public func asAnyMIDIIOObject() -> AnyMIDIIOObject {
         .device(self)
     }
-    
+
     // MARK: Init
-    
+
     init(from ref: CoreMIDIDeviceRef) {
         assert(ref != CoreMIDIDeviceRef())
-    
+
         coreMIDIObjectRef = ref
         updateCachedProperties()
     }
-    
+
     // MARK: Update Cached Properties
-    
+
     /// Update the cached properties
     mutating func updateCachedProperties() {
         if let name = try? SwiftMIDIIO.getName(of: coreMIDIObjectRef) {
             self.name = name
         }
-        
+
         if let displayName = try? SwiftMIDIIO.getDisplayName(of: coreMIDIObjectRef) {
             self.displayName = displayName
         }
-    
+
         if let uniqueID = try? SwiftMIDIIO.getUniqueID(of: coreMIDIObjectRef),
            uniqueID != .invalidMIDIIdentifier
         {
@@ -74,7 +74,9 @@ extension MIDIDevice: Hashable {
 
 extension MIDIDevice: Identifiable {
     public typealias ID = CoreMIDIObjectRef
-    public var id: ID { coreMIDIObjectRef }
+    public var id: ID {
+        coreMIDIObjectRef
+    }
 }
 
 extension MIDIDevice: Sendable { }
@@ -90,12 +92,12 @@ extension MIDIDevice {
     public var entities: [MIDIEntity] {
         getSystemEntities(for: coreMIDIObjectRef)
     }
-    
+
     /// Returns a combined collection of all the input endpoints for all entities in the device.
     public var inputs: [MIDIInputEndpoint] {
         entities.flatMap(\.inputs)
     }
-    
+
     /// Returns a combined collection of all the input endpoints for all entities in the device.
     public var outputs: [MIDIOutputEndpoint] {
         entities.flatMap(\.outputs)

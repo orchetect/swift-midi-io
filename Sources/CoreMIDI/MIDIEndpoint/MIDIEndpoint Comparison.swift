@@ -1,6 +1,6 @@
 //
 //  MIDIEndpoint Comparison.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -35,7 +35,9 @@ extension MIDIEndpoint {
 
 extension MIDIEndpoint {
     public typealias ID = MIDIIdentifier
-    public var id: ID { uniqueID }
+    public var id: ID {
+        uniqueID
+    }
 }
 
 #endif

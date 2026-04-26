@@ -1,13 +1,13 @@
 //
 //  MIDIManager addInputConnection.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
 #if !os(tvOS) && !os(watchOS)
 
-import Foundation
 import CoreMIDI
+import Foundation
 
 extension MIDIManager {
     /// Creates a new managed input connection in the system and adds it to the ``MIDIManager/managedInputConnections``
@@ -39,11 +39,11 @@ extension MIDIManager {
             midiManager: self,
             api: preferredAPI
         )
-        
+
         // store the connection object in the manager,
         // even if subsequent connection fails
         managedInputConnections[tag] = newCD
-        
+
         try newCD.listen(in: self)
         try newCD.connect(in: self)
     }

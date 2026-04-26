@@ -1,6 +1,6 @@
 //
 //  MIDIEventPacket Utilities.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -22,31 +22,31 @@ extension CoreMIDI.MIDIEventPacket {
         guard !words.isEmpty else {
             throw .umpEmpty
         }
-        
+
         guard words.count <= 64 else {
             throw .umpTooLarge
         }
-        
+
         var packet = CoreMIDI.MIDIEventPacket()
-        
+
         // time stamp
         packet.timeStamp = timeStamp
-        
+
         // word count
         packet.wordCount = UInt32(words.count)
-        
+
         // words
         let mutablePtr = CoreMIDI.UnsafeMutableMIDIEventPacketPointer(&packet)
         for wordsIndex in 0 ..< words.count {
             mutablePtr[mutablePtr.startIndex.advanced(by: wordsIndex)] = words[wordsIndex]
         }
-        
+
         self = packet
     }
-    
+
     // Note: this init isn't used but it works.
     // It implements Apple's built-in Core MIDI event packet builder.
-    
+
     /// Assembles a Core MIDI `MIDIEventPacket` (Universal MIDI Packet) from a `UInt32` word array.
     @_disfavoredOverload @inlinable
     @available(macOS 11, iOS 14, macCatalyst 14, *)
@@ -57,32 +57,32 @@ extension CoreMIDI.MIDIEventPacket {
         guard !words.isEmpty else {
             throw .umpEmpty
         }
-        
+
         guard words.count <= 64 else {
             throw .umpTooLarge
         }
-        
+
         let packetBuilder = CoreMIDI.MIDIEventPacket.Builder(
             maximumNumberMIDIWords: 64 // must be 64 or we get heap overflows/crashes!
         )
-        
+
         packetBuilder.timeStamp = Int(timeStamp)
-        
+
         words.forEach { packetBuilder.append($0) }
-        
+
         // As per Apple documentation, we cannot pass the pointee out directly.
         // We need to copy the memory to ensure it persists, so a basic wrapper should suffice.
         let packetBox: PacketBox = packetBuilder
             .withUnsafePointer { PacketBox($0.pointee) }
-        
+
         self = packetBox.packet
     }
-    
+
     @usableFromInline
     package struct PacketBox {
         @inline(__always) @usableFromInline
         package let packet: CoreMIDI.MIDIEventPacket
-        
+
         @inline(__always) @usableFromInline
         package init(_ packet: CoreMIDI.MIDIEventPacket) {
             self.packet = packet
@@ -107,18 +107,18 @@ extension UnsafePointer where Pointee == CoreMIDI.MIDIEventPacket {
     @_disfavoredOverload @inlinable
     public var rawWords: [UInt32] {
         let wordCollection = words()
-        
+
         guard !wordCollection.isEmpty else {
             return []
         }
-        
+
         guard wordCollection.count <= 64 else {
             assertionFailure(
                 "Received MIDIEventPacket reporting \(wordCollection.count) words."
             )
             return []
         }
-        
+
         return Array(wordCollection)
     }
 }

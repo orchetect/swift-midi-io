@@ -1,13 +1,13 @@
 //
 //  MIDIManager Remove.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
 #if !os(tvOS) && !os(watchOS)
 
-import Foundation
 import CoreMIDI
+import Foundation
 
 extension MIDIManager {
     /// Remove a managed MIDI endpoint or connection.
@@ -25,7 +25,7 @@ extension MIDIManager {
                 try? managedInputConnections[tag]?.dispose()
                 managedInputConnections[tag] = nil
             }
-            
+
         case .outputConnection:
             switch tagSelection {
             case .all:
@@ -35,7 +35,7 @@ extension MIDIManager {
                 try? managedOutputConnections[tag]?.dispose()
                 managedOutputConnections[tag] = nil
             }
-            
+
         case .input:
             switch tagSelection {
             case .all:
@@ -45,7 +45,7 @@ extension MIDIManager {
                 try? managedInputs[tag]?.dispose()
                 managedInputs[tag] = nil
             }
-            
+
         case .output:
             switch tagSelection {
             case .all:
@@ -55,7 +55,7 @@ extension MIDIManager {
                 try? managedOutputs[tag]?.dispose()
                 managedOutputs[tag] = nil
             }
-            
+
         case .nonPersistentThruConnection:
             switch tagSelection {
             case .all:
@@ -67,7 +67,7 @@ extension MIDIManager {
             }
         }
     }
-    
+
     /// Removes all unmanaged persistent MIDI thru connections stored in the system matching the
     /// given owner ID.
     ///
@@ -78,7 +78,7 @@ extension MIDIManager {
     public func removeAllUnmanagedPersistentThruConnections(ownerID: String) -> Int {
         (try? removeAllSystemPersistentThruConnections(matching: ownerID)) ?? 0
     }
-    
+
     /// Remove all managed MIDI endpoints and connections.
     ///
     /// What is unaffected, and not reset:

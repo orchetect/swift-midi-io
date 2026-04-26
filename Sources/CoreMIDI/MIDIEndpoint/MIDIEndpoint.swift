@@ -1,6 +1,6 @@
 //
 //  MIDIEndpoint.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -12,17 +12,17 @@ public protocol MIDIEndpoint: MIDIIOObject {
     /// Display name of the endpoint.
     /// This typically includes the model number and endpoint name.
     var displayName: String { get }
-    
+
     // implemented in extension _MIDIEndpoint
-    
+
     /// Returns the entity the endpoint originates from.
     /// For virtual endpoints, this will return `nil`.
     var entity: MIDIEntity? { get }
-    
+
     /// Returns the device the endpoint originates from.
     /// For virtual endpoints, this will return `nil`.
     var device: MIDIDevice? { get }
-    
+
     /// Returns the endpoint as a type-erased ``AnyMIDIEndpoint``.
     func asAnyEndpoint() -> AnyMIDIEndpoint
 }
@@ -38,7 +38,7 @@ extension _MIDIEndpoint {
     public var entity: MIDIEntity? {
         try? getSystemEntity(forEndpoint: coreMIDIObjectRef)
     }
-    
+
     /// Returns the device that owns the endpoint, if present.
     public var device: MIDIDevice? {
         guard let entity else { return nil }
@@ -53,17 +53,17 @@ extension MIDIEndpoint {
     public var exists: Bool {
         getSystemDestinationEndpointRef(matching: uniqueID) != nil
     }
-    
+
     /// Returns endpoint identity criterium describing the endpoint.
     public func asIdentity() -> MIDIEndpointIdentity {
         .endpoint(self)
     }
-    
+
     /// Makes a virtual endpoint in the system invisible to the user.
     func hide() throws(MIDIIOError) {
         try SwiftMIDIIO.hide(endpoint: coreMIDIObjectRef)
     }
-    
+
     /// Makes a virtual endpoint in the system visible to the user.
     func show() throws(MIDIIOError) {
         try SwiftMIDIIO.show(endpoint: coreMIDIObjectRef)

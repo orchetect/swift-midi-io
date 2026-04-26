@@ -1,6 +1,6 @@
 //
-//  IO Constants.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  Core MIDI IO Constants.swift
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 

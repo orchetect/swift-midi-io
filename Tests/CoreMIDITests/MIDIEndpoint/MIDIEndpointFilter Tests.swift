@@ -1,6 +1,6 @@
 //
 //  MIDIEndpointFilter Tests.swift
-//  swift-midi • https://github.com/orchetect/swift-midi
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -9,18 +9,19 @@
 @testable import SwiftMIDIIO
 import Testing
 
-@Suite struct MIDIEndpointFilter_Tests {
+@Suite
+struct MIDIEndpointFilter_Tests {
     // swiftformat:options --wrapcollections preserve
     // swiftformat:disable spaceInsideParens spaceInsideBrackets
     // swiftformat:options --maxwidth none
-    
+
     // MARK: - test data
-    
+
     let ownedInputEndpoints: [MIDIInputEndpoint] = [
-        .init(ref: 1000, name: "Virtual Input A", displayName: "My Virtual Input A",  uniqueID: -1000),
-        .init(ref: 1001, name: "Virtual Input B", displayName: "My Virtual Input B",  uniqueID: -1001)
+        .init(ref: 1000, name: "Virtual Input A", displayName: "My Virtual Input A", uniqueID: -1000),
+        .init(ref: 1001, name: "Virtual Input B", displayName: "My Virtual Input B", uniqueID: -1001)
     ]
-    
+
     let unownedInputEndpoints: [MIDIInputEndpoint] = [
         .init(ref: 2000, name: "Input B", displayName: "Unowned Input B", uniqueID: -2000),
         .init(ref: 2003, name: "Input A", displayName: "Unowned Input A", uniqueID: -2003),
@@ -28,14 +29,16 @@ import Testing
         .init(ref: 2002, name: "Input A", displayName: "Unowned Input A", uniqueID: -2002),
         .init(ref: 2004, name: "Input D", displayName: "Unowned Input D", uniqueID: -2004)
     ]
-    
-    var systemInputEndpoints: [MIDIInputEndpoint] { unownedInputEndpoints + ownedInputEndpoints }
-    
+
+    var systemInputEndpoints: [MIDIInputEndpoint] {
+        unownedInputEndpoints + ownedInputEndpoints
+    }
+
     let ownedOutputEndpoints: [MIDIOutputEndpoint] = [
         .init(ref: 3000, name: "Virtual Output A", displayName: "My Virtual Output A", uniqueID: -3000),
         .init(ref: 3001, name: "Virtual Output B", displayName: "My Virtual Output B", uniqueID: -3001)
     ]
-    
+
     let unownedOutputEndpoints: [MIDIOutputEndpoint] = [
         .init(ref: 4000, name: "Output B", displayName: "Unowned Output B", uniqueID: -4000),
         .init(ref: 4003, name: "Output A", displayName: "Unowned Output A", uniqueID: -4003),
@@ -43,11 +46,13 @@ import Testing
         .init(ref: 4002, name: "Output A", displayName: "Unowned Output A", uniqueID: -4002),
         .init(ref: 4004, name: "Output D", displayName: "Unowned Output D", uniqueID: -4004)
     ]
-    
-    var systemOutputEndpoints: [MIDIOutputEndpoint] { unownedOutputEndpoints + ownedOutputEndpoints }
-    
+
+    var systemOutputEndpoints: [MIDIOutputEndpoint] {
+        unownedOutputEndpoints + ownedOutputEndpoints
+    }
+
     @Test
-    func maskedFilter_Inputs() throws {
+    func maskedFilter_Inputs() {
         // only owned
         #expect(
             systemInputEndpoints.filter(
@@ -57,7 +62,7 @@ import Testing
             ) ==
                 ownedInputEndpoints
         )
-        
+
         // drop owned
         #expect(
             systemInputEndpoints.filter(
@@ -67,7 +72,7 @@ import Testing
             ) ==
                 unownedInputEndpoints
         )
-        
+
         // only specific endpoints, both owned and unowned
         #expect(
             systemInputEndpoints.filter(
@@ -78,10 +83,10 @@ import Testing
                 [
                     .init(ref: 2000, name: "Input B", displayName: "Unowned Input B", uniqueID: -2000),
                     .init(ref: 2004, name: "Input D", displayName: "Unowned Input D", uniqueID: -2004),
-                    .init(ref: 1001, name: "Virtual Input B", displayName: "My Virtual Input B",  uniqueID: -1001)
+                    .init(ref: 1001, name: "Virtual Input B", displayName: "My Virtual Input B", uniqueID: -1001)
                 ]
         )
-        
+
         // drop specific endpoints, both owned and unowned
         #expect(
             systemInputEndpoints.filter(
@@ -93,13 +98,13 @@ import Testing
                     .init(ref: 2003, name: "Input A", displayName: "Unowned Input A", uniqueID: -2003),
                     .init(ref: 2001, name: "Input C", displayName: "Unowned Input C", uniqueID: -2001),
                     .init(ref: 2002, name: "Input A", displayName: "Unowned Input A", uniqueID: -2002),
-                    .init(ref: 1000, name: "Virtual Input A", displayName: "My Virtual Input A",  uniqueID: -1000)
+                    .init(ref: 1000, name: "Virtual Input A", displayName: "My Virtual Input A", uniqueID: -1000)
                 ]
         )
     }
-    
+
     @Test
-    func maskedFilter_Outputs() throws {
+    func maskedFilter_Outputs() {
         // only owned
         #expect(
             systemOutputEndpoints.filter(
@@ -109,7 +114,7 @@ import Testing
             ) ==
                 ownedOutputEndpoints
         )
-        
+
         // drop owned
         #expect(
             systemOutputEndpoints.filter(
@@ -119,7 +124,7 @@ import Testing
             ) ==
                 unownedOutputEndpoints
         )
-        
+
         // only specific endpoints, both owned and unowned
         #expect(
             systemOutputEndpoints.filter(
@@ -130,10 +135,10 @@ import Testing
                 [
                     .init(ref: 4000, name: "Output B", displayName: "Unowned Output B", uniqueID: -4000),
                     .init(ref: 4004, name: "Output D", displayName: "Unowned Output D", uniqueID: -4004),
-                    .init(ref: 3001, name: "Virtual Output B", displayName: "My Virtual Output B",  uniqueID: -3001)
+                    .init(ref: 3001, name: "Virtual Output B", displayName: "My Virtual Output B", uniqueID: -3001)
                 ]
         )
-        
+
         // drop specific endpoints, both owned and unowned
         #expect(
             systemOutputEndpoints.filter(
@@ -145,7 +150,7 @@ import Testing
                     .init(ref: 4003, name: "Output A", displayName: "Unowned Output A", uniqueID: -4003),
                     .init(ref: 4001, name: "Output C", displayName: "Unowned Output C", uniqueID: -4001),
                     .init(ref: 4002, name: "Output A", displayName: "Unowned Output A", uniqueID: -4002),
-                    .init(ref: 3000, name: "Virtual Output A", displayName: "My Virtual Output A",  uniqueID: -3000)
+                    .init(ref: 3000, name: "Virtual Output A", displayName: "My Virtual Output A", uniqueID: -3000)
                 ]
         )
     }
