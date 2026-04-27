@@ -39,7 +39,7 @@ public struct MIDIReceiverOptions: OptionSet {
     /// Note that this may introduce a very small amount of latency only for RPN/NRPN messages that
     /// intentionally do not carry a Data Entry LSB or carry a Data Entry LSB of `0`.
     ///
-    /// For details see [this thread](https://github.com/orchetect/MIDIKit/discussions/198).
+    /// For details see [this thread](https://github.com/orchetect/swift-midi/discussions/198).
     public static let bundleRPNAndNRPNDataEntryLSB = MIDIReceiverOptions(rawValue: 1 << 2)
 }
 

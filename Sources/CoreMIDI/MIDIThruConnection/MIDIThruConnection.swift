@@ -15,7 +15,7 @@
 // There is a bug in Core MIDI's Swift bridging whereby passing nil into MIDIThruConnectionCreate
 // fails to create a non-persistent thru connection and actually creates a persistent thru
 // connection, despite what the Core MIDI documentation states. Only macOS 11 and 12 seem affected.
-// - GitHub issue: https://github.com/orchetect/MIDIKit/issues/164
+// - GitHub issue: https://github.com/orchetect/swift-midi/issues/164
 // - Radar filed: https://openradar.appspot.com/radar?id=5043482339049472
 // - Essentially, the net effect of passing .nonPersistent on those OS versions would create
 //   a persistent thru connection with an owner of an empty string ("") so we are blocking that
