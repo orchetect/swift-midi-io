@@ -143,7 +143,7 @@ public final class MIDIManager: @unchecked Sendable { // @unchecked required for
         var clientNameForQueue = clientName.onlyAlphanumerics
         if clientNameForQueue.isEmpty { clientNameForQueue = UUID().uuidString }
         clientNameForQueue += "-management"
-        managementQueue = DispatchQueue(label: clientNameForQueue, qos: .userInitiated, attributes: [], target: nil)
+        managementQueue = DispatchQueue(label: clientNameForQueue, qos: .userInitiated, attributes: [], target: .global())
         
         // API version
         preferredAPI = .bestForPlatform()
