@@ -1,5 +1,5 @@
 //
-//  Endpoint Hashable Tests.swift
+//  MIDIEndpoint Hashable Tests.swift
 //  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
@@ -10,7 +10,7 @@
 import Testing
 
 @Suite
-struct Endpoint_Hashable_Tests {
+struct MIDIEndpoint_Hashable_Tests {
     @Test
     func inputEndpoint1() {
         let same: Set<MIDIInputEndpoint> = [
