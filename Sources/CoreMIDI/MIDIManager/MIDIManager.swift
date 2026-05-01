@@ -20,6 +20,11 @@ import SwiftMIDIInternals
 /// > For SwiftUI environments, see the ``ObservableMIDIManager`` or ``ObservableObjectMIDIManager``
 /// > subclass which makes ``devices`` and ``endpoints`` properties observable.
 public class MIDIManager: @unchecked Sendable { // forced to use @unchecked since class is not final
+    // MARK: - Queue
+    
+    /// Internal manager interaction management queue.
+    nonisolated let managementQueue: DispatchQueue
+    
     // MARK: - Properties
 
     /// MIDI Client Name.
@@ -129,7 +134,9 @@ public class MIDIManager: @unchecked Sendable { // forced to use @unchecked sinc
         // queue client name
         var clientNameForQueue = clientName.onlyAlphanumerics
         if clientNameForQueue.isEmpty { clientNameForQueue = UUID().uuidString }
-
+        clientNameForQueue += "-management"
+        managementQueue = DispatchQueue(label: clientNameForQueue, qos: .userInitiated, attributes: [], target: nil)
+        
         // API version
         preferredAPI = .bestForPlatform()
 
@@ -159,12 +166,14 @@ public class MIDIManager: @unchecked Sendable { // forced to use @unchecked sinc
 
     /// Internal: updates cached properties for all objects.
     func updateDevicesAndEndpoints() {
-        // update from system
-        devices.updateCachedProperties()
-        endpoints.updateCachedProperties(manager: self)
-
-        // update metadata cache
-        midiObjectCache.update(from: self)
+        managementQueue.sync {
+            // update from system
+            devices.updateCachedProperties()
+            endpoints.updateCachedProperties(manager: self)
+            
+            // update metadata cache
+            midiObjectCache.update(from: self)
+        }
     }
 }
 
