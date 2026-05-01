@@ -150,22 +150,15 @@ func getSystemDestinationEndpointRef(
 func getSystemEntity(
     forEndpoint endpointRef: CoreMIDI.MIDIEndpointRef
 ) throws(MIDIIOError) -> MIDIEntity? {
-    let refPtr: UnsafeMutablePointer<MIDIEntityRef>? = nil
+    // note: don't use a pointer here, use a plain var and pass it inout to MIDIEndpointGetEntity otherwise we get crashes
+    var entityRef = MIDIEntityRef()
 
-    // safeguard: ensure ref is an endpoint, otherwise we get a crash when calling MIDIEndpointGetEntity
-    let uid = try getUniqueID(of: endpointRef)
-    let objType = try getSystemObjectType(ofUniqueID: uid)
-    guard [.destination, .source, .externalDestination, .externalSource].contains(objType) else {
-        throw .internalInconsistency("Wrong object type.")
-    }
-    
-    try MIDIEndpointGetEntity(endpointRef, refPtr)
+    try MIDIEndpointGetEntity(endpointRef, &entityRef)
         .throwIfOSStatusErr()
 
-    guard let refPtr else { return nil }
-    guard refPtr.pointee != MIDIEntityRef() else { return nil }
+    guard entityRef != MIDIEntityRef() else { return nil }
 
-    return MIDIEntity(from: refPtr.pointee)
+    return MIDIEntity(from: entityRef)
 }
 
 /// Internal:
