@@ -56,31 +56,33 @@ extension MIDIManager {
     }
 
     private func internalNotificationHandler(_ internalNotif: MIDIIOInternalNotification) {
-        switch internalNotif {
-        case .setupChanged, .added, .removed, .propertyChanged:
-            updateDevicesAndEndpoints(onManagementQueue: true)
-        default:
-            break
-        }
-
-        // if needed, fall back on notification cache in case we get more than
-        // one `.removed` notification in a row. this way we have metadata on hand.
-        let notification = MIDIIONotification(internalNotif, cache: midiObjectCache)
-
-        // propagate notification to managed objects
-        for outputConnection in managedOutputConnections.values {
-            outputConnection.notification(internalNotif)
-        }
-        for inputConnection in managedInputConnections.values {
-            inputConnection.notification(internalNotif)
-        }
-        for thruConnection in managedThruConnections.values {
-            thruConnection.notification(internalNotif)
-        }
-
-        // send notification to handler after internal cache is updated
-        if let notification {
-            sendNotificationAsync(notification)
+        managementQueue.sync {
+            switch internalNotif {
+            case .setupChanged, .added, .removed, .propertyChanged:
+                updateDevicesAndEndpoints(onManagementQueue: false)
+            default:
+                break
+            }
+            
+            // if needed, fall back on notification cache in case we get more than
+            // one `.removed` notification in a row. this way we have metadata on hand.
+            let notification = MIDIIONotification(internalNotif, cache: midiObjectCache)
+            
+            // propagate notification to managed objects
+            for outputConnection in managedOutputConnections.values {
+                outputConnection.notification(internalNotif)
+            }
+            for inputConnection in managedInputConnections.values {
+                inputConnection.notification(internalNotif)
+            }
+            for thruConnection in managedThruConnections.values {
+                thruConnection.notification(internalNotif)
+            }
+            
+            // send notification to handler after internal cache is updated
+            if let notification {
+                sendNotificationAsync(notification)
+            }
         }
     }
 
