@@ -173,12 +173,12 @@ public final class MIDIManager: @unchecked Sendable { // @unchecked required for
     // MARK: - Helper methods
 
     /// Internal: updates cached properties for all objects.
-    func updateDevicesAndEndpoints() {
+    func updateDevicesAndEndpoints(onManagementQueue: Bool) {
         // save current state in order to diff
         let oldDevices = devices
         let oldEndpoints = endpoints
 
-        managementQueue.sync {
+        func update() {
             // update from system
             devices.updateCachedProperties()
             endpoints.updateCachedProperties(manager: self)
@@ -187,11 +187,19 @@ public final class MIDIManager: @unchecked Sendable { // @unchecked required for
             midiObjectCache.update(from: self)
         }
         
+        if onManagementQueue {
+            managementQueue.sync {
+                update()
+            }
+        } else {
+            update()
+        }
+        
         // send changes to monitors
         let newDevices = devices // take local copy
         let newEndpoints = endpoints // take local copy
-        let devicesMonitors = managementQueue.sync { self.devicesMonitors } // take local copy
-        let endpointsMonitors = managementQueue.sync { self.endpointsMonitors } // take local copy
+        let devicesMonitors = devicesMonitors // take local copy
+        let endpointsMonitors = endpointsMonitors // take local copy
         if !devicesMonitors.isEmpty {
             guard newDevices != oldDevices else { return }
             DispatchQueue.global().async {
