@@ -17,10 +17,10 @@ import SwiftMIDIInternals
 ///
 /// > Tip:
 /// >
-/// > For SwiftUI environments, see the ``ObservableMIDIManager`` or ``ObservableObjectMIDIManager``
-/// > subclass which makes ``devices`` and ``endpoints`` properties observable.
-public class MIDIManager: @unchecked Sendable { // forced to use @unchecked since class is not final
-    // MARK: - Queue
+/// > For SwiftUI environments, see the ``devicesStream()`` or ``endpointsStream()`` methods
+/// > which can output a live stream of current MIDI devices and endpoints in the system.
+public final class MIDIManager: @unchecked Sendable { // @unchecked required for use of mutex property wrappers
+    // MARK: - Management Queue
     
     /// Internal manager interaction management queue.
     nonisolated let managementQueue: DispatchQueue
@@ -109,6 +109,14 @@ public class MIDIManager: @unchecked Sendable { // forced to use @unchecked sinc
     @PThreadMutex
     public var notificationHandler: NotificationHandler?
 
+    /// References to active devices `AsyncStream` subscriptions.
+    @PThreadMutex
+    var devicesMonitors: Set<DevicesMonitor> = []
+    
+    /// References to active endpoints `AsyncStream` subscriptions.
+    @PThreadMutex
+    var endpointsMonitors: Set<EndpointsMonitor> = []
+    
     /// Internal: Ephemeral MIDI object metadata cache for MIDI object removal notifications.
     @PThreadMutex
     var midiObjectCache = MIDIObjectCache()
@@ -166,6 +174,10 @@ public class MIDIManager: @unchecked Sendable { // forced to use @unchecked sinc
 
     /// Internal: updates cached properties for all objects.
     func updateDevicesAndEndpoints() {
+        // save current state in order to diff
+        let oldDevices = devices
+        let oldEndpoints = endpoints
+
         managementQueue.sync {
             // update from system
             devices.updateCachedProperties()
@@ -173,6 +185,28 @@ public class MIDIManager: @unchecked Sendable { // forced to use @unchecked sinc
             
             // update metadata cache
             midiObjectCache.update(from: self)
+        }
+        
+        // send changes to monitors
+        let newDevices = devices // take local copy
+        let newEndpoints = endpoints // take local copy
+        let devicesMonitors = managementQueue.sync { self.devicesMonitors } // take local copy
+        let endpointsMonitors = managementQueue.sync { self.endpointsMonitors } // take local copy
+        if !devicesMonitors.isEmpty {
+            guard newDevices != oldDevices else { return }
+            DispatchQueue.global().async {
+                for monitor in devicesMonitors {
+                    monitor.handler(newDevices)
+                }
+            }
+        }
+        if !endpointsMonitors.isEmpty {
+            guard newEndpoints != oldEndpoints else { return }
+            DispatchQueue.global().async {
+                for monitor in endpointsMonitors {
+                    monitor.handler(newEndpoints)
+                }
+            }
         }
     }
 }
