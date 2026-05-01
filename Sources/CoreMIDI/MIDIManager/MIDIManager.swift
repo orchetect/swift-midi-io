@@ -200,16 +200,14 @@ public final class MIDIManager: @unchecked Sendable { // @unchecked required for
         let newEndpoints = endpoints // take local copy
         let devicesMonitors = devicesMonitors // take local copy
         let endpointsMonitors = endpointsMonitors // take local copy
-        if !devicesMonitors.isEmpty {
-            guard newDevices != oldDevices else { return }
+        if !devicesMonitors.isEmpty, newDevices != oldDevices {
             DispatchQueue.global().async {
                 for monitor in devicesMonitors {
                     monitor.handler(newDevices)
                 }
             }
         }
-        if !endpointsMonitors.isEmpty {
-            guard newEndpoints != oldEndpoints else { return }
+        if !endpointsMonitors.isEmpty, newEndpoints != oldEndpoints {
             DispatchQueue.global().async {
                 for monitor in endpointsMonitors {
                     monitor.handler(newEndpoints)
