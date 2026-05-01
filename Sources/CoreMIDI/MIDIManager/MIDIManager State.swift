@@ -17,38 +17,40 @@ extension MIDIManager {
     ///
     /// - Throws: `MIDIIOError.osStatus`
     public func start() throws(MIDIIOError) {
-        // if start() was already called, return
-        guard coreMIDIClientRef == MIDIClientRef() else { return }
-
-        func block() -> Result<MIDIClientRef, MIDIIOError> {
-            var newCoreMIDIClientRef = MIDIClientRef()
-
-            do throws(MIDIIOError) {
-                try MIDIClientCreateWithBlock(clientName as CFString, &newCoreMIDIClientRef) { [weak self] notificationPtr in
-                    guard let self else { return }
-                    let internalNotif = MIDIIOInternalNotification(notificationPtr)
-                    internalNotificationHandler(internalNotif)
+        try managementQueue.syncTypedThrowable { () throws(MIDIIOError) in
+            // if start() was already called, return
+            guard coreMIDIClientRef == MIDIClientRef() else { return }
+            
+            func block() -> Result<MIDIClientRef, MIDIIOError> {
+                var newCoreMIDIClientRef = MIDIClientRef()
+                
+                do throws(MIDIIOError) {
+                    try MIDIClientCreateWithBlock(clientName as CFString, &newCoreMIDIClientRef) { [weak self] notificationPtr in
+                        guard let self else { return }
+                        let internalNotif = MIDIIOInternalNotification(notificationPtr)
+                        internalNotificationHandler(internalNotif)
+                    }
+                    .throwIfOSStatusErr()
+                    
+                    return .success(newCoreMIDIClientRef)
+                } catch {
+                    return .failure(error)
                 }
-                .throwIfOSStatusErr()
-
-                return .success(newCoreMIDIClientRef)
-            } catch {
-                return .failure(error)
             }
+            
+            // `MIDIClientCreateWithBlock` must be called on the main thread,
+            // otherwise the notification block will never happen.
+            let newCoreMIDIClientRef: MIDIClientRef
+            if Thread.current.isMainThread {
+                newCoreMIDIClientRef = try block().get()
+            } else {
+                let result = DispatchQueue.main.sync { block() }
+                newCoreMIDIClientRef = try result.get()
+            }
+            assert(newCoreMIDIClientRef != MIDIClientRef())
+            coreMIDIClientRef = newCoreMIDIClientRef
         }
-
-        // `MIDIClientCreateWithBlock` must be called on the main thread,
-        // otherwise the notification block will never happen.
-        let newCoreMIDIClientRef: MIDIClientRef
-        if Thread.current.isMainThread {
-            newCoreMIDIClientRef = try block().get()
-        } else {
-            let result = DispatchQueue.main.sync { block() }
-            newCoreMIDIClientRef = try result.get()
-        }
-        assert(newCoreMIDIClientRef != MIDIClientRef())
-        coreMIDIClientRef = newCoreMIDIClientRef
-
+            
         // initial cache of endpoints
         updateDevicesAndEndpoints()
     }
