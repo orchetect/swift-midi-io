@@ -13,7 +13,7 @@ public protocol MIDIEndpoint: MIDIIOObject {
     /// This typically includes the model number and endpoint name.
     var displayName: String { get }
 
-    // implemented in extension _MIDIEndpoint
+    // implemented in extension MIDIEndpoint
 
     /// Returns the entity the endpoint originates from.
     /// For virtual endpoints, this will return `nil`.
@@ -27,13 +27,9 @@ public protocol MIDIEndpoint: MIDIIOObject {
     func asAnyEndpoint() -> AnyMIDIEndpoint
 }
 
-// MARK: - Internal Protocol
-
-protocol _MIDIEndpoint: MIDIEndpoint { }
-
 // MIDIEndpoint implementation
 
-extension _MIDIEndpoint {
+extension MIDIEndpoint {
     /// Returns the entity that owns the endpoint, if present.
     public var entity: MIDIEntity? {
         try? getSystemEntity(forEndpoint: coreMIDIObjectRef)

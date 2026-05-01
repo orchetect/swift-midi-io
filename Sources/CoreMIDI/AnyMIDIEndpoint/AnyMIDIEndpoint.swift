@@ -7,7 +7,7 @@
 #if !os(tvOS) && !os(watchOS)
 
 /// Type-erased box that can contain ``MIDIInputEndpoint`` or ``MIDIOutputEndpoint``.
-public struct AnyMIDIEndpoint: _MIDIEndpoint {
+public struct AnyMIDIEndpoint: MIDIEndpoint {
     // MARK: MIDIIOObject
 
     public var objectType: MIDIIOObjectType
@@ -44,7 +44,7 @@ public struct AnyMIDIEndpoint: _MIDIEndpoint {
 
     // MARK: Init
 
-    init(_ base: some _MIDIEndpoint) {
+    init(_ base: some MIDIEndpoint) {
         switch base {
         case is MIDIInputEndpoint:
             objectType = .inputEndpoint
@@ -91,7 +91,7 @@ extension AnyMIDIEndpoint: CustomDebugStringConvertible {
 
 // MARK: - Extensions
 
-extension _MIDIEndpoint {
+extension MIDIEndpoint {
     /// Returns the endpoint as a type-erased ``AnyMIDIEndpoint``.
     public func asAnyEndpoint() -> AnyMIDIEndpoint {
         .init(self)
