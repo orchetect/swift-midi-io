@@ -10,7 +10,7 @@ import SwiftMIDICore
 @available(
     *,
     deprecated,
-    message: "ObservableObjectMIDIManager has been removed and its previously-observable properties have been replaced with `devicesSequence()` and `endpointsSequence()`"
+    message: "ObservableObjectMIDIManager has been removed and its previously-observable properties have been replaced with `devicesStream()` and `endpointsStream()`"
 )
 public typealias ObservableObjectMIDIManager = MIDIManager
 
@@ -18,6 +18,6 @@ public typealias ObservableObjectMIDIManager = MIDIManager
 @available(
     *,
      deprecated,
-     message: "ObservableMIDIManager has been removed and its previously-observable properties have been replaced with `devicesSequence()` and `endpointsSequence()`"
+     message: "ObservableMIDIManager has been removed and its previously-observable properties have been replaced with `devicesStream()` and `endpointsStream()`"
 )
 public typealias ObservableMIDIManager = MIDIManager
