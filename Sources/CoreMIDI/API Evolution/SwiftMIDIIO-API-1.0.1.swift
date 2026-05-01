@@ -4,6 +4,8 @@
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
+#if !os(tvOS) && !os(watchOS)
+
 import SwiftMIDICore
 
 @_documentation(visibility: internal)
@@ -21,3 +23,5 @@ public typealias ObservableObjectMIDIManager = MIDIManager
      message: "ObservableMIDIManager has been removed and its previously-observable properties have been replaced with `devicesStream()` and `endpointsStream()`"
 )
 public typealias ObservableMIDIManager = MIDIManager
+
+#endif
