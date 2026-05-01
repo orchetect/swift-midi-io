@@ -54,7 +54,7 @@ struct MIDIInput_Tests {
         let tag1 = UUID().uuidString
 
         try mw.manager.addInput(
-            name: UUID().uuidString,
+            name: tag1,
             tag: tag1,
             uniqueID: .adHoc,
             // allow system to generate random ID each time, without persistence
@@ -70,7 +70,7 @@ struct MIDIInput_Tests {
         let tag2 = UUID().uuidString
 
         try mw.manager.addInput(
-            name: UUID().uuidString,
+            name: tag2,
             tag: tag2,
             uniqueID: .unmanaged(id1), // try to use existing ID
             receiver: .rawData { packet in
