@@ -8,8 +8,6 @@
 
 import CoreMIDI
 
-// TODO: This method works, but is not currently being used.
-
 /// Internal:
 /// Retrieves the object type for the given Core MIDI unique ID.
 func getSystemObjectType(
