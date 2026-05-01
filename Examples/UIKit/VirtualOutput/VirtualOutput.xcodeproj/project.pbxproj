@@ -3,11 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E24861652F972531008ECA8C /* SwiftMIDIIO in Frameworks */ = {isa = PBXBuildFile; productRef = E24861642F972531008ECA8C /* SwiftMIDIIO */; };
+		E22A74562FA49BFB006CAB3F /* SwiftMIDIIO in Frameworks */ = {isa = PBXBuildFile; productRef = E22A74552FA49BFB006CAB3F /* SwiftMIDIIO */; };
 		E24932E72F077ECD006CB1D1 /* MIDIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24932E62F077ECD006CB1D1 /* MIDIHelper.swift */; };
 		E27D0E1E284F2A8900F43247 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27D0E1D284F2A8900F43247 /* AppDelegate.swift */; };
 		E27D0E25284F2A8900F43247 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E27D0E23284F2A8900F43247 /* Main.storyboard */; };
@@ -31,7 +31,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E24861652F972531008ECA8C /* SwiftMIDIIO in Frameworks */,
+				E22A74562FA49BFB006CAB3F /* SwiftMIDIIO in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,7 +85,7 @@
 			);
 			name = VirtualOutput;
 			packageProductDependencies = (
-				E24861642F972531008ECA8C /* SwiftMIDIIO */,
+				E22A74552FA49BFB006CAB3F /* SwiftMIDIIO */,
 			);
 			productName = VirtualOutput;
 			productReference = E27D0E1A284F2A8900F43247 /* VirtualOutput.app */;
@@ -116,7 +116,7 @@
 			);
 			mainGroup = E27D0E11284F2A8900F43247;
 			packageReferences = (
-				E24861632F972531008ECA8C /* XCRemoteSwiftPackageReference "swift-midi-io" */,
+				E22A74542FA49BFB006CAB3F /* XCLocalSwiftPackageReference "../../../" */,
 			);
 			productRefGroup = E27D0E1B284F2A8900F43247 /* Products */;
 			projectDirPath = "";
@@ -375,21 +375,16 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		E24861632F972531008ECA8C /* XCRemoteSwiftPackageReference "swift-midi-io" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/orchetect/swift-midi-io";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
+/* Begin XCLocalSwiftPackageReference section */
+		E22A74542FA49BFB006CAB3F /* XCLocalSwiftPackageReference "../../../" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = "../../../";
 		};
-/* End XCRemoteSwiftPackageReference section */
+/* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		E24861642F972531008ECA8C /* SwiftMIDIIO */ = {
+		E22A74552FA49BFB006CAB3F /* SwiftMIDIIO */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = E24861632F972531008ECA8C /* XCRemoteSwiftPackageReference "swift-midi-io" */;
 			productName = SwiftMIDIIO;
 		};
 /* End XCSwiftPackageProductDependency section */
