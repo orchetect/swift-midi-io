@@ -75,7 +75,7 @@ func getSystemDestinationEndpoints() -> [MIDIInputEndpoint] {
 func getSystemSourceEndpointRefs(
     matching name: String
 ) -> [CoreMIDI.MIDIEndpointRef] {
-    var refs: [MIDIEndpointRef] = []
+    var refs: [CoreMIDI.MIDIEndpointRef] = []
 
     for i in 0 ..< MIDIGetNumberOfSources() {
         let endpointRef = MIDIGetSource(i)
@@ -148,7 +148,7 @@ func getSystemDestinationEndpointRef(
 /// Internal:
 /// Returns a ``MIDIEntity`` instance of the endpoint's owning entity.
 func getSystemEntity(
-    forEndpoint endpointRef: MIDIEndpointRef
+    forEndpoint endpointRef: CoreMIDI.MIDIEndpointRef
 ) throws(MIDIIOError) -> MIDIEntity? {
     let refPtr: UnsafeMutablePointer<MIDIEntityRef>? = nil
 
@@ -170,14 +170,14 @@ func getSystemEntity(
 
 /// Internal:
 /// Makes a virtual endpoint in the system invisible to the user.
-func hide(endpoint endpointRef: MIDIEndpointRef) throws(MIDIIOError) {
+func hide(endpoint endpointRef: CoreMIDI.MIDIEndpointRef) throws(MIDIIOError) {
     try MIDIObjectSetIntegerProperty(endpointRef, kMIDIPropertyPrivate, 1)
         .throwIfOSStatusErr()
 }
 
 /// Internal:
 /// Makes a virtual endpoint in the system visible to the user.
-func show(endpoint endpointRef: MIDIEndpointRef) throws(MIDIIOError) {
+func show(endpoint endpointRef: CoreMIDI.MIDIEndpointRef) throws(MIDIIOError) {
     try MIDIObjectSetIntegerProperty(endpointRef, kMIDIPropertyPrivate, 0)
         .throwIfOSStatusErr()
 }
