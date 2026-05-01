@@ -73,6 +73,21 @@ struct MIDIEndpoint_Properties_Tests {
         // virtual endpoints never have a parent device
         #expect(endpoint.device == nil)
     }
+    
+    /// This test does not inspect entities themselves, but simply performs the Core MIDI calls necessary to fetch them.
+    /// This is a regression test to ensure that the internal methods do not cause a crash.
+    @Test
+    func probeEntities() async throws {
+        let inputs = getSystemDestinationEndpoints()
+        for input in inputs {
+            _ = input.entity
+        }
+        
+        let outputs = getSystemSourceEndpoints()
+        for output in outputs {
+            _ = output.entity
+        }
+    }
 }
 
 #endif
