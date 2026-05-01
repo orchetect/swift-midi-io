@@ -177,7 +177,7 @@ func getManufacturer(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Stri
 /// property on their endpoints, though doing so may fail if the chosen ID is not unique.
 ///
 /// - Throws: ``MIDIIOError``
-func getUniqueID(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> MIDIUniqueID {
+func getUniqueID(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> CoreMIDI.MIDIUniqueID {
     try getInteger(forProperty: kMIDIPropertyUniqueID, of: ref)
 }
 
