@@ -25,6 +25,9 @@ struct MIDIEndpoint_Properties_Tests {
         try manager.start()
     }
     
+    // iOS Simulator testing does not give enough permissions to allow creating virtual MIDI
+    // ports, so skip these tests on iOS targets
+    #if !targetEnvironment(simulator)
     @Test
     func virtualInput_Properties() async throws {
         // add new endpoint
@@ -49,7 +52,12 @@ struct MIDIEndpoint_Properties_Tests {
         // virtual endpoints never have a parent device
         #expect(endpoint.device == nil)
     }
+    #endif
     
+    
+    // iOS Simulator testing does not give enough permissions to allow creating virtual MIDI
+    // ports, so skip these tests on iOS targets
+    #if !targetEnvironment(simulator)
     @Test
     func virtualOutput_Properties() async throws {
         // add new endpoint
@@ -73,6 +81,7 @@ struct MIDIEndpoint_Properties_Tests {
         // virtual endpoints never have a parent device
         #expect(endpoint.device == nil)
     }
+    #endif
     
     /// This test does not inspect entities themselves, but simply performs the Core MIDI calls necessary to fetch them.
     /// This is a regression test to ensure that the internal methods do not cause a crash.

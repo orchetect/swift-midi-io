@@ -142,6 +142,9 @@ struct MIDIManager_Observation_Tests {
         await wait(expect: { manager.endpointsMonitors.isEmpty }, timeout: 2.0)
     }
     
+    // iOS Simulator testing does not give enough permissions to allow creating virtual MIDI
+    // ports, so skip these tests on iOS targets
+    #if !targetEnvironment(simulator)
     /// This tests that the expected data is returned by the stream.
     @Test
     func endpointsStream_Data() async throws {
@@ -187,6 +190,7 @@ struct MIDIManager_Observation_Tests {
         task?.cancel()
         task = nil
     }
+    #endif
 }
 
 #endif
