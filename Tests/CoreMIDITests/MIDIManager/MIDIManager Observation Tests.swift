@@ -56,7 +56,7 @@ struct MIDIManager_Observation_Tests {
         
         // wait a short amount of time to ensure the sequence has not finished
         try await Task.sleep(seconds: 0.5)
-        await #expect(!testState.isFinished)
+        #expect(await !testState.isFinished)
         
         // cancel the task
         task?.cancel()
@@ -129,7 +129,7 @@ struct MIDIManager_Observation_Tests {
         
         // wait a short amount of time to ensure the sequence has not finished
         try await Task.sleep(seconds: 0.5)
-        await #expect(!testState.isFinished)
+        #expect(await !testState.isFinished)
         
         // cancel the task
         task?.cancel()
