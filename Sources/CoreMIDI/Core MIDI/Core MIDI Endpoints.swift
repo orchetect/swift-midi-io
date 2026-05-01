@@ -58,6 +58,7 @@ func getSystemDestinationEndpoints() -> [MIDIInputEndpoint] {
 
     for i in 0 ..< destCount {
         let endpointRef = MIDIGetDestination(i)
+        guard endpointRef != MIDIEndpointRef() else { continue }
         let endpoint = MIDIInputEndpoint(from: endpointRef)
         guard endpoint.uniqueID != .invalidMIDIIdentifier else { continue }
         endpoints.append(endpoint)
