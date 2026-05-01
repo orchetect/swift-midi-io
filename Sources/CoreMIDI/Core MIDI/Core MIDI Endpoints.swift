@@ -20,6 +20,7 @@ func getSystemSourceEndpoints() -> [MIDIOutputEndpoint] {
 
     for i in 0 ..< srcCount {
         let endpointRef = MIDIGetSource(i)
+        guard endpointRef != MIDIEndpointRef() else { continue }
         let endpoint = MIDIOutputEndpoint(from: endpointRef)
         guard endpoint.uniqueID != .invalidMIDIIdentifier else { continue }
         endpoints.append(endpoint)
