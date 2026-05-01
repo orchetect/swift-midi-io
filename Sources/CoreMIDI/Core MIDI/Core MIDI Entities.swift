@@ -16,6 +16,13 @@ func getSystemDevice(
 ) throws(MIDIIOError) -> MIDIDevice? {
     let refPtr: UnsafeMutablePointer<MIDIDeviceRef>? = nil
 
+    // safeguard: ensure ref is an entity, otherwise we get a crash when calling MIDIEndpointGetDevice
+    let uid = try getUniqueID(of: entityRef)
+    let objType = try getSystemObjectType(ofUniqueID: uid)
+    guard [.entity, .externalEntity].contains(objType) else {
+        throw .internalInconsistency("Wrong object type.")
+    }
+    
     try MIDIEntityGetDevice(entityRef, refPtr)
         .throwIfOSStatusErr()
 
