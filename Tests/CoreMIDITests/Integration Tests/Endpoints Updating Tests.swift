@@ -244,14 +244,15 @@ struct EndpointsUpdating_Threading_Tests {
         nonisolated init() { }
     }
 
+    // TODO: removed observable managers - can update this test to not require testing the (now) non-existent subclasses
     static var managerGenerators: [@Sendable () -> MIDIManager] {
-        var managers: [@Sendable () -> MIDIManager] = [
-            { MIDIManager(clientName: "SwiftMIDI_Tests_1", model: "SwiftMIDI123", manufacturer: "SwiftMIDI") },
-            { ObservableObjectMIDIManager(clientName: "SwiftMIDI_Tests_2", model: "SwiftMIDI123", manufacturer: "SwiftMIDI") }
+        let /* var */ managers: [@Sendable () -> MIDIManager] = [
+            { MIDIManager(clientName: "SwiftMIDI_Tests_1", model: "SwiftMIDI123", manufacturer: "SwiftMIDI") }
+            // { ObservableObjectMIDIManager(clientName: "SwiftMIDI_Tests_2", model: "SwiftMIDI123", manufacturer: "SwiftMIDI") }
         ]
-        if #available(macOS 14.0, iOS 17.0, watchOS 10.0, tvOS 17.0, *) {
-            managers.append { ObservableMIDIManager(clientName: "SwiftMIDI_Tests_3", model: "SwiftMIDI123", manufacturer: "SwiftMIDI") }
-        }
+        // if #available(macOS 14.0, iOS 17.0, watchOS 10.0, tvOS 17.0, *) {
+        //     managers.append { ObservableMIDIManager(clientName: "SwiftMIDI_Tests_3", model: "SwiftMIDI123", manufacturer: "SwiftMIDI") }
+        // }
         return managers
     }
 
