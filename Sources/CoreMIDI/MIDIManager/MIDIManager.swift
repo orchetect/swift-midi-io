@@ -145,12 +145,17 @@ public class MIDIManager: @unchecked Sendable { // @unchecked required for use o
         manufacturer: String,
         notificationHandler: NotificationHandler? = nil
     ) {
-        // queue client name
+        // management queue
         var clientNameForQueue = clientName.onlyAlphanumerics
         if clientNameForQueue.isEmpty { clientNameForQueue = UUID().uuidString }
         clientNameForQueue += "-management"
-        managementQueue = DispatchQueue(label: clientNameForQueue, qos: .userInitiated, attributes: [], target: .global())
-
+        managementQueue = DispatchQueue(
+            label: clientNameForQueue,
+            qos: .userInitiated, // raised priority
+            attributes: [], // must be serial to ensure received event ordering
+            target: .global() // target global to reduce thread count, as per GCD docs
+        )
+        
         // API version
         preferredAPI = .bestForPlatform()
 
