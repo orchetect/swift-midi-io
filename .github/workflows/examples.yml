@@ -113,6 +113,20 @@ jobs:
     - name: MIDISystemInfo - Build (macOS)
       run: xcodebuild build -project "Examples/SwiftUI Multiplatform/MIDISystemInfo/MIDISystemInfo.xcodeproj" -scheme "MIDISystemInfo macOS" -destination "generic/platform=macOS" | xcbeautify --renderer github-actions && exit ${PIPESTATUS[0]}
     
+    - name: Observable Manager - Resolve Package Dependencies # needed because sometimes xcodebuild fails otherwise
+      run: xcodebuild -project "Examples/SwiftUI Multiplatform/Observable Manager/Observable Manager.xcodeproj" -resolvePackageDependencies | xcbeautify --renderer github-actions && exit ${PIPESTATUS[0]}
+    - name: Observable Manager - Build (iOS) # by targeting a simulator device, we bypass requiring a Developer Team ID
+      run: xcodebuild build -project "Examples/SwiftUI Multiplatform/Observable Manager/Observable Manager.xcodeproj" -scheme "Observable Manager" -destination "generic/platform=iOS Simulator,name=Any iOS Simulator Device" | xcbeautify --renderer github-actions && exit ${PIPESTATUS[0]}
+    - name: Observable Manager - Build (macOS)
+      run: xcodebuild build -project "Examples/SwiftUI Multiplatform/Observable Manager/Observable Manager.xcodeproj" -scheme "Observable Manager" -destination "generic/platform=macOS" | xcbeautify --renderer github-actions && exit ${PIPESTATUS[0]}
+    
+    - name: ObservableObject Manager - Resolve Package Dependencies # needed because sometimes xcodebuild fails otherwise
+      run: xcodebuild -project "Examples/SwiftUI Multiplatform/ObservableObject Manager/ObservableObject Manager.xcodeproj" -resolvePackageDependencies | xcbeautify --renderer github-actions && exit ${PIPESTATUS[0]}
+    - name: ObservableObject Manager - Build (iOS) # by targeting a simulator device, we bypass requiring a Developer Team ID
+      run: xcodebuild build -project "Examples/SwiftUI Multiplatform/ObservableObject Manager/ObservableObject Manager.xcodeproj" -scheme "ObservableObject Manager" -destination "generic/platform=iOS Simulator,name=Any iOS Simulator Device" | xcbeautify --renderer github-actions && exit ${PIPESTATUS[0]}
+    - name: ObservableObject Manager - Build (macOS)
+      run: xcodebuild build -project "Examples/SwiftUI Multiplatform/ObservableObject Manager/ObservableObject Manager.xcodeproj" -scheme "ObservableObject Manager" -destination "generic/platform=macOS" | xcbeautify --renderer github-actions && exit ${PIPESTATUS[0]}
+    
     - name: SystemNotifications - Resolve Package Dependencies # needed because sometimes xcodebuild fails otherwise
       run: xcodebuild -project "Examples/SwiftUI Multiplatform/SystemNotifications/SystemNotifications.xcodeproj" -resolvePackageDependencies | xcbeautify --renderer github-actions && exit ${PIPESTATUS[0]}
     - name: SystemNotifications - Build (iOS) # by targeting a simulator device, we bypass requiring a Developer Team ID
