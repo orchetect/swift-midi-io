@@ -1,4 +1,4 @@
-# VirtualOutput Example (AppKit)
+# Virtual Output Example (AppKit)
 
 ## Supported Platforms
 

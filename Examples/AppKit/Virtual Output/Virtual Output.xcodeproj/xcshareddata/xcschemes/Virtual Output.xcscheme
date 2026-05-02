@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1620"
+   LastUpgradeVersion = "2640"
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
-      buildImplicitDependencies = "YES">
+      buildImplicitDependencies = "YES"
+      buildArchitectures = "Automatic">
       <BuildActionEntries>
          <BuildActionEntry
             buildForTesting = "YES"
@@ -15,9 +16,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E24BA239284F1A3300AA6767"
-               BuildableName = "VirtualOutput.app"
-               BlueprintName = "VirtualOutput"
-               ReferencedContainer = "container:VirtualOutput.xcodeproj">
+               BuildableName = "Virtual Output.app"
+               BlueprintName = "Virtual Output"
+               ReferencedContainer = "container:Virtual Output.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -38,24 +39,18 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
-      allowLocationSimulation = "YES">
+      allowLocationSimulation = "YES"
+      queueDebuggingEnableBacktraceRecording = "Yes">
       <BuildableProductRunnable
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E24BA239284F1A3300AA6767"
-            BuildableName = "VirtualOutput.app"
-            BlueprintName = "VirtualOutput"
-            ReferencedContainer = "container:VirtualOutput.xcodeproj">
+            BuildableName = "Virtual Output.app"
+            BlueprintName = "Virtual Output"
+            ReferencedContainer = "container:Virtual Output.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <EnvironmentVariables>
-         <EnvironmentVariable
-            key = "IDELogRedirectionPolicy"
-            value = "oslogToStdio"
-            isEnabled = "YES">
-         </EnvironmentVariable>
-      </EnvironmentVariables>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -68,9 +63,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E24BA239284F1A3300AA6767"
-            BuildableName = "VirtualOutput.app"
-            BlueprintName = "VirtualOutput"
-            ReferencedContainer = "container:VirtualOutput.xcodeproj">
+            BuildableName = "Virtual Output.app"
+            BlueprintName = "Virtual Output"
+            ReferencedContainer = "container:Virtual Output.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
