@@ -1,4 +1,4 @@
-# VirtualOutput Example (SwiftUI)
+# Virtual Output Example (SwiftUI)
 
 ## Supported Platforms
 
