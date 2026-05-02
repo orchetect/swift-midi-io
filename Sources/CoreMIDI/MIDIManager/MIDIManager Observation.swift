@@ -31,7 +31,7 @@ extension MIDIManager {
     func addMonitor(_ monitor: DevicesMonitor) {
         devicesMonitors.insert(monitor)
     }
-    
+
     /// Internal: Removes a monitor from the manager.
     func removeMonitor(_ monitor: DevicesMonitor) {
         devicesMonitors.remove(monitor)
@@ -43,20 +43,20 @@ extension MIDIManager {
         let id = UUID()
         nonisolated(unsafe) weak var manager: MIDIManager?
         let handler: @Sendable (_ endpoints: MIDIDevices) -> Void
-        
+
         init(manager: MIDIManager, handler: @escaping @Sendable (_ endpoints: MIDIDevices) -> Void) {
             self.manager = manager
             self.handler = handler
         }
-        
+
         func startMonitoring() {
             guard let manager else { return }
             manager.addMonitor(self)
-            
+
             // send initial data
             handler(manager.devices)
         }
-        
+
         func stopMonitoring() {
             manager?.removeMonitor(self)
         }
@@ -98,7 +98,7 @@ extension MIDIManager {
     func addMonitor(_ monitor: EndpointsMonitor) {
         endpointsMonitors.insert(monitor)
     }
-    
+
     /// Internal: Removes a monitor from the manager.
     func removeMonitor(_ monitor: EndpointsMonitor) {
         endpointsMonitors.remove(monitor)
@@ -110,20 +110,20 @@ extension MIDIManager {
         let id = UUID()
         nonisolated(unsafe) weak var manager: MIDIManager?
         let handler: @Sendable (_ endpoints: MIDIEndpoints) -> Void
-        
+
         init(manager: MIDIManager, handler: @escaping @Sendable (_ endpoints: MIDIEndpoints) -> Void) {
             self.manager = manager
             self.handler = handler
         }
-        
+
         func startMonitoring() {
             guard let manager else { return }
             manager.addMonitor(self)
-            
+
             // send initial data
             handler(manager.endpoints)
         }
-        
+
         func stopMonitoring() {
             manager?.removeMonitor(self)
         }

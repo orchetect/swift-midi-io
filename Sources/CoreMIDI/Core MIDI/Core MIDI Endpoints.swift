@@ -35,16 +35,16 @@ func getSystemSourceEndpoints() -> [MIDIOutputEndpoint] {
 /// Dictionary of destination names & endpoint unique IDs (computed property)
 func getSystemDestinationEndpointRefs() -> [CoreMIDI.MIDIEndpointRef] {
     let destCount = MIDIGetNumberOfDestinations()
-    
+
     var refs: [CoreMIDI.MIDIEndpointRef] = []
     refs.reserveCapacity(destCount)
-    
+
     for i in 0 ..< destCount {
         let endpointRef = MIDIGetDestination(i)
         guard endpointRef != MIDIEndpointRef() else { continue }
         refs.append(endpointRef)
     }
-    
+
     return refs
 }
 

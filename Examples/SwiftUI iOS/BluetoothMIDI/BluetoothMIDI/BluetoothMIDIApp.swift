@@ -1,6 +1,6 @@
 //
 //  BluetoothMIDIApp.swift
-//  SwiftMIDI Examples • https://github.com/orchetect/swift-midi-examples
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 

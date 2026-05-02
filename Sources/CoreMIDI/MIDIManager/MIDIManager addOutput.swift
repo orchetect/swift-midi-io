@@ -44,24 +44,24 @@ extension MIDIManager {
     ) throws(MIDIIOError) {
         try managementQueue.syncTypedThrowable { () throws(MIDIIOError) in
             guard isStarted else { throw .managerNotStarted }
-            
+
             let newVS = MIDIOutput(
                 name: name,
                 uniqueID: uniqueID.readID(),
                 midiManager: self,
                 api: preferredAPI
             )
-            
+
             managedOutputs[tag] = newVS
-            
+
             try newVS.create(in: self)
-            
+
             guard let successfulID = newVS.uniqueID else {
                 throw .connectionError(
                     "Could not read virtual MIDI endpoint unique ID."
                 )
             }
-            
+
             uniqueID.writeID(successfulID)
         }
     }

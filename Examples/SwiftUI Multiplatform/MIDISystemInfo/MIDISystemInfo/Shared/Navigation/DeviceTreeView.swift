@@ -1,6 +1,6 @@
 //
 //  DeviceTreeView.swift
-//  SwiftMIDI Examples • https://github.com/orchetect/swift-midi-examples
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -10,7 +10,7 @@ import SwiftUI
 extension ContentView {
     struct DeviceTreeView: View {
         @EnvironmentObject private var midiHelper: MIDIHelper
-        
+
         @Binding var showRelevantProperties: Bool
 
         var body: some View {
@@ -61,11 +61,11 @@ extension ContentView {
                 isRelevantPropertiesOnlyShown: $showRelevantProperties
             )
         }
-        
+
         private var treeItems: [AnyMIDIIOObject] {
             Self.formatDeviceTreeItems(devices: midiHelper.devices?.devices ?? [])
         }
-        
+
         nonisolated static func formatDeviceTreeItems(devices: [MIDIDevice]) -> [AnyMIDIIOObject] {
             devices
                 .sortedByName()

@@ -21,10 +21,10 @@ import SwiftMIDIInternals
 /// > which can output a live stream of current MIDI devices and endpoints in the system.
 public class MIDIManager: @unchecked Sendable { // @unchecked required for use of mutex property wrappers
     // MARK: - Management Queue
-    
+
     /// Internal manager interaction management queue.
     nonisolated let managementQueue: DispatchQueue
-    
+
     // MARK: - Properties
 
     /// MIDI Client Name.
@@ -55,10 +55,12 @@ public class MIDIManager: @unchecked Sendable { // @unchecked required for use o
             }
         }
     }
-    
+
     /// Returns `true` is the manager has been started.
     nonisolated
-    public var isStarted: Bool { coreMIDIClientRef != CoreMIDIClientRef() }
+    public var isStarted: Bool {
+        coreMIDIClientRef != CoreMIDIClientRef()
+    }
 
     /// Dictionary of MIDI input connections managed by this instance.
     @PThreadMutex
@@ -116,11 +118,11 @@ public class MIDIManager: @unchecked Sendable { // @unchecked required for use o
     /// References to active devices `AsyncStream` subscriptions.
     @PThreadMutex
     var devicesMonitors: Set<DevicesMonitor> = []
-    
+
     /// References to active endpoints `AsyncStream` subscriptions.
     @PThreadMutex
     var endpointsMonitors: Set<EndpointsMonitor> = []
-    
+
     /// Internal: Ephemeral MIDI object metadata cache for MIDI object removal notifications.
     @PThreadMutex
     var midiObjectCache = MIDIObjectCache()
@@ -148,7 +150,7 @@ public class MIDIManager: @unchecked Sendable { // @unchecked required for use o
         if clientNameForQueue.isEmpty { clientNameForQueue = UUID().uuidString }
         clientNameForQueue += "-management"
         managementQueue = DispatchQueue(label: clientNameForQueue, qos: .userInitiated, attributes: [], target: .global())
-        
+
         // API version
         preferredAPI = .bestForPlatform()
 
@@ -186,11 +188,11 @@ public class MIDIManager: @unchecked Sendable { // @unchecked required for use o
             // update from system
             devices.updateCachedProperties()
             endpoints.updateCachedProperties(manager: self)
-            
+
             // update metadata cache
             midiObjectCache.update(from: self)
         }
-        
+
         if onManagementQueue {
             managementQueue.sync {
                 update()
@@ -198,7 +200,7 @@ public class MIDIManager: @unchecked Sendable { // @unchecked required for use o
         } else {
             update()
         }
-        
+
         // send changes to monitors
         let newDevices = devices // take local copy
         let newEndpoints = endpoints // take local copy

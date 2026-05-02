@@ -1,6 +1,6 @@
 //
 //  MIDIHelper.swift
-//  SwiftMIDI Examples • https://github.com/orchetect/swift-midi-examples
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -17,20 +17,20 @@ final class MIDIHelper: ObservableObject, @unchecked Sendable {
         model: "TestApp",
         manufacturer: "MyCompany"
     )
-    
+
     @MainActor @Published
     var devices: MIDIDevices?
-    
+
     @MainActor @Published
     var endpoints: MIDIEndpoints?
-    
+
     var devicesMonitor: Task<Void, Never>?
     var endpointsMonitor: Task<Void, Never>?
-    
-    public init(start: Bool = false) {
+
+    init(start: Bool = false) {
         if start { self.start() }
     }
-    
+
     deinit {
         stop()
     }
@@ -46,28 +46,28 @@ extension MIDIHelper {
         } catch {
             print("Error starting MIDI services:", error.localizedDescription)
         }
-        
+
         // set up monitoring task
         devicesMonitor = Task { [weak self, midiManager] in
             print("Devices monitor started.")
             defer { print("Devices monitor finished.") }
             for await devices in midiManager.devicesStream() {
                 guard let self else { return }
-                await self.updateDevices(devices: devices)
+                await updateDevices(devices: devices)
             }
         }
-        
+
         // set up monitoring task
         endpointsMonitor = Task { [weak self, midiManager] in
             print("Endpoints monitor started.")
             defer { print("Endpoints monitor finished.") }
             for await endpoints in midiManager.endpointsStream() {
                 guard let self else { return }
-                await self.updateEndpoints(endpoints: endpoints)
+                await updateEndpoints(endpoints: endpoints)
             }
         }
     }
-    
+
     func stop() {
         devicesMonitor?.cancel()
         devicesMonitor = nil
@@ -81,7 +81,7 @@ extension MIDIHelper {
     func updateDevices(devices: MIDIDevices) {
         self.devices = devices
     }
-    
+
     @MainActor
     func updateEndpoints(endpoints: MIDIEndpoints) {
         self.endpoints = endpoints

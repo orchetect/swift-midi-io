@@ -212,11 +212,12 @@ struct EndpointsUpdating_Threading_Tests {
         var manager: MIDIManager { get }
         init(manager: @Sendable () -> MIDIManager)
     }
-    
-    @globalActor actor ManagerGlobalActor {
+
+    @globalActor
+    actor ManagerGlobalActor {
         static let shared: some Actor = ManagerGlobalActor()
     }
-    
+
     @ManagerGlobalActor
     private final class ManagerGlobalActorClass: ManagerWrapperProtocol {
         nonisolated let manager: MIDIManager
@@ -302,12 +303,12 @@ struct EndpointsUpdating_Threading_Tests {
     let queue2 = DispatchQueue.main // DispatchQueue(label: "midikit-endpoints-q2", target: .main)
 
     // MARK: - Init
-    
+
     init() async throws {
         // allow a little time for Core MIDI to clean up from any prior test
         try await Task.sleep(seconds: 0.5)
     }
-    
+
     // MARK: - Test
 
     /// Test reading and writing endpoints from different threads.

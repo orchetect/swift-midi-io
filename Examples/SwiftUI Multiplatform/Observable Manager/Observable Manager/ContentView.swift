@@ -1,6 +1,6 @@
 //
 //  ContentView.swift
-//  SwiftMIDI Examples • https://github.com/orchetect/swift-midi-examples
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -14,7 +14,7 @@ struct ContentView: View {
             Text(
                 """
                 This example displays the current list of devices and endpoints in the system.
-                
+
                 The devices and endpoints properties are observable in SwiftUI views, which means \
                 view state will automatically update when there are changes to devices or endpoints in the system.
                 """
@@ -33,7 +33,7 @@ struct ContentView: View {
                         }
                     }
                 }
-                
+
                 Section("Input Endpoints") {
                     List(midiHelper.midiManager.endpoints.inputs.sortedByName()) { endpoint in
                         HStack {
@@ -45,7 +45,7 @@ struct ContentView: View {
                         }
                     }
                 }
-                
+
                 Section("Output Endpoints") {
                     List(midiHelper.midiManager.endpoints.outputs.sortedByName()) { endpoint in
                         HStack {

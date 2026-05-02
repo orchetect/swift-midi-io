@@ -1,6 +1,6 @@
 //
 //  OtherInputsView.swift
-//  SwiftMIDI Examples • https://github.com/orchetect/swift-midi-examples
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -37,7 +37,7 @@ extension ContentView {
                 isRelevantPropertiesOnlyShown: $showRelevantProperties
             )
         }
-        
+
         private var otherInputs: [MIDIInputEndpoint] {
             // filter out endpoints that have an entity because
             // they are already being displayed in the Devices tree
@@ -45,7 +45,7 @@ extension ContentView {
                 .inputs
                 .sortedByName()
                 .filter { $0.entity == nil }
-            ?? []
+                ?? []
         }
     }
 }

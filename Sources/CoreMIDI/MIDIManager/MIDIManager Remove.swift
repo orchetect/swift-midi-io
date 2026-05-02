@@ -17,7 +17,7 @@ extension MIDIManager {
     ) {
         managementQueue.sync {
             guard isStarted else { return }
-            
+
             switch type {
             case .inputConnection:
                 switch tagSelection {
@@ -28,7 +28,7 @@ extension MIDIManager {
                     try? managedInputConnections[tag]?.dispose()
                     managedInputConnections[tag] = nil
                 }
-                
+
             case .outputConnection:
                 switch tagSelection {
                 case .all:
@@ -38,7 +38,7 @@ extension MIDIManager {
                     try? managedOutputConnections[tag]?.dispose()
                     managedOutputConnections[tag] = nil
                 }
-                
+
             case .input:
                 switch tagSelection {
                 case .all:
@@ -48,7 +48,7 @@ extension MIDIManager {
                     try? managedInputs[tag]?.dispose()
                     managedInputs[tag] = nil
                 }
-                
+
             case .output:
                 switch tagSelection {
                 case .all:
@@ -58,7 +58,7 @@ extension MIDIManager {
                     try? managedOutputs[tag]?.dispose()
                     managedOutputs[tag] = nil
                 }
-                
+
             case .nonPersistentThruConnection:
                 switch tagSelection {
                 case .all:

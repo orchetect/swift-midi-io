@@ -20,10 +20,10 @@ extension MIDIManager {
         try managementQueue.syncTypedThrowable { () throws(MIDIIOError) in
             // if start() was already called, return
             guard !isStarted else { return }
-            
+
             func block() -> Result<MIDIClientRef, MIDIIOError> {
                 var newCoreMIDIClientRef = MIDIClientRef()
-                
+
                 do throws(MIDIIOError) {
                     try MIDIClientCreateWithBlock(clientName as CFString, &newCoreMIDIClientRef) { [weak self] notificationPtr in
                         guard let self else { return }
@@ -31,13 +31,13 @@ extension MIDIManager {
                         internalNotificationHandler(internalNotif)
                     }
                     .throwIfOSStatusErr()
-                    
+
                     return .success(newCoreMIDIClientRef)
                 } catch {
                     return .failure(error)
                 }
             }
-            
+
             // `MIDIClientCreateWithBlock` must be called on the main thread,
             // otherwise the notification block will never happen.
             let newCoreMIDIClientRef: MIDIClientRef
@@ -49,7 +49,7 @@ extension MIDIManager {
             }
             assert(newCoreMIDIClientRef != MIDIClientRef())
             coreMIDIClientRef = newCoreMIDIClientRef
-            
+
             // initial cache of endpoints
             updateDevicesAndEndpoints(onManagementQueue: false)
         }
@@ -63,11 +63,11 @@ extension MIDIManager {
             default:
                 break
             }
-            
+
             // if needed, fall back on notification cache in case we get more than
             // one `.removed` notification in a row. this way we have metadata on hand.
             let notification = MIDIIONotification(internalNotif, cache: midiObjectCache)
-            
+
             // propagate notification to managed objects
             for outputConnection in managedOutputConnections.values {
                 outputConnection.notification(internalNotif)
@@ -78,7 +78,7 @@ extension MIDIManager {
             for thruConnection in managedThruConnections.values {
                 thruConnection.notification(internalNotif)
             }
-            
+
             // send notification to handler after internal cache is updated
             if let notification {
                 sendNotificationAsync(notification)

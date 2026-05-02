@@ -40,7 +40,7 @@ extension MIDIIOError {
         switch self {
         case .managerNotStarted:
             "Manager has not yet been started."
-            
+
         case let .internalInconsistency(verboseError):
             "Internal inconsistency: \(verboseError)"
 

@@ -78,11 +78,10 @@ public final class ObservableObjectMIDIManager: MIDIManager,
     }
 
     private var observableEndpoints = ThreadSynchronizedPThreadMutex(wrappedValue: MIDIEndpoints())
-    
+
     override func updateDevicesAndEndpoints(onManagementQueue: Bool) {
-        
         if Thread.current.isMainThread {
-            self.objectWillChange.send()
+            objectWillChange.send()
             super.updateDevicesAndEndpoints(onManagementQueue: onManagementQueue)
         } else {
             DispatchQueue.main.asyncAndWait {

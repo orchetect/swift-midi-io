@@ -53,7 +53,7 @@ extension MIDIManager {
     ) throws(MIDIIOError) {
         try managementQueue.syncTypedThrowable { () throws(MIDIIOError) in
             guard isStarted else { throw .managerNotStarted }
-            
+
             let newCT = MIDIThruConnection(
                 outputs: outputs,
                 inputs: inputs,
@@ -62,19 +62,19 @@ extension MIDIManager {
                 midiManager: self,
                 api: preferredAPI
             )
-            
+
             // if non-persistent, add to managed array
             if lifecycle == .nonPersistent {
                 // store the connection object in the manager,
                 // even if subsequent connection fails
                 managedThruConnections[tag] = newCT
             }
-            
+
             // otherwise, we won't store a reference to a persistent thru connection
             // persistent connections are stored by the system
             // to analyze or delete a persistent connection,
             // access the `unmanagedPersistentThruConnections(ownerID:)` method.
-            
+
             try newCT.create(in: self)
         }
     }

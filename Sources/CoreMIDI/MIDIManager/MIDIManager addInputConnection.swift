@@ -34,7 +34,7 @@ extension MIDIManager {
     ) throws(MIDIIOError) {
         try managementQueue.syncTypedThrowable { () throws(MIDIIOError) in
             guard isStarted else { throw .managerNotStarted }
-            
+
             let newCD = MIDIInputConnection(
                 mode: outputs,
                 filter: filter,
@@ -42,11 +42,11 @@ extension MIDIManager {
                 midiManager: self,
                 api: preferredAPI
             )
-            
+
             // store the connection object in the manager,
             // even if subsequent connection fails
             managedInputConnections[tag] = newCD
-            
+
             try newCD.listen(in: self)
             try newCD.connect(in: self)
         }

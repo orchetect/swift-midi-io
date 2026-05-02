@@ -1,6 +1,6 @@
 //
 //  FormDetailsView.swift
-//  SwiftMIDI Examples • https://github.com/orchetect/swift-midi-examples
+//  SwiftMIDI I/O • https://github.com/orchetect/swift-midi-io
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
@@ -30,7 +30,7 @@ struct FormDetailsView: View, DetailsContent {
                     .frame(maxHeight: 100)
                     .padding([.top], 20)
             }
-            
+
             if let parentText {
                 Text(parentText)
                     .padding([.top], 10)
@@ -51,7 +51,7 @@ struct FormDetailsView: View, DetailsContent {
         .navigationTitle(object.name)
         #endif
     }
-    
+
     private var parentText: String? {
         switch object {
         case .device(_): // devices have no parents
