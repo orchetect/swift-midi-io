@@ -13,7 +13,7 @@ struct ContentView: View {
     @State private var devices: [MIDIDevice] = []
     @State private var inputEndpoints: [MIDIInputEndpoint] = []
     @State private var outputEndpoints: [MIDIOutputEndpoint] = []
-    
+
     var body: some View {
         VStack(alignment: .center, spacing: 20) {
             Text(
@@ -22,7 +22,7 @@ struct ContentView: View {
 
                 The `devicesStream()` and `endpointsStream()` methods return `AsyncSequence` which \
                 produces a new result every time devices or endpoints change in the system.
-                
+
                 These sequences can be iterated over in a `Task` within SwiftUI views. \
                 Local view state can then be updated as a result
                 """
