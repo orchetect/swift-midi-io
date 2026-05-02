@@ -27,7 +27,7 @@
 				iOS/SceneDelegate.swift,
 				macOS/Info.plist,
 			);
-			target = E230C49E25AE7B31005DCB55 /* MIDISystemInfo macOS */;
+			target = E230C49E25AE7B31005DCB55 /* MIDI System Info macOS */;
 		};
 		E22A75C02FA4A68B006CAB3F /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
@@ -37,12 +37,12 @@
 				macOS/AppDelegate.swift,
 				macOS/Info.plist,
 			);
-			target = E20CF4B7299C7F6200F0E003 /* MIDISystemInfo iOS */;
+			target = E20CF4B7299C7F6200F0E003 /* MIDI System Info iOS */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		E22A75942FA4A68A006CAB3F /* MIDISystemInfo */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (E22A75BF2FA4A68B006CAB3F /* PBXFileSystemSynchronizedBuildFileExceptionSet */, E22A75C02FA4A68B006CAB3F /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = MIDISystemInfo; sourceTree = "<group>"; };
+		E22A75942FA4A68A006CAB3F /* MIDI System Info */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (E22A75BF2FA4A68B006CAB3F /* PBXFileSystemSynchronizedBuildFileExceptionSet */, E22A75C02FA4A68B006CAB3F /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "MIDI System Info"; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,7 +69,7 @@
 			isa = PBXGroup;
 			children = (
 				E2CEA4962AFE3C6100BE92F7 /* README.md */,
-				E22A75942FA4A68A006CAB3F /* MIDISystemInfo */,
+				E22A75942FA4A68A006CAB3F /* MIDI System Info */,
 				E230C4A025AE7B31005DCB55 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -86,9 +86,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E20CF4B7299C7F6200F0E003 /* MIDISystemInfo iOS */ = {
+		E20CF4B7299C7F6200F0E003 /* MIDI System Info iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E20CF4CB299C7F6300F0E003 /* Build configuration list for PBXNativeTarget "MIDISystemInfo iOS" */;
+			buildConfigurationList = E20CF4CB299C7F6300F0E003 /* Build configuration list for PBXNativeTarget "MIDI System Info iOS" */;
 			buildPhases = (
 				E20CF4B4299C7F6200F0E003 /* Sources */,
 				E20CF4B5299C7F6200F0E003 /* Frameworks */,
@@ -99,9 +99,9 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				E22A75942FA4A68A006CAB3F /* MIDISystemInfo */,
+				E22A75942FA4A68A006CAB3F /* MIDI System Info */,
 			);
-			name = "MIDISystemInfo iOS";
+			name = "MIDI System Info iOS";
 			packageProductDependencies = (
 				E22A75372FA4A540006CAB3F /* SwiftMIDIIO */,
 			);
@@ -109,9 +109,9 @@
 			productReference = E20CF4B8299C7F6200F0E003 /* MIDI System Info.app */;
 			productType = "com.apple.product-type.application";
 		};
-		E230C49E25AE7B31005DCB55 /* MIDISystemInfo macOS */ = {
+		E230C49E25AE7B31005DCB55 /* MIDI System Info macOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E230C4C825AE7B33005DCB55 /* Build configuration list for PBXNativeTarget "MIDISystemInfo macOS" */;
+			buildConfigurationList = E230C4C825AE7B33005DCB55 /* Build configuration list for PBXNativeTarget "MIDI System Info macOS" */;
 			buildPhases = (
 				E230C49B25AE7B31005DCB55 /* Sources */,
 				E230C49C25AE7B31005DCB55 /* Frameworks */,
@@ -122,9 +122,9 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				E22A75942FA4A68A006CAB3F /* MIDISystemInfo */,
+				E22A75942FA4A68A006CAB3F /* MIDI System Info */,
 			);
-			name = "MIDISystemInfo macOS";
+			name = "MIDI System Info macOS";
 			packageProductDependencies = (
 				E22A75342FA4A539006CAB3F /* SwiftMIDIIO */,
 			);
@@ -150,7 +150,7 @@
 					};
 				};
 			};
-			buildConfigurationList = E230C49A25AE7B31005DCB55 /* Build configuration list for PBXProject "MIDISystemInfo" */;
+			buildConfigurationList = E230C49A25AE7B31005DCB55 /* Build configuration list for PBXProject "MIDI System Info" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -166,8 +166,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E230C49E25AE7B31005DCB55 /* MIDISystemInfo macOS */,
-				E20CF4B7299C7F6200F0E003 /* MIDISystemInfo iOS */,
+				E230C49E25AE7B31005DCB55 /* MIDI System Info macOS */,
+				E20CF4B7299C7F6200F0E003 /* MIDI System Info iOS */,
 			);
 		};
 /* End PBXProject section */
@@ -217,7 +217,7 @@
 				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = MIDISystemInfo/iOS/Info.plist;
+				INFOPLIST_FILE = "MIDI System Info/iOS/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "MIDI System Info";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -249,7 +249,7 @@
 				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = MIDISystemInfo/iOS/Info.plist;
+				INFOPLIST_FILE = "MIDI System Info/iOS/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "MIDI System Info";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -402,7 +402,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = MIDISystemInfo/macOS/MIDISystemInfo.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "MIDI System Info/macOS/MIDI System Info.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 5;
@@ -410,7 +410,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = MIDISystemInfo/macOS/Info.plist;
+				INFOPLIST_FILE = "MIDI System Info/macOS/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "MIDI System Info";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -431,7 +431,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = MIDISystemInfo/macOS/MIDISystemInfo.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "MIDI System Info/macOS/MIDI System Info.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 5;
@@ -439,7 +439,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = MIDISystemInfo/macOS/Info.plist;
+				INFOPLIST_FILE = "MIDI System Info/macOS/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "MIDI System Info";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -458,7 +458,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E20CF4CB299C7F6300F0E003 /* Build configuration list for PBXNativeTarget "MIDISystemInfo iOS" */ = {
+		E20CF4CB299C7F6300F0E003 /* Build configuration list for PBXNativeTarget "MIDI System Info iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E20CF4C9299C7F6300F0E003 /* Debug */,
@@ -467,7 +467,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E230C49A25AE7B31005DCB55 /* Build configuration list for PBXProject "MIDISystemInfo" */ = {
+		E230C49A25AE7B31005DCB55 /* Build configuration list for PBXProject "MIDI System Info" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E230C4C625AE7B33005DCB55 /* Debug */,
@@ -476,7 +476,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E230C4C825AE7B33005DCB55 /* Build configuration list for PBXNativeTarget "MIDISystemInfo macOS" */ = {
+		E230C4C825AE7B33005DCB55 /* Build configuration list for PBXNativeTarget "MIDI System Info macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E230C4C925AE7B33005DCB55 /* Debug */,
