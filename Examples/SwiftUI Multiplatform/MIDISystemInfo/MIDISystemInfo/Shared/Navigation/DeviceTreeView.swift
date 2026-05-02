@@ -9,13 +9,13 @@ import SwiftUI
 
 extension ContentView {
     struct DeviceTreeView: View {
-        @EnvironmentObject private var midiManager: ObservableObjectMIDIManager
-
+        @EnvironmentObject private var midiHelper: MIDIHelper
+        
         @Binding var showRelevantProperties: Bool
 
         var body: some View {
             Section(header: Text("Device Tree")) {
-                ForEach(deviceTreeItems) { item in
+                ForEach(treeItems) { item in
                     navLink(item: item)
                 }
             }
@@ -61,10 +61,13 @@ extension ContentView {
                 isRelevantPropertiesOnlyShown: $showRelevantProperties
             )
         }
-
-        private var deviceTreeItems: [AnyMIDIIOObject] {
-            midiManager.devices
-                .devices
+        
+        private var treeItems: [AnyMIDIIOObject] {
+            Self.formatDeviceTreeItems(devices: midiHelper.devices?.devices ?? [])
+        }
+        
+        nonisolated static func formatDeviceTreeItems(devices: [MIDIDevice]) -> [AnyMIDIIOObject] {
+            devices
                 .sortedByName()
                 .flatMap {
                     [$0.asAnyMIDIIOObject()]

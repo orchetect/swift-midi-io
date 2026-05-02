@@ -30,6 +30,12 @@ struct FormDetailsView: View, DetailsContent {
                     .frame(maxHeight: 100)
                     .padding([.top], 20)
             }
+            
+            if let parentText {
+                Text(parentText)
+                    .padding([.top], 10)
+                    .padding([.bottom], 2)
+            }
 
             form
         }
@@ -44,6 +50,31 @@ struct FormDetailsView: View, DetailsContent {
         #elseif os(iOS)
         .navigationTitle(object.name)
         #endif
+    }
+    
+    private var parentText: String? {
+        switch object {
+        case .device(_): // devices have no parents
+            "A device."
+        case let .entity(entity):
+            if let deviceName = entity.device?.name {
+                "An entity that belongs to device \(deviceName.quoted)"
+            } else {
+                "An entity that does not belong to a device."
+            }
+        case let .inputEndpoint(inputEndpoint):
+            if let entityName = inputEndpoint.entity?.name {
+                "An input endpoint that belongs to entity \(entityName.quoted)"
+            } else {
+                "An input endpoint that does not belong to an entity."
+            }
+        case let .outputEndpoint(outputEndpoint):
+            if let entityName = outputEndpoint.entity?.name {
+                "An output endpoint that belongs to entity \(entityName.quoted)"
+            } else {
+                "An output endpoint that does not belong to an entity."
+            }
+        }
     }
 
     private var form: some View {

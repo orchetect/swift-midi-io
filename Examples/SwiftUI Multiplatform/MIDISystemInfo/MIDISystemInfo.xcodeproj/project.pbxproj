@@ -3,75 +3,54 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 76;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E20CF4BD299C7F6200F0E003 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20CF4BC299C7F6200F0E003 /* SceneDelegate.swift */; };
-		E20CF4C7299C7F6300F0E003 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E20CF4C5299C7F6300F0E003 /* LaunchScreen.storyboard */; };
-		E20CF4CC299C7F8100F0E003 /* TableDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26B849B25EDA4F400080052 /* TableDetailsView.swift */; };
-		E20CF4CD299C7F8400F0E003 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E230C4A425AE7B31005DCB55 /* ContentView.swift */; };
-		E20CF4CE299C7F8C00F0E003 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20CF4B2299C7E2A00F0E003 /* AppDelegate.swift */; };
-		E20CF4CF299C7F9700F0E003 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E24696C22880B69E00485518 /* Images.xcassets */; };
-		E230C4A325AE7B31005DCB55 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E230C4A225AE7B31005DCB55 /* AppDelegate.swift */; };
-		E230C4A525AE7B31005DCB55 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E230C4A425AE7B31005DCB55 /* ContentView.swift */; };
-		E230C4AD25AE7B33005DCB55 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E230C4AB25AE7B33005DCB55 /* Main.storyboard */; };
-		E23AD70E2AFE1C5400A69A01 /* DeviceTreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23AD70D2AFE1C5400A69A01 /* DeviceTreeView.swift */; };
-		E23AD70F2AFE1C5400A69A01 /* DeviceTreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23AD70D2AFE1C5400A69A01 /* DeviceTreeView.swift */; };
-		E23AD7112AFE1C8700A69A01 /* OtherInputsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23AD7102AFE1C8700A69A01 /* OtherInputsView.swift */; };
-		E23AD7122AFE1C8700A69A01 /* OtherInputsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23AD7102AFE1C8700A69A01 /* OtherInputsView.swift */; };
-		E23AD7142AFE1CAC00A69A01 /* OtherOutputsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23AD7132AFE1CAC00A69A01 /* OtherOutputsView.swift */; };
-		E23AD7152AFE1CAC00A69A01 /* OtherOutputsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23AD7132AFE1CAC00A69A01 /* OtherOutputsView.swift */; };
-		E23AD7172AFE1CF000A69A01 /* ItemIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23AD7162AFE1CF000A69A01 /* ItemIcon.swift */; };
-		E23AD7182AFE1CF000A69A01 /* ItemIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23AD7162AFE1CF000A69A01 /* ItemIcon.swift */; };
-		E23AD71C2AFE1E3800A69A01 /* EmptyDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23AD71B2AFE1E3800A69A01 /* EmptyDetailsView.swift */; };
-		E23AD71D2AFE1E3800A69A01 /* EmptyDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23AD71B2AFE1E3800A69A01 /* EmptyDetailsView.swift */; };
-		E23AD71F2AFE1E5600A69A01 /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23AD71E2AFE1E5600A69A01 /* DetailsView.swift */; };
-		E23AD7202AFE1E5600A69A01 /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23AD71E2AFE1E5600A69A01 /* DetailsView.swift */; };
-		E23AD7222AFE1E8700A69A01 /* DetailsContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23AD7212AFE1E8700A69A01 /* DetailsContent.swift */; };
-		E23AD7232AFE1E8700A69A01 /* DetailsContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23AD7212AFE1E8700A69A01 /* DetailsContent.swift */; };
-		E23AD7252AFE1EC000A69A01 /* Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23AD7242AFE1EC000A69A01 /* Property.swift */; };
-		E23AD7262AFE1EC000A69A01 /* Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23AD7242AFE1EC000A69A01 /* Property.swift */; };
-		E23AD7282AFE1EE700A69A01 /* LegacyDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23AD7272AFE1EE700A69A01 /* LegacyDetailsView.swift */; };
-		E23AD7292AFE1EE700A69A01 /* LegacyDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E23AD7272AFE1EE700A69A01 /* LegacyDetailsView.swift */; };
-		E24696C32880B69E00485518 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E24696C22880B69E00485518 /* Images.xcassets */; };
-		E24932F12F07A0E1006CB1D1 /* FormDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24932F02F07A0E1006CB1D1 /* FormDetailsView.swift */; };
-		E24932F22F07A0E1006CB1D1 /* FormDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E24932F02F07A0E1006CB1D1 /* FormDetailsView.swift */; };
-		E26B849C25EDA4F400080052 /* TableDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26B849B25EDA4F400080052 /* TableDetailsView.swift */; };
+		E22A75352FA4A539006CAB3F /* SwiftMIDIIO in Frameworks */ = {isa = PBXBuildFile; productRef = E22A75342FA4A539006CAB3F /* SwiftMIDIIO */; };
+		E22A75382FA4A540006CAB3F /* SwiftMIDIIO in Frameworks */ = {isa = PBXBuildFile; productRef = E22A75372FA4A540006CAB3F /* SwiftMIDIIO */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E20CF4B2299C7E2A00F0E003 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E20CF4B8299C7F6200F0E003 /* MIDI System Info.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MIDI System Info.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E20CF4BC299C7F6200F0E003 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		E20CF4C6299C7F6300F0E003 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		E20CF4C8299C7F6300F0E003 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E230C49F25AE7B31005DCB55 /* MIDI System Info.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MIDI System Info.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E230C4A225AE7B31005DCB55 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E230C4A425AE7B31005DCB55 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		E230C4AC25AE7B33005DCB55 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		E230C4AE25AE7B33005DCB55 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E230C4AF25AE7B33005DCB55 /* MIDISystemInfo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MIDISystemInfo.entitlements; sourceTree = "<group>"; };
-		E23AD70D2AFE1C5400A69A01 /* DeviceTreeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceTreeView.swift; sourceTree = "<group>"; };
-		E23AD7102AFE1C8700A69A01 /* OtherInputsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherInputsView.swift; sourceTree = "<group>"; };
-		E23AD7132AFE1CAC00A69A01 /* OtherOutputsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherOutputsView.swift; sourceTree = "<group>"; };
-		E23AD7162AFE1CF000A69A01 /* ItemIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemIcon.swift; sourceTree = "<group>"; };
-		E23AD71B2AFE1E3800A69A01 /* EmptyDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyDetailsView.swift; sourceTree = "<group>"; };
-		E23AD71E2AFE1E5600A69A01 /* DetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
-		E23AD7212AFE1E8700A69A01 /* DetailsContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsContent.swift; sourceTree = "<group>"; };
-		E23AD7242AFE1EC000A69A01 /* Property.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Property.swift; sourceTree = "<group>"; };
-		E23AD7272AFE1EE700A69A01 /* LegacyDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LegacyDetailsView.swift; sourceTree = "<group>"; };
-		E24696C22880B69E00485518 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		E24932F02F07A0E1006CB1D1 /* FormDetailsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormDetailsView.swift; sourceTree = "<group>"; };
-		E26B849B25EDA4F400080052 /* TableDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableDetailsView.swift; sourceTree = "<group>"; };
 		E2CEA4962AFE3C6100BE92F7 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		E22A75BF2FA4A68B006CAB3F /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				/Localized/iOS/LaunchScreen.storyboard,
+				iOS/AppDelegate.swift,
+				iOS/Info.plist,
+				iOS/SceneDelegate.swift,
+				macOS/Info.plist,
+			);
+			target = E230C49E25AE7B31005DCB55 /* MIDISystemInfo macOS */;
+		};
+		E22A75C02FA4A68B006CAB3F /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				/Localized/macOS/Main.storyboard,
+				iOS/Info.plist,
+				macOS/AppDelegate.swift,
+				macOS/Info.plist,
+			);
+			target = E20CF4B7299C7F6200F0E003 /* MIDISystemInfo iOS */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		E22A75942FA4A68A006CAB3F /* MIDISystemInfo */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (E22A75BF2FA4A68B006CAB3F /* PBXFileSystemSynchronizedBuildFileExceptionSet */, E22A75C02FA4A68B006CAB3F /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = MIDISystemInfo; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		E20CF4B5299C7F6200F0E003 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E22A75382FA4A540006CAB3F /* SwiftMIDIIO in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,40 +58,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E22A75352FA4A539006CAB3F /* SwiftMIDIIO in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		E20CF4B0299C7DE300F0E003 /* macOS */ = {
-			isa = PBXGroup;
-			children = (
-				E230C4A225AE7B31005DCB55 /* AppDelegate.swift */,
-				E230C4AB25AE7B33005DCB55 /* Main.storyboard */,
-				E230C4AE25AE7B33005DCB55 /* Info.plist */,
-				E230C4AF25AE7B33005DCB55 /* MIDISystemInfo.entitlements */,
-			);
-			path = macOS;
-			sourceTree = "<group>";
-		};
-		E20CF4B1299C7E1B00F0E003 /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				E20CF4B2299C7E2A00F0E003 /* AppDelegate.swift */,
-				E20CF4BC299C7F6200F0E003 /* SceneDelegate.swift */,
-				E20CF4C5299C7F6300F0E003 /* LaunchScreen.storyboard */,
-				E20CF4C8299C7F6300F0E003 /* Info.plist */,
-			);
-			path = iOS;
-			sourceTree = "<group>";
-		};
 		E230C49625AE7B31005DCB55 = {
 			isa = PBXGroup;
 			children = (
 				E2CEA4962AFE3C6100BE92F7 /* README.md */,
-				E230C4A125AE7B31005DCB55 /* MIDISystemInfo */,
-				E248614E2F9722C8008ECA8C /* Frameworks */,
+				E22A75942FA4A68A006CAB3F /* MIDISystemInfo */,
 				E230C4A025AE7B31005DCB55 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -124,51 +81,6 @@
 				E20CF4B8299C7F6200F0E003 /* MIDI System Info.app */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		E230C4A125AE7B31005DCB55 /* MIDISystemInfo */ = {
-			isa = PBXGroup;
-			children = (
-				E20CF4B1299C7E1B00F0E003 /* iOS */,
-				E20CF4B0299C7DE300F0E003 /* macOS */,
-				E23AD7192AFE1DF200A69A01 /* Navigation */,
-				E23AD71A2AFE1E1800A69A01 /* Details */,
-				E24696C22880B69E00485518 /* Images.xcassets */,
-			);
-			path = MIDISystemInfo;
-			sourceTree = "<group>";
-		};
-		E23AD7192AFE1DF200A69A01 /* Navigation */ = {
-			isa = PBXGroup;
-			children = (
-				E230C4A425AE7B31005DCB55 /* ContentView.swift */,
-				E23AD70D2AFE1C5400A69A01 /* DeviceTreeView.swift */,
-				E23AD7102AFE1C8700A69A01 /* OtherInputsView.swift */,
-				E23AD7132AFE1CAC00A69A01 /* OtherOutputsView.swift */,
-				E23AD7162AFE1CF000A69A01 /* ItemIcon.swift */,
-			);
-			path = Navigation;
-			sourceTree = "<group>";
-		};
-		E23AD71A2AFE1E1800A69A01 /* Details */ = {
-			isa = PBXGroup;
-			children = (
-				E23AD7212AFE1E8700A69A01 /* DetailsContent.swift */,
-				E23AD7242AFE1EC000A69A01 /* Property.swift */,
-				E23AD71E2AFE1E5600A69A01 /* DetailsView.swift */,
-				E23AD71B2AFE1E3800A69A01 /* EmptyDetailsView.swift */,
-				E23AD7272AFE1EE700A69A01 /* LegacyDetailsView.swift */,
-				E26B849B25EDA4F400080052 /* TableDetailsView.swift */,
-				E24932F02F07A0E1006CB1D1 /* FormDetailsView.swift */,
-			);
-			path = Details;
-			sourceTree = "<group>";
-		};
-		E248614E2F9722C8008ECA8C /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -186,8 +98,12 @@
 			);
 			dependencies = (
 			);
+			fileSystemSynchronizedGroups = (
+				E22A75942FA4A68A006CAB3F /* MIDISystemInfo */,
+			);
 			name = "MIDISystemInfo iOS";
 			packageProductDependencies = (
+				E22A75372FA4A540006CAB3F /* SwiftMIDIIO */,
 			);
 			productName = "MIDISystemInfo iOS";
 			productReference = E20CF4B8299C7F6200F0E003 /* MIDI System Info.app */;
@@ -205,8 +121,12 @@
 			);
 			dependencies = (
 			);
+			fileSystemSynchronizedGroups = (
+				E22A75942FA4A68A006CAB3F /* MIDISystemInfo */,
+			);
 			name = "MIDISystemInfo macOS";
 			packageProductDependencies = (
+				E22A75342FA4A539006CAB3F /* SwiftMIDIIO */,
 			);
 			productName = MIDISystemInfo;
 			productReference = E230C49F25AE7B31005DCB55 /* MIDI System Info.app */;
@@ -231,7 +151,6 @@
 				};
 			};
 			buildConfigurationList = E230C49A25AE7B31005DCB55 /* Build configuration list for PBXProject "MIDISystemInfo" */;
-			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -240,8 +159,9 @@
 			);
 			mainGroup = E230C49625AE7B31005DCB55;
 			packageReferences = (
-				E22A74412FA49B70006CAB3F /* XCLocalSwiftPackageReference "../../../" */,
+				E22A75332FA4A539006CAB3F /* XCLocalSwiftPackageReference "../../../" */,
 			);
+			preferredProjectObjectVersion = 60;
 			productRefGroup = E230C4A025AE7B31005DCB55 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -257,8 +177,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E20CF4C7299C7F6300F0E003 /* LaunchScreen.storyboard in Resources */,
-				E20CF4CF299C7F9700F0E003 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,8 +184,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E230C4AD25AE7B33005DCB55 /* Main.storyboard in Resources */,
-				E24696C32880B69E00485518 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,20 +194,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E20CF4CE299C7F8C00F0E003 /* AppDelegate.swift in Sources */,
-				E24932F22F07A0E1006CB1D1 /* FormDetailsView.swift in Sources */,
-				E23AD7182AFE1CF000A69A01 /* ItemIcon.swift in Sources */,
-				E23AD7122AFE1C8700A69A01 /* OtherInputsView.swift in Sources */,
-				E23AD7292AFE1EE700A69A01 /* LegacyDetailsView.swift in Sources */,
-				E20CF4CD299C7F8400F0E003 /* ContentView.swift in Sources */,
-				E23AD7202AFE1E5600A69A01 /* DetailsView.swift in Sources */,
-				E23AD7152AFE1CAC00A69A01 /* OtherOutputsView.swift in Sources */,
-				E23AD7262AFE1EC000A69A01 /* Property.swift in Sources */,
-				E23AD70F2AFE1C5400A69A01 /* DeviceTreeView.swift in Sources */,
-				E20CF4CC299C7F8100F0E003 /* TableDetailsView.swift in Sources */,
-				E23AD71D2AFE1E3800A69A01 /* EmptyDetailsView.swift in Sources */,
-				E20CF4BD299C7F6200F0E003 /* SceneDelegate.swift in Sources */,
-				E23AD7232AFE1E8700A69A01 /* DetailsContent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,42 +201,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E23AD7112AFE1C8700A69A01 /* OtherInputsView.swift in Sources */,
-				E24932F12F07A0E1006CB1D1 /* FormDetailsView.swift in Sources */,
-				E23AD7222AFE1E8700A69A01 /* DetailsContent.swift in Sources */,
-				E23AD7252AFE1EC000A69A01 /* Property.swift in Sources */,
-				E23AD71C2AFE1E3800A69A01 /* EmptyDetailsView.swift in Sources */,
-				E23AD7282AFE1EE700A69A01 /* LegacyDetailsView.swift in Sources */,
-				E26B849C25EDA4F400080052 /* TableDetailsView.swift in Sources */,
-				E230C4A525AE7B31005DCB55 /* ContentView.swift in Sources */,
-				E23AD70E2AFE1C5400A69A01 /* DeviceTreeView.swift in Sources */,
-				E23AD7142AFE1CAC00A69A01 /* OtherOutputsView.swift in Sources */,
-				E230C4A325AE7B31005DCB55 /* AppDelegate.swift in Sources */,
-				E23AD7172AFE1CF000A69A01 /* ItemIcon.swift in Sources */,
-				E23AD71F2AFE1E5600A69A01 /* DetailsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		E20CF4C5299C7F6300F0E003 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E20CF4C6299C7F6300F0E003 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-		E230C4AB25AE7B33005DCB55 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E230C4AC25AE7B33005DCB55 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		E20CF4C9299C7F6300F0E003 /* Debug */ = {
@@ -618,11 +488,23 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		E22A74412FA49B70006CAB3F /* XCLocalSwiftPackageReference "../../../" */ = {
+		E22A75332FA4A539006CAB3F /* XCLocalSwiftPackageReference "../../../" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = "../../../";
+			relativePath = ../../../;
 		};
 /* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E22A75342FA4A539006CAB3F /* SwiftMIDIIO */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SwiftMIDIIO;
+		};
+		E22A75372FA4A540006CAB3F /* SwiftMIDIIO */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E22A75332FA4A539006CAB3F /* XCLocalSwiftPackageReference "../../../" */;
+			productName = SwiftMIDIIO;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E230C49725AE7B31005DCB55 /* Project object */;
 }

@@ -25,7 +25,7 @@ struct ContentViewForCurrentPlatform: View {
 }
 
 struct ContentView<Details: DetailsContent>: View {
-    @EnvironmentObject private var midiManager: ObservableObjectMIDIManager
+    @EnvironmentObject private var midiHelper: MIDIHelper
 
     @Binding var showRelevantProperties: Bool
 
@@ -40,7 +40,6 @@ struct ContentView<Details: DetailsContent>: View {
         }
         .navigationViewStyle(DoubleColumnNavigationViewStyle())
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .environmentObject(midiManager)
     }
 
     private var sidebar: some View {
@@ -57,15 +56,11 @@ struct ContentView<Details: DetailsContent>: View {
 
 #if DEBUG
 struct ContentViewPreviews: PreviewProvider {
-    static let midiManager = ObservableObjectMIDIManager(
-        clientName: "Preview",
-        model: "Preview",
-        manufacturer: "MyCompany"
-    )
+    static let midiHelper = MIDIHelper(start: true)
 
     static var previews: some View {
         ContentViewForCurrentPlatform()
-            .environmentObject(midiManager)
+            .environmentObject(midiHelper)
     }
 }
 #endif

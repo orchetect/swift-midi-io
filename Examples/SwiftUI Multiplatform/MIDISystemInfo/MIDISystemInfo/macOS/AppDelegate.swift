@@ -11,22 +11,9 @@ import SwiftUI
 class AppDelegate: NSObject, NSApplicationDelegate {
     var window: NSWindow!
 
-    private let midiManager = ObservableObjectMIDIManager(
-        clientName: "MIDISystemInfo",
-        model: "TestApp",
-        manufacturer: "MyCompany"
-    )
+    static let midiHelper = MIDIHelper(start: true)
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // set up midi manager
-
-        do {
-            print("Starting MIDI services.")
-            try midiManager.start()
-        } catch {
-            print("Error starting MIDI services: \(error.localizedDescription)")
-        }
-
         // Create the window and set the content view.
         window = NSWindow(
             contentRect: NSRect(x: 0, y: 0, width: 950, height: 850),
@@ -57,7 +44,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         window.contentView = NSHostingView(
             rootView: ContentViewForCurrentPlatform()
-                .environmentObject(midiManager)
+                .environmentObject(Self.midiHelper)
         )
 
         window.makeKeyAndOrderFront(nil)

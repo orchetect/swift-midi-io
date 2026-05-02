@@ -9,26 +9,13 @@ import UIKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    static let midiManager = ObservableObjectMIDIManager(
-        clientName: "MIDISystemInfo",
-        model: "TestApp",
-        manufacturer: "MyCompany"
-    )
+    static let midiHelper = MIDIHelper(start: true)
 
     func application(
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
-        // set up midi manager
-
-        do {
-            print("Starting MIDI services.")
-            try Self.midiManager.start()
-        } catch {
-            print("Error starting MIDI services: \(error.localizedDescription)")
-        }
-
-        return true
+        true
     }
 
     // MARK: UISceneSession Lifecycle
