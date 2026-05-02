@@ -1,4 +1,4 @@
-# BluetoothMIDI Example (SwiftUI)
+# Bluetooth MIDI Example (SwiftUI)
 
 ## Supported Platforms
 
