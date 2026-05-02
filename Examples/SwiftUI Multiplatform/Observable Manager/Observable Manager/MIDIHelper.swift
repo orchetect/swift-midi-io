@@ -1,0 +1,39 @@
+//
+//  MIDIHelper.swift
+//  SwiftMIDI Examples • https://github.com/orchetect/swift-midi-examples
+//  © 2026 Steffan Andrews • Licensed under MIT License
+//
+
+import SwiftMIDIIO
+import SwiftUI
+import Synchronization
+
+/// Object responsible for managing MIDI services, managing connections, and sending/receiving events.
+///
+/// Marking the class as `@Observable` allows us to install an instance of the class in a SwiftUI App or View
+/// and propagate it through the environment.
+@Observable
+public final class MIDIHelper: Sendable {
+    let midiManager = ObservableMIDIManager(
+        clientName: "TestAppMIDIManager",
+        model: "TestApp",
+        manufacturer: "MyCompany"
+    )
+
+    public init(start: Bool = false) {
+        if start { self.start() }
+    }
+}
+
+// MARK: - Lifecycle
+
+extension MIDIHelper {
+    public func start() {
+        do {
+            print("Starting MIDI services.")
+            try midiManager.start()
+        } catch {
+            print("Error starting MIDI services:", error.localizedDescription)
+        }
+    }
+}
