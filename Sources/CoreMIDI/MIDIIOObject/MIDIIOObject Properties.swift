@@ -148,7 +148,7 @@ extension MIDIIOObject {
         try wrapValue(SwiftMIDIIO.getReceivesClock(of: coreMIDIObjectRef))
     }
 
-    public var advanceScheduleTimeMuSec: MIDIIOObjectProperty.Value<String> {
+    public var advanceScheduleTimeMuSec: MIDIIOObjectProperty.Value<Int32> {
         try wrapValue(SwiftMIDIIO.getAdvanceScheduleTimeMuSec(of: coreMIDIObjectRef))
     }
 

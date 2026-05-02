@@ -374,8 +374,8 @@ func getReceivesClock(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Boo
 /// internal scheduling of events it receives.
 ///
 /// - Throws: ``MIDIIOError``
-func getAdvanceScheduleTimeMuSec(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> String {
-    try getString(forProperty: kMIDIPropertyAdvanceScheduleTimeMuSec, of: ref)
+func getAdvanceScheduleTimeMuSec(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Int32 {
+    try getInteger(forProperty: kMIDIPropertyAdvanceScheduleTimeMuSec, of: ref)
 }
 
 // MARK: Roles

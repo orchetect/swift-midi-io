@@ -224,7 +224,7 @@ public protocol MIDIIOObject: Sendable {
     /// receives the messages at the scheduled delivery time. If a virtual destination has a nonzero
     /// advance schedule time, it receives timestamped messages as soon as they’re sent, and must do
     /// its own internal scheduling of events it receives.
-    var advanceScheduleTimeMuSec: MIDIIOObjectProperty.Value<String> { get }
+    var advanceScheduleTimeMuSec: MIDIIOObjectProperty.Value<Int32> { get }
 
     // MARK: Roles
 

@@ -141,6 +141,7 @@ extension MIDIIOObject {
 
         case .advanceScheduleTimeMuSec:
             advanceScheduleTimeMuSec
+                .convertValue { "\($0)" }
 
         // MARK: Roles
 
