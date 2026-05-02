@@ -80,9 +80,9 @@ struct MIDIManager_NonStarted_Tests {
     /// The `remove()` method is a non-throwing function, so it just silently returns if called prior to the manager being started.
     @Test
     func remove() {
-        #expect(throws: Never.self) {
-            try manager.remove(.input, .all)
-        }
+        // #expect(throws: Never.self) {
+        manager.remove(.input, .all)
+        // }
     }
 }
 
