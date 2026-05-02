@@ -33,6 +33,8 @@ extension MIDIManager {
         receiver: sending MIDIReceiver
     ) throws(MIDIIOError) {
         try managementQueue.syncTypedThrowable { () throws(MIDIIOError) in
+            guard isStarted else { throw .managerNotStarted }
+            
             let newCD = MIDIInputConnection(
                 mode: outputs,
                 filter: filter,

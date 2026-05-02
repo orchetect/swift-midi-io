@@ -31,6 +31,8 @@ extension MIDIManager {
         filter: MIDIEndpointFilter = .default()
     ) throws(MIDIIOError) {
         try managementQueue.syncTypedThrowable { () throws(MIDIIOError) in
+            guard isStarted else { throw .managerNotStarted }
+            
             let newCS = MIDIOutputConnection(
                 mode: inputs,
                 filter: filter,

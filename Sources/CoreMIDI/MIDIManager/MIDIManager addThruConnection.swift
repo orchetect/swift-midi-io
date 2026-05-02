@@ -52,6 +52,8 @@ extension MIDIManager {
         params: MIDIThruConnection.Parameters = .init()
     ) throws(MIDIIOError) {
         try managementQueue.syncTypedThrowable { () throws(MIDIIOError) in
+            guard isStarted else { throw .managerNotStarted }
+            
             let newCT = MIDIThruConnection(
                 outputs: outputs,
                 inputs: inputs,

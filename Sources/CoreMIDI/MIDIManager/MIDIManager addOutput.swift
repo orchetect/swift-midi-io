@@ -43,6 +43,8 @@ extension MIDIManager {
         uniqueID: MIDIIdentifierPersistence
     ) throws(MIDIIOError) {
         try managementQueue.syncTypedThrowable { () throws(MIDIIOError) in
+            guard isStarted else { throw .managerNotStarted }
+            
             let newVS = MIDIOutput(
                 name: name,
                 uniqueID: uniqueID.readID(),

@@ -12,6 +12,7 @@ import SwiftMIDICore
 /// Error type returned by SwiftMIDI I/O operations.
 public enum MIDIIOError: LocalizedError {
     // General
+    case managerNotStarted
     case internalInconsistency(_ verboseError: String)
     case malformed(_ verboseError: String)
     case notSupported(_ verboseError: String)
@@ -37,6 +38,9 @@ extension MIDIIOError {
 extension MIDIIOError {
     public var errorDescription: String? {
         switch self {
+        case .managerNotStarted:
+            "Manager has not yet been started."
+            
         case let .internalInconsistency(verboseError):
             "Internal inconsistency: \(verboseError)"
 

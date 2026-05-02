@@ -45,6 +45,8 @@ extension MIDIManager {
         receiver: sending MIDIReceiver
     ) throws(MIDIIOError) {
         try managementQueue.syncTypedThrowable { () throws(MIDIIOError) in
+            guard isStarted else { throw .managerNotStarted }
+            
             let newVD = MIDIInput(
                 name: name,
                 uniqueID: uniqueID.readID(),

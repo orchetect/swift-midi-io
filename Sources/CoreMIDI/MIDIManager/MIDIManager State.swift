@@ -19,7 +19,7 @@ extension MIDIManager {
     public func start() throws(MIDIIOError) {
         try managementQueue.syncTypedThrowable { () throws(MIDIIOError) in
             // if start() was already called, return
-            guard coreMIDIClientRef == MIDIClientRef() else { return }
+            guard !isStarted else { return }
             
             func block() -> Result<MIDIClientRef, MIDIIOError> {
                 var newCoreMIDIClientRef = MIDIClientRef()

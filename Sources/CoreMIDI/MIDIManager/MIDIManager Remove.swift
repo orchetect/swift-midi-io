@@ -16,6 +16,8 @@ extension MIDIManager {
         _ tagSelection: TagSelection
     ) {
         managementQueue.sync {
+            guard isStarted else { return }
+            
             switch type {
             case .inputConnection:
                 switch tagSelection {
