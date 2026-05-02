@@ -60,7 +60,7 @@ struct MIDIThruConnection_Tests {
     }
 
     @Test
-    func monPersistentThruConnection() async throws {
+    func nonPersistentThruConnection() async throws {
         let isStable = isSystemTimingStable()
 
         let receiver = Receiver()
