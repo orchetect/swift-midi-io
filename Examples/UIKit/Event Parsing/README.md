@@ -1,4 +1,4 @@
-# EventParsing Example (UIKit)
+# Event Parsing Example (UIKit)
 
 ## Supported Platforms
 

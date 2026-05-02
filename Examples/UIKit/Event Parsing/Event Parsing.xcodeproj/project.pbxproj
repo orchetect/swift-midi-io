@@ -20,7 +20,7 @@
 /* Begin PBXFileReference section */
 		E24932DE2F0766CE006CB1D1 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		E24932E02F076700006CB1D1 /* MIDIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIHelper.swift; sourceTree = "<group>"; };
-		E27D0E1A284F2A8900F43247 /* EventParsing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EventParsing.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E27D0E1A284F2A8900F43247 /* Event Parsing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Event Parsing.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E27D0E1D284F2A8900F43247 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E27D0E24284F2A8900F43247 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E27D0E29284F2A8900F43247 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -46,7 +46,7 @@
 			isa = PBXGroup;
 			children = (
 				E29A5E952852A27700E87812 /* README.md */,
-				E27D0E1C284F2A8900F43247 /* EventParsing */,
+				E27D0E1C284F2A8900F43247 /* Event Parsing */,
 				E27D0E1B284F2A8900F43247 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -54,12 +54,12 @@
 		E27D0E1B284F2A8900F43247 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E27D0E1A284F2A8900F43247 /* EventParsing.app */,
+				E27D0E1A284F2A8900F43247 /* Event Parsing.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		E27D0E1C284F2A8900F43247 /* EventParsing */ = {
+		E27D0E1C284F2A8900F43247 /* Event Parsing */ = {
 			isa = PBXGroup;
 			children = (
 				E27D0E1D284F2A8900F43247 /* AppDelegate.swift */,
@@ -70,15 +70,15 @@
 				E29FF2982880BC60005E2BC2 /* Images.xcassets */,
 				E27D0E2B284F2A8900F43247 /* Info.plist */,
 			);
-			path = EventParsing;
+			path = "Event Parsing";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E27D0E19284F2A8900F43247 /* EventParsing */ = {
+		E27D0E19284F2A8900F43247 /* Event Parsing */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E27D0E2E284F2A8900F43247 /* Build configuration list for PBXNativeTarget "EventParsing" */;
+			buildConfigurationList = E27D0E2E284F2A8900F43247 /* Build configuration list for PBXNativeTarget "Event Parsing" */;
 			buildPhases = (
 				E27D0E16284F2A8900F43247 /* Sources */,
 				E27D0E17284F2A8900F43247 /* Frameworks */,
@@ -88,13 +88,13 @@
 			);
 			dependencies = (
 			);
-			name = EventParsing;
+			name = "Event Parsing";
 			packageProductDependencies = (
 				E254E8762ED686FF003CF193 /* SwiftRadix */,
 				E22A744F2FA49BD7006CAB3F /* SwiftMIDIIO */,
 			);
 			productName = EventParsing;
-			productReference = E27D0E1A284F2A8900F43247 /* EventParsing.app */;
+			productReference = E27D0E1A284F2A8900F43247 /* Event Parsing.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -112,7 +112,7 @@
 					};
 				};
 			};
-			buildConfigurationList = E27D0E15284F2A8900F43247 /* Build configuration list for PBXProject "EventParsing" */;
+			buildConfigurationList = E27D0E15284F2A8900F43247 /* Build configuration list for PBXProject "Event Parsing" */;
 			compatibilityVersion = "Xcode 10.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -129,7 +129,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E27D0E19284F2A8900F43247 /* EventParsing */,
+				E27D0E19284F2A8900F43247 /* Event Parsing */,
 			);
 		};
 /* End PBXProject section */
@@ -309,7 +309,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = EventParsing/Info.plist;
+				INFOPLIST_FILE = "Event Parsing/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Event Parsing";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -339,7 +339,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = EventParsing/Info.plist;
+				INFOPLIST_FILE = "Event Parsing/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Event Parsing";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -363,7 +363,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E27D0E15284F2A8900F43247 /* Build configuration list for PBXProject "EventParsing" */ = {
+		E27D0E15284F2A8900F43247 /* Build configuration list for PBXProject "Event Parsing" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E27D0E2C284F2A8900F43247 /* Debug */,
@@ -372,7 +372,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E27D0E2E284F2A8900F43247 /* Build configuration list for PBXNativeTarget "EventParsing" */ = {
+		E27D0E2E284F2A8900F43247 /* Build configuration list for PBXNativeTarget "Event Parsing" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E27D0E2F284F2A8900F43247 /* Debug */,
@@ -386,7 +386,7 @@
 /* Begin XCLocalSwiftPackageReference section */
 		E22A744E2FA49BD7006CAB3F /* XCLocalSwiftPackageReference "../../../" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = "../../../";
+			relativePath = ../../../;
 		};
 /* End XCLocalSwiftPackageReference section */
 
