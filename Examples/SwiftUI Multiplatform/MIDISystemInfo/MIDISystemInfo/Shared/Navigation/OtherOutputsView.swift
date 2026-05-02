@@ -11,8 +11,6 @@ extension ContentView {
     struct OtherOutputsView: View {
         @EnvironmentObject private var midiHelper: MIDIHelper
 
-        @Binding var showRelevantProperties: Bool
-
         var body: some View {
             Section(header: Text("Other Outputs")) {
                 ForEach(otherOutputs) { item in
@@ -26,15 +24,13 @@ extension ContentView {
                 HStack {
                     ItemIcon(item: item.asAnyMIDIIOObject(), default: Text("🎵"))
                     Text("\(item.name)")
+                    Spacer()
                 }
             }
         }
 
         private func detailsView(item: MIDIOutputEndpoint) -> some View {
-            DetailsView(
-                object: item.asAnyMIDIIOObject(),
-                isRelevantPropertiesOnlyShown: $showRelevantProperties
-            )
+            DetailsView(object: item.asAnyMIDIIOObject())
         }
 
         private var otherOutputs: [MIDIOutputEndpoint] {

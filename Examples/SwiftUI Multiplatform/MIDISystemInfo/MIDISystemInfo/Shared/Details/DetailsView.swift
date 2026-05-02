@@ -9,17 +9,30 @@ import SwiftUI
 
 extension ContentView {
     struct DetailsView: View {
+        @EnvironmentObject private var model: Model
+        
         var object: AnyMIDIIOObject
-        @Binding var isRelevantPropertiesOnlyShown: Bool
 
         var body: some View {
+            if #available(iOS 15.0, macOS 12.0, tvOS 15.0, watchOS 8.0, *) {
+                conditionalToolbarBody
+                    .searchable(text: $model.searchText, placement: .toolbar, prompt: "Search")
+            } else {
+                conditionalToolbarBody
+            }
+        }
+        
+        @ViewBuilder
+        var conditionalToolbarBody: some View {
             if #available(macOS 11.0, iOS 14.0, *) {
                 detailsBody
                     .toolbar {
-                        Toggle(isOn: $isRelevantPropertiesOnlyShown.animation(.default)) {
-                            Label("Relevant Only", systemImage: filterImageName)
+                        ToolbarItem(placement: .primaryAction) {
+                            Toggle(isOn: $model.isOnlySetPropertiesShown.animation(.default)) {
+                                Label("Show Set Only", systemImage: filterImageName)
+                            }
+                            .help("Show Set Properties Only")
                         }
-                        .help("Show Only Relevant Properties")
                     }
             } else {
                 detailsBody
@@ -28,7 +41,7 @@ extension ContentView {
 
         private var filterImageName: String {
             #if os(macOS)
-            return isRelevantPropertiesOnlyShown
+            return model.isOnlySetPropertiesShown
                 ? "line.3.horizontal.decrease.circle.fill"
                 : "line.3.horizontal.decrease.circle"
             #else
@@ -42,13 +55,13 @@ extension ContentView {
 
         private var detailsBody: some View {
             VStack(alignment: .leading) {
-                Details(object: object, isRelevantPropertiesOnlyShown: $isRelevantPropertiesOnlyShown)
+                Details(object: object)
 
                 // only show the toggle if it's not already present in the toolbar
                 if #available(macOS 11.0, iOS 14.0, *) {
                     EmptyView()
                 } else {
-                    Toggle("Relevant Only", isOn: $isRelevantPropertiesOnlyShown.animation(.default))
+                    Toggle("Show Set Properties Only", isOn: $model.isOnlySetPropertiesShown.animation(.default))
                         .padding()
                         .toggleStyle(.switch)
                 }

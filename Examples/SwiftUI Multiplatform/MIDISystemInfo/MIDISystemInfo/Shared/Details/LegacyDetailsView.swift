@@ -10,23 +10,26 @@ import SwiftUI
 
 /// Legacy details view for systems prior to macOS 12 / iOS 16.
 struct LegacyDetailsView: View, DetailsContent {
+    @EnvironmentObject private var model: Model
+    
     var object: AnyMIDIIOObject
-    @Binding var isOnlySetPropertiesShown: Bool
 
-    @State var properties: [Property] = []
-    @State var selection: Set<Property.ID> = []
-
-    init(object: AnyMIDIIOObject, isRelevantPropertiesOnlyShown: Binding<Bool>) {
+    init(object: AnyMIDIIOObject) {
         self.object = object
-        _isOnlySetPropertiesShown = isRelevantPropertiesOnlyShown
     }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            List(selection: $selection) {
+            List(selection: $model.selectedProperties) {
                 Section {
-                    ForEach(properties) {
-                        Row(property: $0).tag($0)
+                    if model.filteredProperties.isEmpty {
+                        Text("No search results match your search term.")
+                            .foregroundColor(.secondary)
+                            .frame(maxWidth: .infinity)
+                    } else {
+                        ForEach(model.filteredProperties) {
+                            Row(property: $0).tag($0)
+                        }
                     }
                 } header: {
                     Row(property: Property(key: "Property", value: "Value", status: nil))
@@ -37,15 +40,15 @@ struct LegacyDetailsView: View, DetailsContent {
             }
             #if os(macOS)
             .onCopyCommand {
-                selectedItemsProviders()
+                model.selectedItemsProviders()
             }
             #endif
         }
         .onAppear {
-            refreshProperties()
+            model.refreshProperties(object: object)
         }
-        .onReceive(Just(isOnlySetPropertiesShown)) { _ in // workaround since we can't use `onChange {}` on macOS 10.15
-            withAnimation { refreshProperties() }
+        .onChange(of: model.isOnlySetPropertiesShown) { _ in
+            withAnimation { model.refreshProperties(object: object) }
         }
     }
 }

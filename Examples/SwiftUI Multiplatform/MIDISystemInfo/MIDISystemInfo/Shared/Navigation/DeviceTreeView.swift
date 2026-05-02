@@ -4,20 +4,26 @@
 //  © 2026 Steffan Andrews • Licensed under MIT License
 //
 
+import Combine
 import SwiftMIDIIO
 import SwiftUI
 
 extension ContentView {
     struct DeviceTreeView: View {
         @EnvironmentObject private var midiHelper: MIDIHelper
-
-        @Binding var showRelevantProperties: Bool
+        @EnvironmentObject private var model: Model
 
         var body: some View {
             Section(header: Text("Device Tree")) {
-                ForEach(treeItems) { item in
+                ForEach(model.treeItems) { item in
                     navLink(item: item)
                 }
+            }
+            .onAppear {
+                model.updateTreeItems(devices: midiHelper.devices?.devices ?? [])
+            }
+            .onChange(of: midiHelper.devices) { devices in
+                model.updateTreeItems(devices: devices?.devices ?? [])
             }
         }
 
@@ -56,28 +62,7 @@ extension ContentView {
         }
 
         private func detailsView(item: AnyMIDIIOObject) -> some View {
-            DetailsView(
-                object: item.asAnyMIDIIOObject(),
-                isRelevantPropertiesOnlyShown: $showRelevantProperties
-            )
-        }
-
-        private var treeItems: [AnyMIDIIOObject] {
-            Self.formatDeviceTreeItems(devices: midiHelper.devices?.devices ?? [])
-        }
-
-        nonisolated static func formatDeviceTreeItems(devices: [MIDIDevice]) -> [AnyMIDIIOObject] {
-            devices
-                .sortedByName()
-                .flatMap {
-                    [$0.asAnyMIDIIOObject()]
-                        + $0.entities
-                        .flatMap {
-                            [$0.asAnyMIDIIOObject()]
-                                + $0.inputs.asAnyMIDIIOObjects()
-                                + $0.outputs.asAnyMIDIIOObjects()
-                        }
-                }
+            DetailsView(object: item.asAnyMIDIIOObject())
         }
     }
 }

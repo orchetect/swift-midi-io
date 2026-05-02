@@ -11,8 +11,6 @@ extension ContentView {
     struct OtherInputsView: View {
         @EnvironmentObject private var midiHelper: MIDIHelper
 
-        @Binding var showRelevantProperties: Bool
-
         var body: some View {
             Section(header: Text("Other Inputs")) {
                 ForEach(otherInputs) { item in
@@ -32,10 +30,7 @@ extension ContentView {
         }
 
         private func detailsView(item: MIDIInputEndpoint) -> some View {
-            DetailsView(
-                object: item.asAnyMIDIIOObject(),
-                isRelevantPropertiesOnlyShown: $showRelevantProperties
-            )
+            DetailsView(object: item.asAnyMIDIIOObject())
         }
 
         private var otherInputs: [MIDIInputEndpoint] {

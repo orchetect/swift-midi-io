@@ -10,15 +10,12 @@ import SwiftUI
 /// Modern details view.
 @available(macOS 13.0, iOS 16.0, *)
 struct FormDetailsView: View, DetailsContent {
+    @EnvironmentObject private var model: Model
+    
     var object: AnyMIDIIOObject
-    @Binding var isOnlySetPropertiesShown: Bool
 
-    @State var properties: [Property] = []
-    @State var selection: Set<Property.ID> = []
-
-    init(object: AnyMIDIIOObject, isRelevantPropertiesOnlyShown: Binding<Bool>) {
+    init(object: AnyMIDIIOObject) {
         self.object = object
-        _isOnlySetPropertiesShown = isRelevantPropertiesOnlyShown
     }
 
     var body: some View {
@@ -40,10 +37,10 @@ struct FormDetailsView: View, DetailsContent {
             form
         }
         .onAppear {
-            refreshProperties()
+            model.refreshProperties(object: object)
         }
-        .onChange(of: isOnlySetPropertiesShown) { _ in
-            withAnimation { refreshProperties() }
+        .onChange(of: model.isOnlySetPropertiesShown) { _ in
+            withAnimation { model.refreshProperties(object: object) }
         }
         #if os(macOS)
         .navigationSubtitle(object.name)
@@ -79,8 +76,14 @@ struct FormDetailsView: View, DetailsContent {
 
     private var form: some View {
         Form {
-            ForEach(properties) { property in
-                PropertyRowView(property: property)
+            if model.filteredProperties.isEmpty {
+                Text("No search results match your search term.")
+                    .foregroundStyle(.secondary)
+                    .frame(maxWidth: .infinity)
+            } else {
+                ForEach(model.filteredProperties) { property in
+                    PropertyRowView(property: property)
+                }
             }
         }
         .formStyle(.grouped)

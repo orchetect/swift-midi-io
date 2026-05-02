@@ -12,7 +12,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var window: NSWindow!
 
     static let midiHelper = MIDIHelper(start: true)
-
+    static let model = Model()
+    
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Create the window and set the content view.
         window = NSWindow(
@@ -45,6 +46,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         window.contentView = NSHostingView(
             rootView: ContentViewForCurrentPlatform()
                 .environmentObject(Self.midiHelper)
+                .environmentObject(Self.model)
         )
 
         window.makeKeyAndOrderFront(nil)

@@ -19,15 +19,12 @@ struct TableDetailsView: View, DetailsContent {
     private let isCompact = false
     #endif
 
+    @EnvironmentObject private var model: Model
+    
     var object: AnyMIDIIOObject
-    @Binding var isOnlySetPropertiesShown: Bool
 
-    @State var properties: [Property] = []
-    @State var selection: Set<Property.ID> = []
-
-    init(object: AnyMIDIIOObject, isRelevantPropertiesOnlyShown: Binding<Bool>) {
+    init(object: AnyMIDIIOObject) {
         self.object = object
-        _isOnlySetPropertiesShown = isRelevantPropertiesOnlyShown
     }
 
     var body: some View {
@@ -36,56 +33,62 @@ struct TableDetailsView: View, DetailsContent {
                 #if os(macOS)
                 .tableStyle(.inset(alternatesRowBackgrounds: true))
                 .onCopyCommand {
-                    selectedItemsProviders()
+                    model.selectedItemsProviders()
                 }
                 #elseif os(iOS)
                 .tableStyle(InsetTableStyle())
                 #endif
         }
         .onAppear {
-            refreshProperties()
+            model.refreshProperties(object: object)
         }
-        .onChange(of: isOnlySetPropertiesShown) { _ in
-            withAnimation { refreshProperties() }
+        .onChange(of: model.isOnlySetPropertiesShown) { _ in
+            withAnimation { model.refreshProperties(object: object) }
         }
     }
 
     @ViewBuilder
     private var table: some View {
-        if isCompact {
-            Table(properties, selection: $selection) {
-                TableColumn("Property") { property in
-                    HStack {
-                        Text(property.key)
-
-                        Spacer()
-
-                        if let status = property.status {
-                            status.view
+        if model.filteredProperties.isEmpty {
+            Text("No search results match your search term.")
+                .foregroundStyle(.secondary)
+                .frame(maxWidth: .infinity)
+        } else {
+            if isCompact {
+                Table(model.filteredProperties, selection: $model.selectedProperties) {
+                    TableColumn("Property") { property in
+                        HStack {
+                            Text(property.key)
+                            
+                            Spacer()
+                            
+                            if let status = property.status {
+                                status.view
+                            }
+                            
+                            Text(property.value)
+                                .foregroundColor(property.color)
                         }
-
-                        Text(property.value)
-                            .foregroundColor(property.color)
                     }
                 }
-            }
-        } else {
-            Table(properties, selection: $selection) {
-                TableColumn("Property", value: \.key)
-                #if os(macOS)
-                    .width(min: 180, ideal: 200, max: 280)
-                #elseif os(iOS)
-                    .width(min: 50, ideal: 120, max: 250)
-                #endif
-
-                TableColumn("Value") { property in
-                    HStack {
-                        if let status = property.status {
-                            status.view
+            } else {
+                Table(model.filteredProperties, selection: $model.selectedProperties) {
+                    TableColumn("Property", value: \.key)
+                        #if os(macOS)
+                        .width(min: 180, ideal: 200, max: 280)
+                        #elseif os(iOS)
+                        .width(min: 50, ideal: 120, max: 250)
+                        #endif
+                    
+                    TableColumn("Value") { property in
+                        HStack {
+                            if let status = property.status {
+                                status.view
+                            }
+                            
+                            Text(property.value)
+                                .foregroundColor(property.color)
                         }
-
-                        Text(property.value)
-                            .foregroundColor(property.color)
                     }
                 }
             }
