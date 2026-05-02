@@ -55,6 +55,10 @@ public final class MIDIManager: @unchecked Sendable { // @unchecked required for
             }
         }
     }
+    
+    /// Returns `true` is the manager has been started.
+    nonisolated
+    public var isStarted: Bool { coreMIDIClientRef != CoreMIDIClientRef() }
 
     /// Dictionary of MIDI input connections managed by this instance.
     @PThreadMutex
