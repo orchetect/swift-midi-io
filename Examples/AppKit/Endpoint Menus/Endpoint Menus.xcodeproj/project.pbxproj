@@ -19,10 +19,10 @@
 /* Begin PBXFileReference section */
 		E246149D2F0A2AF2001CC75C /* MIDIMenusHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIMenusHelper.swift; sourceTree = "<group>"; };
 		E246149F2F0A2B00001CC75C /* MIDIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIHelper.swift; sourceTree = "<group>"; };
-		E24BA23A284F1A3300AA6767 /* EndpointMenus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EndpointMenus.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E24BA23A284F1A3300AA6767 /* Endpoint Menus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Endpoint Menus.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E24BA23D284F1A3300AA6767 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E24BA244284F1A3400AA6767 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		E24BA246284F1A3400AA6767 /* EndpointMenus.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EndpointMenus.entitlements; sourceTree = "<group>"; };
+		E24BA246284F1A3400AA6767 /* Endpoint Menus.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Endpoint Menus.entitlements"; sourceTree = "<group>"; };
 		E24CB06D285172CF00649B50 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		E29FF29E2880BC99005E2BC2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		E2B4892C2F0A387B00FF4527 /* AppPrefs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppPrefs.swift; sourceTree = "<group>"; };
@@ -44,7 +44,7 @@
 			isa = PBXGroup;
 			children = (
 				E24CB06D285172CF00649B50 /* README.md */,
-				E24BA23C284F1A3300AA6767 /* EndpointMenus */,
+				E24BA23C284F1A3300AA6767 /* Endpoint Menus */,
 				E24BA23B284F1A3300AA6767 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -52,12 +52,12 @@
 		E24BA23B284F1A3300AA6767 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E24BA23A284F1A3300AA6767 /* EndpointMenus.app */,
+				E24BA23A284F1A3300AA6767 /* Endpoint Menus.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		E24BA23C284F1A3300AA6767 /* EndpointMenus */ = {
+		E24BA23C284F1A3300AA6767 /* Endpoint Menus */ = {
 			isa = PBXGroup;
 			children = (
 				E24BA23D284F1A3300AA6767 /* AppDelegate.swift */,
@@ -65,18 +65,18 @@
 				E246149F2F0A2B00001CC75C /* MIDIHelper.swift */,
 				E246149D2F0A2AF2001CC75C /* MIDIMenusHelper.swift */,
 				E24BA243284F1A3400AA6767 /* Main.storyboard */,
-				E24BA246284F1A3400AA6767 /* EndpointMenus.entitlements */,
+				E24BA246284F1A3400AA6767 /* Endpoint Menus.entitlements */,
 				E29FF29E2880BC99005E2BC2 /* Images.xcassets */,
 			);
-			path = EndpointMenus;
+			path = "Endpoint Menus";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E24BA239284F1A3300AA6767 /* EndpointMenus */ = {
+		E24BA239284F1A3300AA6767 /* Endpoint Menus */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E24BA249284F1A3400AA6767 /* Build configuration list for PBXNativeTarget "EndpointMenus" */;
+			buildConfigurationList = E24BA249284F1A3400AA6767 /* Build configuration list for PBXNativeTarget "Endpoint Menus" */;
 			buildPhases = (
 				E24BA236284F1A3300AA6767 /* Sources */,
 				E24BA237284F1A3300AA6767 /* Frameworks */,
@@ -86,12 +86,12 @@
 			);
 			dependencies = (
 			);
-			name = EndpointMenus;
+			name = "Endpoint Menus";
 			packageProductDependencies = (
 				E22A74272FA4936E006CAB3F /* SwiftMIDIIO */,
 			);
 			productName = EndpointMenus;
-			productReference = E24BA23A284F1A3300AA6767 /* EndpointMenus.app */;
+			productReference = E24BA23A284F1A3300AA6767 /* Endpoint Menus.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -109,7 +109,7 @@
 					};
 				};
 			};
-			buildConfigurationList = E24BA235284F1A3300AA6767 /* Build configuration list for PBXProject "EndpointMenus" */;
+			buildConfigurationList = E24BA235284F1A3300AA6767 /* Build configuration list for PBXProject "Endpoint Menus" */;
 			compatibilityVersion = "Xcode 10.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -125,7 +125,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E24BA239284F1A3300AA6767 /* EndpointMenus */,
+				E24BA239284F1A3300AA6767 /* Endpoint Menus */,
 			);
 		};
 /* End PBXProject section */
@@ -294,7 +294,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = EndpointMenus/EndpointMenus.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "Endpoint Menus/Endpoint Menus.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -323,7 +323,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = EndpointMenus/EndpointMenus.entitlements;
+				CODE_SIGN_ENTITLEMENTS = "Endpoint Menus/Endpoint Menus.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -350,7 +350,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E24BA235284F1A3300AA6767 /* Build configuration list for PBXProject "EndpointMenus" */ = {
+		E24BA235284F1A3300AA6767 /* Build configuration list for PBXProject "Endpoint Menus" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E24BA247284F1A3400AA6767 /* Debug */,
@@ -359,7 +359,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E24BA249284F1A3400AA6767 /* Build configuration list for PBXNativeTarget "EndpointMenus" */ = {
+		E24BA249284F1A3400AA6767 /* Build configuration list for PBXNativeTarget "Endpoint Menus" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E24BA24A284F1A3400AA6767 /* Debug */,
@@ -373,7 +373,7 @@
 /* Begin XCLocalSwiftPackageReference section */
 		E22A74262FA4936E006CAB3F /* XCLocalSwiftPackageReference "../../../" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = "../../../";
+			relativePath = ../../../;
 		};
 /* End XCLocalSwiftPackageReference section */
 

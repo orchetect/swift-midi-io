@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="24765" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22155"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24765"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -12,11 +12,11 @@
                 <application id="hnw-xV-0zn" sceneMemberID="viewController">
                     <menu key="mainMenu" title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
                         <items>
-                            <menuItem title="VirtualOutput" id="1Xt-HY-uBw">
+                            <menuItem title="Endpoint Menus" id="1Xt-HY-uBw">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="VirtualOutput" systemMenu="apple" id="uQy-DD-JDr">
+                                <menu key="submenu" title="Endpoint Menus" systemMenu="apple" id="uQy-DD-JDr">
                                     <items>
-                                        <menuItem title="About VirtualOutput" id="5kV-Vb-QxS">
+                                        <menuItem title="About Endpoint Menus" id="5kV-Vb-QxS">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="orderFrontStandardAboutPanel:" target="Ady-hI-5gd" id="Exp-CZ-Vem"/>
@@ -30,7 +30,7 @@
                                             <menu key="submenu" title="Services" systemMenu="services" id="hz9-B4-Xy5"/>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="4je-JR-u6R"/>
-                                        <menuItem title="Hide VirtualOutput" keyEquivalent="h" id="Olw-nP-bQN">
+                                        <menuItem title="Hide Endpoint Menus" keyEquivalent="h" id="Olw-nP-bQN">
                                             <connections>
                                                 <action selector="hide:" target="Ady-hI-5gd" id="PnN-Uc-m68"/>
                                             </connections>
@@ -48,7 +48,7 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="kCx-OE-vgT"/>
-                                        <menuItem title="Quit VirtualOutput" keyEquivalent="q" id="4sb-4s-VLi">
+                                        <menuItem title="Quit Endpoint Menus" keyEquivalent="q" id="4sb-4s-VLi">
                                             <connections>
                                                 <action selector="terminate:" target="Ady-hI-5gd" id="Te7-pn-YzF"/>
                                             </connections>
@@ -669,7 +669,7 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Help" systemMenu="help" id="F2S-fz-NVQ">
                                     <items>
-                                        <menuItem title="VirtualOutput Help" keyEquivalent="?" id="FKE-Sm-Kum">
+                                        <menuItem title="Endpoint Menus Help" keyEquivalent="?" id="FKE-Sm-Kum">
                                             <connections>
                                                 <action selector="showHelp:" target="Ady-hI-5gd" id="y7X-2Q-9no"/>
                                             </connections>
@@ -683,7 +683,7 @@
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="EndpointMenus" customModuleProvider="target">
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Endpoint_Menus" customModuleProvider="target">
                     <connections>
                         <outlet property="midiInMenu" destination="9bd-HC-JSe" id="DTT-Kp-HyM"/>
                         <outlet property="midiOutMenu" destination="Qxu-mU-Fh7" id="A4T-wb-12P"/>
@@ -745,10 +745,10 @@ Refer to this example's README.md file for important information.</string>
                                         </textFieldCell>
                                     </textField>
                                     <stackView distribution="equalCentering" orientation="vertical" alignment="centerX" spacing="10" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Dk-zJ-QJQ">
-                                        <rect key="frame" x="100" y="0.0" width="408" height="60"/>
+                                        <rect key="frame" x="95" y="0.0" width="418" height="60"/>
                                         <subviews>
                                             <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Tsy-0x-GrO">
-                                                <rect key="frame" x="44" y="44" width="321" height="16"/>
+                                                <rect key="frame" x="49" y="44" width="321" height="16"/>
                                                 <textFieldCell key="cell" selectable="YES" alignment="center" title="MIDI Out: Send test MIDI events with these buttons." id="0Bf-P3-Kt2">
                                                     <font key="font" usesAppearanceFont="YES"/>
                                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -756,10 +756,10 @@ Refer to this example's README.md file for important information.</string>
                                                 </textFieldCell>
                                             </textField>
                                             <stackView distribution="fillEqually" orientation="horizontal" alignment="centerY" spacing="12" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" translatesAutoresizingMaskIntoConstraints="NO" id="4rf-ea-KIZ">
-                                                <rect key="frame" x="0.0" y="0.0" width="408" height="20"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="418" height="24"/>
                                                 <subviews>
                                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wbc-zM-I1s">
-                                                        <rect key="frame" x="-7" y="-7" width="142" height="32"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="131" height="24"/>
                                                         <buttonCell key="cell" type="push" title="Send Note On C3" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="IXG-O3-Ggl">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" metaFont="system"/>
@@ -769,7 +769,7 @@ Refer to this example's README.md file for important information.</string>
                                                         </connections>
                                                     </button>
                                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YqS-MO-BQ9">
-                                                        <rect key="frame" x="133" y="-7" width="142" height="32"/>
+                                                        <rect key="frame" x="143" y="0.0" width="132" height="24"/>
                                                         <buttonCell key="cell" type="push" title="Send Note Off C3" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="eJx-rG-zvI">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" metaFont="system"/>
@@ -779,7 +779,7 @@ Refer to this example's README.md file for important information.</string>
                                                         </connections>
                                                     </button>
                                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Nne-73-fGp">
-                                                        <rect key="frame" x="273" y="-7" width="142" height="32"/>
+                                                        <rect key="frame" x="287" y="0.0" width="131" height="24"/>
                                                         <buttonCell key="cell" type="push" title="Send CC1" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Og2-K4-3fw">
                                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                             <font key="font" metaFont="system"/>
