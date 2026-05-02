@@ -19,7 +19,7 @@ import SwiftMIDIInternals
 /// >
 /// > For SwiftUI environments, see the ``devicesStream()`` or ``endpointsStream()`` methods
 /// > which can output a live stream of current MIDI devices and endpoints in the system.
-public final class MIDIManager: @unchecked Sendable { // @unchecked required for use of mutex property wrappers
+public class MIDIManager: @unchecked Sendable { // @unchecked required for use of mutex property wrappers
     // MARK: - Management Queue
     
     /// Internal manager interaction management queue.
