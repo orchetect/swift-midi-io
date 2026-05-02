@@ -15,8 +15,13 @@ extension ContentView {
 
         var body: some View {
             Section(header: Text("Device Tree")) {
-                ForEach(model.treeItems) { item in
-                    navLink(item: item)
+                if model.treeItems.isEmpty {
+                    Text("None")
+                        .foregroundColor(.secondary)
+                } else {
+                    ForEach(model.treeItems) { item in
+                        navLink(item: item)
+                    }
                 }
             }
             .onAppear {

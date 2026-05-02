@@ -13,8 +13,13 @@ extension ContentView {
 
         var body: some View {
             Section(header: Text("Other Inputs")) {
-                ForEach(otherInputs) { item in
-                    navLink(item: item)
+                if otherInputs.isEmpty {
+                    Text("None")
+                        .foregroundColor(.secondary)
+                } else {
+                    ForEach(otherInputs) { item in
+                        navLink(item: item)
+                    }
                 }
             }
         }
