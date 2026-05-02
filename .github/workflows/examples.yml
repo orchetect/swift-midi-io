@@ -99,6 +99,13 @@ jobs:
       # see https://github.com/actions/runner-images/issues/12758#issuecomment-3206748945
       run: xcodebuild -downloadPlatform iOS
 
+    - name: AsyncStream Devices and Endpoints - Resolve Package Dependencies # needed because sometimes xcodebuild fails otherwise
+      run: xcodebuild -project "Examples/SwiftUI Multiplatform/AsyncStream Devices and Endpoints/AsyncStream Devices and Endpoints.xcodeproj" -resolvePackageDependencies | xcbeautify --renderer github-actions && exit ${PIPESTATUS[0]}
+    - name: AsyncStream Devices and Endpoints - Build (iOS) # by targeting a simulator device, we bypass requiring a Developer Team ID
+      run: xcodebuild build -project "Examples/SwiftUI Multiplatform/AsyncStream Devices and Endpoints/AsyncStream Devices and Endpoints.xcodeproj" -scheme "AsyncStream Devices and Endpoints" -destination "generic/platform=iOS Simulator,name=Any iOS Simulator Device" | xcbeautify --renderer github-actions && exit ${PIPESTATUS[0]}
+    - name: AsyncStream Devices and Endpoints - Build (macOS)
+      run: xcodebuild build -project "Examples/SwiftUI Multiplatform/AsyncStream Devices and Endpoints/AsyncStream Devices and Endpoints.xcodeproj" -scheme "AsyncStream Devices and Endpoints" -destination "generic/platform=macOS" | xcbeautify --renderer github-actions && exit ${PIPESTATUS[0]}
+    
     - name: EventParsing - Resolve Package Dependencies # needed because sometimes xcodebuild fails otherwise
       run: xcodebuild -project "Examples/SwiftUI Multiplatform/EventParsing/EventParsing.xcodeproj" -resolvePackageDependencies | xcbeautify --renderer github-actions && exit ${PIPESTATUS[0]}
     - name: EventParsing - Build (iOS) # by targeting a simulator device, we bypass requiring a Developer Team ID
