@@ -1,4 +1,4 @@
-# VirtualOutput Example (UIKit)
+# Virtual Output Example (UIKit)
 
 ## Supported Platforms
 
