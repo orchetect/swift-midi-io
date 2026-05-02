@@ -1,4 +1,4 @@
-# BluetoothMIDI Example (UIKit)
+# Bluetooth MIDI Example (UIKit)
 
 ## Supported Platforms
 

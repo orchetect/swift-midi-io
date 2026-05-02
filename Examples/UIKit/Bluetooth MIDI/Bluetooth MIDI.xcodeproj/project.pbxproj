@@ -20,7 +20,7 @@
 
 /* Begin PBXFileReference section */
 		E24932E82F078179006CB1D1 /* MIDIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIHelper.swift; sourceTree = "<group>"; };
-		E27D0E1A284F2A8900F43247 /* BluetoothMIDI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BluetoothMIDI.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E27D0E1A284F2A8900F43247 /* Bluetooth MIDI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bluetooth MIDI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E27D0E1D284F2A8900F43247 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E27D0E21284F2A8900F43247 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E27D0E24284F2A8900F43247 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -48,7 +48,7 @@
 			isa = PBXGroup;
 			children = (
 				E29A5E942852A1A800E87812 /* README.md */,
-				E27D0E1C284F2A8900F43247 /* BluetoothMIDI */,
+				E27D0E1C284F2A8900F43247 /* Bluetooth MIDI */,
 				E27D0E1B284F2A8900F43247 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -56,12 +56,12 @@
 		E27D0E1B284F2A8900F43247 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E27D0E1A284F2A8900F43247 /* BluetoothMIDI.app */,
+				E27D0E1A284F2A8900F43247 /* Bluetooth MIDI.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		E27D0E1C284F2A8900F43247 /* BluetoothMIDI */ = {
+		E27D0E1C284F2A8900F43247 /* Bluetooth MIDI */ = {
 			isa = PBXGroup;
 			children = (
 				E27D0E1D284F2A8900F43247 /* AppDelegate.swift */,
@@ -74,15 +74,15 @@
 				E29FF2942880BBDB005E2BC2 /* Images.xcassets */,
 				E27D0E2B284F2A8900F43247 /* Info.plist */,
 			);
-			path = BluetoothMIDI;
+			path = "Bluetooth MIDI";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E27D0E19284F2A8900F43247 /* BluetoothMIDI */ = {
+		E27D0E19284F2A8900F43247 /* Bluetooth MIDI */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E27D0E2E284F2A8900F43247 /* Build configuration list for PBXNativeTarget "BluetoothMIDI" */;
+			buildConfigurationList = E27D0E2E284F2A8900F43247 /* Build configuration list for PBXNativeTarget "Bluetooth MIDI" */;
 			buildPhases = (
 				E27D0E16284F2A8900F43247 /* Sources */,
 				E27D0E17284F2A8900F43247 /* Frameworks */,
@@ -92,12 +92,12 @@
 			);
 			dependencies = (
 			);
-			name = BluetoothMIDI;
+			name = "Bluetooth MIDI";
 			packageProductDependencies = (
 				E22A744C2FA49BC1006CAB3F /* SwiftMIDIIO */,
 			);
 			productName = BluetoothMIDI;
-			productReference = E27D0E1A284F2A8900F43247 /* BluetoothMIDI.app */;
+			productReference = E27D0E1A284F2A8900F43247 /* Bluetooth MIDI.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -115,7 +115,7 @@
 					};
 				};
 			};
-			buildConfigurationList = E27D0E15284F2A8900F43247 /* Build configuration list for PBXProject "BluetoothMIDI" */;
+			buildConfigurationList = E27D0E15284F2A8900F43247 /* Build configuration list for PBXProject "Bluetooth MIDI" */;
 			compatibilityVersion = "Xcode 10.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -131,7 +131,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E27D0E19284F2A8900F43247 /* BluetoothMIDI */,
+				E27D0E19284F2A8900F43247 /* Bluetooth MIDI */,
 			);
 		};
 /* End PBXProject section */
@@ -313,7 +313,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = BluetoothMIDI/Info.plist;
+				INFOPLIST_FILE = "Bluetooth MIDI/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Bluetooth MIDI";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Connect to bluetooth MIDI devices.";
@@ -345,7 +345,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = BluetoothMIDI/Info.plist;
+				INFOPLIST_FILE = "Bluetooth MIDI/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Bluetooth MIDI";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Connect to bluetooth MIDI devices.";
@@ -371,7 +371,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E27D0E15284F2A8900F43247 /* Build configuration list for PBXProject "BluetoothMIDI" */ = {
+		E27D0E15284F2A8900F43247 /* Build configuration list for PBXProject "Bluetooth MIDI" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E27D0E2C284F2A8900F43247 /* Debug */,
@@ -380,7 +380,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E27D0E2E284F2A8900F43247 /* Build configuration list for PBXNativeTarget "BluetoothMIDI" */ = {
+		E27D0E2E284F2A8900F43247 /* Build configuration list for PBXNativeTarget "Bluetooth MIDI" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E27D0E2F284F2A8900F43247 /* Debug */,
@@ -394,7 +394,7 @@
 /* Begin XCLocalSwiftPackageReference section */
 		E22A744B2FA49BC1006CAB3F /* XCLocalSwiftPackageReference "../../../" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = "../../../";
+			relativePath = ../../../;
 		};
 /* End XCLocalSwiftPackageReference section */
 
