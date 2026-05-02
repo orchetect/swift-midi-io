@@ -19,7 +19,7 @@
 /* Begin PBXFileReference section */
 		E24932E22F0767EA006CB1D1 /* MIDIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDIHelper.swift; sourceTree = "<group>"; };
 		E24932E42F076844006CB1D1 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
-		E27D0E1A284F2A8900F43247 /* VirtualInput.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VirtualInput.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E27D0E1A284F2A8900F43247 /* Virtual Input.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Virtual Input.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E27D0E1D284F2A8900F43247 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E27D0E24284F2A8900F43247 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E27D0E29284F2A8900F43247 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -44,7 +44,7 @@
 			isa = PBXGroup;
 			children = (
 				E29A5E952852A27700E87812 /* README.md */,
-				E27D0E1C284F2A8900F43247 /* VirtualInput */,
+				E27D0E1C284F2A8900F43247 /* Virtual Input */,
 				E27D0E1B284F2A8900F43247 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -52,12 +52,12 @@
 		E27D0E1B284F2A8900F43247 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E27D0E1A284F2A8900F43247 /* VirtualInput.app */,
+				E27D0E1A284F2A8900F43247 /* Virtual Input.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		E27D0E1C284F2A8900F43247 /* VirtualInput */ = {
+		E27D0E1C284F2A8900F43247 /* Virtual Input */ = {
 			isa = PBXGroup;
 			children = (
 				E27D0E1D284F2A8900F43247 /* AppDelegate.swift */,
@@ -68,15 +68,15 @@
 				E29FF29A2880BC72005E2BC2 /* Images.xcassets */,
 				E27D0E2B284F2A8900F43247 /* Info.plist */,
 			);
-			path = VirtualInput;
+			path = "Virtual Input";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E27D0E19284F2A8900F43247 /* VirtualInput */ = {
+		E27D0E19284F2A8900F43247 /* Virtual Input */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E27D0E2E284F2A8900F43247 /* Build configuration list for PBXNativeTarget "VirtualInput" */;
+			buildConfigurationList = E27D0E2E284F2A8900F43247 /* Build configuration list for PBXNativeTarget "Virtual Input" */;
 			buildPhases = (
 				E27D0E16284F2A8900F43247 /* Sources */,
 				E27D0E17284F2A8900F43247 /* Frameworks */,
@@ -86,12 +86,12 @@
 			);
 			dependencies = (
 			);
-			name = VirtualInput;
+			name = "Virtual Input";
 			packageProductDependencies = (
 				E22A74522FA49BEA006CAB3F /* SwiftMIDIIO */,
 			);
 			productName = VirtualInput;
-			productReference = E27D0E1A284F2A8900F43247 /* VirtualInput.app */;
+			productReference = E27D0E1A284F2A8900F43247 /* Virtual Input.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -109,7 +109,7 @@
 					};
 				};
 			};
-			buildConfigurationList = E27D0E15284F2A8900F43247 /* Build configuration list for PBXProject "VirtualInput" */;
+			buildConfigurationList = E27D0E15284F2A8900F43247 /* Build configuration list for PBXProject "Virtual Input" */;
 			compatibilityVersion = "Xcode 10.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -125,7 +125,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E27D0E19284F2A8900F43247 /* VirtualInput */,
+				E27D0E19284F2A8900F43247 /* Virtual Input */,
 			);
 		};
 /* End PBXProject section */
@@ -305,7 +305,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = VirtualInput/Info.plist;
+				INFOPLIST_FILE = "Virtual Input/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Virtual Input";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -335,7 +335,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = VirtualInput/Info.plist;
+				INFOPLIST_FILE = "Virtual Input/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Virtual Input";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -359,7 +359,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E27D0E15284F2A8900F43247 /* Build configuration list for PBXProject "VirtualInput" */ = {
+		E27D0E15284F2A8900F43247 /* Build configuration list for PBXProject "Virtual Input" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E27D0E2C284F2A8900F43247 /* Debug */,
@@ -368,7 +368,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E27D0E2E284F2A8900F43247 /* Build configuration list for PBXNativeTarget "VirtualInput" */ = {
+		E27D0E2E284F2A8900F43247 /* Build configuration list for PBXNativeTarget "Virtual Input" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E27D0E2F284F2A8900F43247 /* Debug */,
@@ -382,7 +382,7 @@
 /* Begin XCLocalSwiftPackageReference section */
 		E22A74512FA49BEA006CAB3F /* XCLocalSwiftPackageReference "../../../" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = "../../../";
+			relativePath = ../../../;
 		};
 /* End XCLocalSwiftPackageReference section */
 
