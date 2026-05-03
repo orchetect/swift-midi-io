@@ -8,11 +8,12 @@ Extension for [SwiftMIDI](https://github.com/orchetect/swift-midi) adding user-f
 
 ## Compatibility
 
-| macOS | iOS  | visionOS | Linux | Android | Windows |
-| :---: | :--: | :------: | :---: | :-----: | :-----: |
-|   🟢   |  🟢   |    🟢     |   -   |    -    |    -    |
+| macOS | iOS  | visionOS | tvOS  | watchOS | Linux | Android | Windows |
+| :---: | :--: | :------: | :---: | :-----: | :---: | :-----: | :-----: |
+|   🟢   |  🟢   |    🟢     | ❌[^1] |  ❌[^1]  | -[^2] |  -[^2]  |    -    |
 
-tvOS and watchOS do not have CoreMIDI I/O implemented in the operating system.
+[^1]: tvOS and watchOS do not have CoreMIDI I/O implemented in the operating system.
+[^2]: Support for indicated platforms is not planned but may be added in future.
 
 ## Getting Started
 

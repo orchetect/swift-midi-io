@@ -213,7 +213,20 @@ struct EndpointsUpdating_Threading_Tests {
         init(manager: @Sendable () -> MIDIManager)
     }
 
-    private final actor ManagerWrapperActor: ManagerWrapperProtocol {
+    @globalActor
+    actor ManagerGlobalActor {
+        static let shared: some Actor = ManagerGlobalActor()
+    }
+
+    @ManagerGlobalActor
+    private final class ManagerGlobalActorClass: ManagerWrapperProtocol {
+        nonisolated let manager: MIDIManager
+        nonisolated init(manager: @Sendable () -> MIDIManager) {
+            self.manager = manager()
+        }
+    }
+
+    private final actor ManagerActor: ManagerWrapperProtocol {
         nonisolated let manager: MIDIManager
         init(manager: @Sendable () -> MIDIManager) {
             self.manager = manager()
@@ -221,14 +234,18 @@ struct EndpointsUpdating_Threading_Tests {
     }
 
     @MainActor
-    private final class MainActorManagerWrapper: ManagerWrapperProtocol {
+    private final class MainActorManagerClass: ManagerWrapperProtocol {
         nonisolated let manager: MIDIManager
         nonisolated init(manager: @Sendable () -> MIDIManager) {
             self.manager = manager()
         }
     }
 
-    static let managerWrappers: [any ManagerWrapperProtocol.Type] = [ManagerWrapperActor.self, MainActorManagerWrapper.self]
+    static let managerWrappers: [any ManagerWrapperProtocol.Type] = [
+        ManagerGlobalActorClass.self,
+        ManagerActor.self,
+        MainActorManagerClass.self
+    ]
 
     @TestActor
     private final class NotificationReceiver {
@@ -244,15 +261,14 @@ struct EndpointsUpdating_Threading_Tests {
         nonisolated init() { }
     }
 
-    // TODO: removed observable managers - can update this test to not require testing the (now) non-existent subclasses
     static var managerGenerators: [@Sendable () -> MIDIManager] {
-        let /* var */ managers: [@Sendable () -> MIDIManager] = [
-            { MIDIManager(clientName: "SwiftMIDI_Tests_1", model: "SwiftMIDI123", manufacturer: "SwiftMIDI") }
-            // { ObservableObjectMIDIManager(clientName: "SwiftMIDI_Tests_2", model: "SwiftMIDI123", manufacturer: "SwiftMIDI") }
+        var managers: [@Sendable () -> MIDIManager] = [
+            { MIDIManager(clientName: "SwiftMIDI_Tests_1", model: "SwiftMIDI123", manufacturer: "SwiftMIDI") },
+            { ObservableObjectMIDIManager(clientName: "SwiftMIDI_Tests_2", model: "SwiftMIDI123", manufacturer: "SwiftMIDI") }
         ]
-        // if #available(macOS 14.0, iOS 17.0, watchOS 10.0, tvOS 17.0, *) {
-        //     managers.append { ObservableMIDIManager(clientName: "SwiftMIDI_Tests_3", model: "SwiftMIDI123", manufacturer: "SwiftMIDI") }
-        // }
+        if #available(macOS 14.0, iOS 17.0, watchOS 10.0, tvOS 17.0, *) {
+            managers.append { ObservableMIDIManager(clientName: "SwiftMIDI_Tests_3", model: "SwiftMIDI123", manufacturer: "SwiftMIDI") }
+        }
         return managers
     }
 
@@ -285,6 +301,13 @@ struct EndpointsUpdating_Threading_Tests {
 
     let queue1 = DispatchQueue.global() // DispatchQueue(label: "midikit-endpoints-q1", target: .global())
     let queue2 = DispatchQueue.main // DispatchQueue(label: "midikit-endpoints-q2", target: .main)
+
+    // MARK: - Init
+
+    init() async throws {
+        // allow a little time for Core MIDI to clean up from any prior test
+        try await Task.sleep(seconds: 0.5)
+    }
 
     // MARK: - Test
 

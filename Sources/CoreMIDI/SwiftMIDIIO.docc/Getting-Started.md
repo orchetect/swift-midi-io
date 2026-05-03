@@ -44,7 +44,7 @@ From here, you have laid the necessary groundwork to set up ports and connection
 
 ## Examples
 
-See the [example projects](https://github.com/orchetect/swift-midi-examples) for demonstration of best practises in using SwiftMIDI.
+See the [Examples](https://github.com/orchetect/swift-midi-io/tree/main/Examples) folder for demonstration of best practises in using SwiftMIDI I/O.
 
 - term **Barebones MIDI listener**: <doc:Simple-MIDI-Listener-Class-Example>
 

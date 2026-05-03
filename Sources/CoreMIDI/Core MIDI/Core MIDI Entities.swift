@@ -14,15 +14,15 @@ import Foundation
 func getSystemDevice(
     forEntity entityRef: CoreMIDI.MIDIEntityRef
 ) throws(MIDIIOError) -> MIDIDevice? {
-    let refPtr: UnsafeMutablePointer<MIDIDeviceRef>? = nil
+    // note: don't use a pointer here, use a plain var and pass it inout to MIDIEntityGetDevice otherwise we get crashes
+    var deviceRef = MIDIDeviceRef()
 
-    try MIDIEntityGetDevice(entityRef, refPtr)
+    try MIDIEntityGetDevice(entityRef, &deviceRef)
         .throwIfOSStatusErr()
 
-    guard let refPtr else { return nil }
-    guard refPtr.pointee != MIDIDeviceRef() else { return nil }
+    guard deviceRef != MIDIDeviceRef() else { return nil }
 
-    return MIDIDevice(from: refPtr.pointee)
+    return MIDIDevice(from: deviceRef)
 }
 
 /// Internal:

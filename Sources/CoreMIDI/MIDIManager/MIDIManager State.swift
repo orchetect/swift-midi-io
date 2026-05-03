@@ -17,68 +17,72 @@ extension MIDIManager {
     ///
     /// - Throws: `MIDIIOError.osStatus`
     public func start() throws(MIDIIOError) {
-        // if start() was already called, return
-        guard coreMIDIClientRef == MIDIClientRef() else { return }
+        try managementQueue.syncTypedThrowable { () throws(MIDIIOError) in
+            // if start() was already called, return
+            guard !isStarted else { return }
 
-        func block() -> Result<MIDIClientRef, MIDIIOError> {
-            var newCoreMIDIClientRef = MIDIClientRef()
+            func block() -> Result<MIDIClientRef, MIDIIOError> {
+                var newCoreMIDIClientRef = MIDIClientRef()
 
-            do throws(MIDIIOError) {
-                try MIDIClientCreateWithBlock(clientName as CFString, &newCoreMIDIClientRef) { [weak self] notificationPtr in
-                    guard let self else { return }
-                    let internalNotif = MIDIIOInternalNotification(notificationPtr)
-                    internalNotificationHandler(internalNotif)
+                do throws(MIDIIOError) {
+                    try MIDIClientCreateWithBlock(clientName as CFString, &newCoreMIDIClientRef) { [weak self] notificationPtr in
+                        guard let self else { return }
+                        let internalNotif = MIDIIOInternalNotification(notificationPtr)
+                        internalNotificationHandler(internalNotif)
+                    }
+                    .throwIfOSStatusErr()
+
+                    return .success(newCoreMIDIClientRef)
+                } catch {
+                    return .failure(error)
                 }
-                .throwIfOSStatusErr()
-
-                return .success(newCoreMIDIClientRef)
-            } catch {
-                return .failure(error)
             }
-        }
 
-        // `MIDIClientCreateWithBlock` must be called on the main thread,
-        // otherwise the notification block will never happen.
-        let newCoreMIDIClientRef: MIDIClientRef
-        if Thread.current.isMainThread {
-            newCoreMIDIClientRef = try block().get()
-        } else {
-            let result = DispatchQueue.main.sync { block() }
-            newCoreMIDIClientRef = try result.get()
-        }
-        assert(newCoreMIDIClientRef != MIDIClientRef())
-        coreMIDIClientRef = newCoreMIDIClientRef
+            // `MIDIClientCreateWithBlock` must be called on the main thread,
+            // otherwise the notification block will never happen.
+            let newCoreMIDIClientRef: MIDIClientRef
+            if Thread.current.isMainThread {
+                newCoreMIDIClientRef = try block().get()
+            } else {
+                let result = DispatchQueue.main.sync { block() }
+                newCoreMIDIClientRef = try result.get()
+            }
+            assert(newCoreMIDIClientRef != MIDIClientRef())
+            coreMIDIClientRef = newCoreMIDIClientRef
 
-        // initial cache of endpoints
-        updateDevicesAndEndpoints()
+            // initial cache of endpoints
+            updateDevicesAndEndpoints(onManagementQueue: false)
+        }
     }
 
     private func internalNotificationHandler(_ internalNotif: MIDIIOInternalNotification) {
-        switch internalNotif {
-        case .setupChanged, .added, .removed, .propertyChanged:
-            updateDevicesAndEndpoints()
-        default:
-            break
-        }
+        managementQueue.sync {
+            switch internalNotif {
+            case .setupChanged, .added, .removed, .propertyChanged:
+                updateDevicesAndEndpoints(onManagementQueue: false)
+            default:
+                break
+            }
 
-        // if needed, fall back on notification cache in case we get more than
-        // one `.removed` notification in a row. this way we have metadata on hand.
-        let notification = MIDIIONotification(internalNotif, cache: midiObjectCache)
+            // if needed, fall back on notification cache in case we get more than
+            // one `.removed` notification in a row. this way we have metadata on hand.
+            let notification = MIDIIONotification(internalNotif, cache: midiObjectCache)
 
-        // propagate notification to managed objects
-        for outputConnection in managedOutputConnections.values {
-            outputConnection.notification(internalNotif)
-        }
-        for inputConnection in managedInputConnections.values {
-            inputConnection.notification(internalNotif)
-        }
-        for thruConnection in managedThruConnections.values {
-            thruConnection.notification(internalNotif)
-        }
+            // propagate notification to managed objects
+            for outputConnection in managedOutputConnections.values {
+                outputConnection.notification(internalNotif)
+            }
+            for inputConnection in managedInputConnections.values {
+                inputConnection.notification(internalNotif)
+            }
+            for thruConnection in managedThruConnections.values {
+                thruConnection.notification(internalNotif)
+            }
 
-        // send notification to handler after internal cache is updated
-        if let notification {
-            sendNotificationAsync(notification)
+            // send notification to handler after internal cache is updated
+            if let notification {
+                sendNotificationAsync(notification)
+            }
         }
     }
 

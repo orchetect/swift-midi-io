@@ -19,12 +19,12 @@ import SwiftMIDIInternals
 /// >
 /// > For SwiftUI environments, see the ``devicesStream()`` or ``endpointsStream()`` methods
 /// > which can output a live stream of current MIDI devices and endpoints in the system.
-public final class MIDIManager: @unchecked Sendable { // @unchecked required for use of mutex property wrappers
+public class MIDIManager: @unchecked Sendable { // @unchecked required for use of mutex property wrappers
     // MARK: - Management Queue
-    
+
     /// Internal manager interaction management queue.
     nonisolated let managementQueue: DispatchQueue
-    
+
     // MARK: - Properties
 
     /// MIDI Client Name.
@@ -54,6 +54,12 @@ public final class MIDIManager: @unchecked Sendable { // @unchecked required for
                 preferredAPI = .bestForPlatform()
             }
         }
+    }
+
+    /// Returns `true` is the manager has been started.
+    nonisolated
+    public var isStarted: Bool {
+        coreMIDIClientRef != CoreMIDIClientRef()
     }
 
     /// Dictionary of MIDI input connections managed by this instance.
@@ -112,11 +118,11 @@ public final class MIDIManager: @unchecked Sendable { // @unchecked required for
     /// References to active devices `AsyncStream` subscriptions.
     @PThreadMutex
     var devicesMonitors: Set<DevicesMonitor> = []
-    
+
     /// References to active endpoints `AsyncStream` subscriptions.
     @PThreadMutex
     var endpointsMonitors: Set<EndpointsMonitor> = []
-    
+
     /// Internal: Ephemeral MIDI object metadata cache for MIDI object removal notifications.
     @PThreadMutex
     var midiObjectCache = MIDIObjectCache()
@@ -139,11 +145,16 @@ public final class MIDIManager: @unchecked Sendable { // @unchecked required for
         manufacturer: String,
         notificationHandler: NotificationHandler? = nil
     ) {
-        // queue client name
+        // management queue
         var clientNameForQueue = clientName.onlyAlphanumerics
         if clientNameForQueue.isEmpty { clientNameForQueue = UUID().uuidString }
         clientNameForQueue += "-management"
-        managementQueue = DispatchQueue(label: clientNameForQueue, qos: .userInitiated, attributes: [], target: nil)
+        managementQueue = DispatchQueue(
+            label: clientNameForQueue,
+            qos: .userInitiated, // raised priority
+            attributes: [], // must be serial to ensure received event ordering
+            target: .global() // target global to reduce thread count, as per GCD docs
+        )
         
         // API version
         preferredAPI = .bestForPlatform()
@@ -173,35 +184,41 @@ public final class MIDIManager: @unchecked Sendable { // @unchecked required for
     // MARK: - Helper methods
 
     /// Internal: updates cached properties for all objects.
-    func updateDevicesAndEndpoints() {
+    func updateDevicesAndEndpoints(onManagementQueue: Bool) {
         // save current state in order to diff
         let oldDevices = devices
         let oldEndpoints = endpoints
 
-        managementQueue.sync {
+        func update() {
             // update from system
             devices.updateCachedProperties()
             endpoints.updateCachedProperties(manager: self)
-            
+
             // update metadata cache
             midiObjectCache.update(from: self)
         }
-        
+
+        if onManagementQueue {
+            managementQueue.sync {
+                update()
+            }
+        } else {
+            update()
+        }
+
         // send changes to monitors
         let newDevices = devices // take local copy
         let newEndpoints = endpoints // take local copy
-        let devicesMonitors = managementQueue.sync { self.devicesMonitors } // take local copy
-        let endpointsMonitors = managementQueue.sync { self.endpointsMonitors } // take local copy
-        if !devicesMonitors.isEmpty {
-            guard newDevices != oldDevices else { return }
+        let devicesMonitors = devicesMonitors // take local copy
+        let endpointsMonitors = endpointsMonitors // take local copy
+        if !devicesMonitors.isEmpty, newDevices != oldDevices {
             DispatchQueue.global().async {
                 for monitor in devicesMonitors {
                     monitor.handler(newDevices)
                 }
             }
         }
-        if !endpointsMonitors.isEmpty {
-            guard newEndpoints != oldEndpoints else { return }
+        if !endpointsMonitors.isEmpty, newEndpoints != oldEndpoints {
             DispatchQueue.global().async {
                 for monitor in endpointsMonitors {
                     monitor.handler(newEndpoints)

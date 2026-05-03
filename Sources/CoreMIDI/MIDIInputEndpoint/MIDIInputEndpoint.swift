@@ -14,7 +14,7 @@
 ///
 /// Instead, read endpoint arrays and individual endpoint properties from ``MIDIManager/endpoints``
 /// ad-hoc when they are needed.
-public struct MIDIInputEndpoint: _MIDIEndpoint {
+public struct MIDIInputEndpoint: MIDIEndpoint {
     // MARK: MIDIIOObject
 
     public let objectType: MIDIIOObjectType = .inputEndpoint

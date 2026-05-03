@@ -157,8 +157,9 @@ public final class MIDIInputConnection: MIDIManaged, @unchecked Sendable { // @u
         self.filter = filter
         queue = DispatchQueue(
             label: "MIDIInputConnection-\(UUID().uuidString)",
-            attributes: []
-        ) // must be serial to ensure received event ordering
+            attributes: [], // must be serial to ensure received event ordering
+            target: .global() // target global to reduce thread count, as per GCD docs
+        )
         queue.sync { receiveHandler = receiver.create() }
 
         switch mode {

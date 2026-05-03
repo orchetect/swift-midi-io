@@ -90,7 +90,11 @@ public final class MIDIInput: MIDIManaged, @unchecked Sendable { // @unchecked r
         self.api = api.isValidOnCurrentPlatform ? api : .bestForPlatform()
         self.name = name
         self.uniqueID = uniqueID
-        queue = DispatchQueue(label: "MIDIInput-\(name)", attributes: []) // must be serial to ensure received event ordering
+        queue = DispatchQueue(
+            label: "MIDIInput-\(name)",
+            attributes: [], // must be serial to ensure received event ordering
+            target: .global() // target global to reduce thread count, as per GCD docs
+        )
         queue.sync { receiveHandler = receiver.create() }
     }
 

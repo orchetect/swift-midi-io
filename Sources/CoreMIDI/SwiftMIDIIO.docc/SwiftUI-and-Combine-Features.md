@@ -15,6 +15,10 @@ This can be useful in updating user interface displaying a list of MIDI endpoint
 >
 > ``ObservableMIDIManager`` requires macOS 14 or iOS 17.
 
+> Tip:
+>
+> See the **Observable Manager** example project for a live demonstration.
+
 ## ObservableObject
 
 ``ObservableObjectMIDIManager`` is a ``MIDIManager`` subclass that makes several instance properties observable in a SwiftUI or Combine context.
@@ -27,6 +31,23 @@ This can be useful in updating user interface displaying a list of MIDI endpoint
 > Note:
 >
 > ``ObservableObjectMIDIManager`` requires macOS 10.15 or iOS 13.
+
+> Tip:
+>
+> See the **ObservableObject Manager** example project for a live demonstration.
+
+## AsyncStream
+
+The ``MIDIManager`` offers two methods that each return an `AsyncStream` which can be indefinitely iterated upon to receive updated devices and endpoints in the system.
+
+This can be useful when ``ObservableMIDIManager`` or ``ObservableObjectMIDIManager`` is not suitable or backwards-compatibility with older platforms is needed.
+
+- ``MIDIManager/devicesStream()``
+- ``MIDIManager/endpointsStream()``
+
+> Tip:
+>
+> See the **AsyncStream Devices and Endpoints** example project for a live demonstration.
 
 ## Manual Observation
 

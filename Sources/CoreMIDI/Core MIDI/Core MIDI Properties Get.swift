@@ -177,7 +177,7 @@ func getManufacturer(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Stri
 /// property on their endpoints, though doing so may fail if the chosen ID is not unique.
 ///
 /// - Throws: ``MIDIIOError``
-func getUniqueID(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> MIDIUniqueID {
+func getUniqueID(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> CoreMIDI.MIDIUniqueID {
     try getInteger(forProperty: kMIDIPropertyUniqueID, of: ref)
 }
 
@@ -374,8 +374,8 @@ func getReceivesClock(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Boo
 /// internal scheduling of events it receives.
 ///
 /// - Throws: ``MIDIIOError``
-func getAdvanceScheduleTimeMuSec(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> String {
-    try getString(forProperty: kMIDIPropertyAdvanceScheduleTimeMuSec, of: ref)
+func getAdvanceScheduleTimeMuSec(of ref: CoreMIDI.MIDIObjectRef) throws(MIDIIOError) -> Int32 {
+    try getInteger(forProperty: kMIDIPropertyAdvanceScheduleTimeMuSec, of: ref)
 }
 
 // MARK: Roles
